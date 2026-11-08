@@ -1,0 +1,82 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/reviews?limit=100&skip=0&startDate=2025-03-25T23:00:00Z
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.13.0
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 20 Apr 2025 04:19:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Reset:
+      - '1'
+      Ratelimit-Limit:
+      - '15'
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Uber-Trace-Id:
+      - ea7d030f16fc889d:ea7d030f16fc889d:0:1
+      Uberctx-Accountid:
+      - 67853b83eab5de1fd4c47333
+      X-Request-Id:
+      - ea7d030f16fc889d
+      Etag:
+      - W/"88e-s4Wc5X7tUsBhTP40YNOQa9ApO9c"
+      Vary:
+      - Accept-Encoding
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJkYXRhIjpbeyJfaWQiOiI2N2U0MTE5OGM2NjRkZDMwZTNiNGFkMzUiLCJleHRlcm5hbFJldmlld0lkIjoiMTM3NTM0MjA1MTA2NTkxMDg2NSIsImFjY291bnRJZCI6IjY3ODUzYjgzZWFiNWRlMWZkNGM0NzMzMyIsImNoYW5uZWxJZCI6ImFpcmJuYjIiLCJjcmVhdGVkQXQiOiIyMDI1LTAzLTEyVDE1OjIxOjUzLjM2OFoiLCJjcmVhdGVkQXRHdWVzdHkiOiIyMDI1LTAzLTI2VDE0OjM5OjIwLjg5OVoiLCJleHRlcm5hbExpc3RpbmdJZCI6Ijk4Mzg1MDAwMDkzMzA4MTY5NCIsImV4dGVybmFsUmVzZXJ2YXRpb25JZCI6IkhNMlFLNEVIRVQiLCJndWVzdElkIjoiNjdlMWU4MTU3MzI3NTkyZWNjMzViZGY0IiwibGlzdGluZ0lkIjoiNjdlMWU3YTA1NjE0MDMwMDdhZjJlODMzIiwicmF3UmV2aWV3Ijp7ImlkIjoiMTM3NTM0MjA1MTA2NTkxMDg2NSIsInJldmlld2VyX3JvbGUiOiJndWVzdCIsInJldmlld2VyX2lkIjoiMzg3OTAwNTA5IiwicmV2aWV3ZWVfcm9sZSI6Imhvc3QiLCJyZXZpZXdlZV9pZCI6IjI2NDcyOTU5NCIsImxpc3RpbmdfaWQiOiI5ODM4NTAwMDA5MzMwODE2OTQiLCJyZXNlcnZhdGlvbl9jb25maXJtYXRpb25fY29kZSI6IkhNMlFLNEVIRVQiLCJoaWRkZW4iOmZhbHNlLCJzdWJtaXR0ZWQiOnRydWUsIm92ZXJhbGxfcmF0aW5nIjo1LCJwdWJsaWNfcmV2aWV3IjoiRmluIGzDpGdlbmhldCBtZWQgZ290dCBvbSB1dHJ5bW1lLiBCcmEgdsOkcmQgc29tIG9mdGFzdCBzdmFyYWRlIHNuYWJidCBww6UgZXZlbnR1ZWxsYSBmcsOlZ29yLiBcblxuVHl2w6RyciB2YXIgZGlza21hc2tpbmVuIGludGUgc8OlIGJyYSBvY2ggZGlza2VuIGJsZXYgaW50ZSBoZWx0IHJlbi4gXG5CYXN0dWFnZ3JlZ2F0ZXQgw6RyIGludGUgYW5wYXNzYXQgZsO2ciBlbiBzw6Ugc3RvciBiYXN0dSBtZWQgaSB2w6VydCBmYWxsIDUgcGVyc29uZXIuIEtvbSBpbnRlIMO2dmVyIDcwwrBDIHRyb3RzIHRhcHByYSBmw7Zyc8O2a3QuIFxuXG5Ub3BwZW4gYm9lbmRlIGkgw7Z2cmlndCEiLCJjYXRlZ29yeV9yYXRpbmdzIjpbeyJjYXRlZ29yeSI6ImNsZWFubGluZXNzIiwicmF0aW5nIjo1LCJyZXZpZXdfY2F0ZWdvcnlfdGFncyI6WyJHVUVTVF9SRVZJRVdfSE9TVF9QT1NJVElWRV9GUkVFX09GX0NMVVRURVIiXX0seyJjYXRlZ29yeSI6ImFjY3VyYWN5IiwicmF0aW5nIjo1LCJyZXZpZXdfY2F0ZWdvcnlfdGFncyI6WyJHVUVTVF9SRVZJRVdfSE9TVF9QT1NJVElWRV9MT09LRURfTElLRV9QSE9UT1MiXX0seyJjYXRlZ29yeSI6ImNoZWNraW4iLCJyYXRpbmciOjUsInJldmlld19jYXRlZ29yeV90YWdzIjpbIkdVRVNUX1JFVklFV19IT1NUX1BPU0lUSVZFX1JFU1BPTlNJVkVfSE9TVCIsIkdVRVNUX1JFVklFV19IT1NUX1BPU0lUSVZFX0NMRUFSX0lOU1RSVUNUSU9OUyIsIkdVRVNUX1JFVklFV19IT1NUX1BPU0lUSVZFX0VBU1lfVE9fR0VUX0lOU0lERSIsIkdVRVNUX1JFVklFV19IT1NUX1BPU0lUSVZFX0ZMRVhJQkxFX0NIRUNLX0lOIl19LHsiY2F0ZWdvcnkiOiJjb21tdW5pY2F0aW9uIiwicmF0aW5nIjo1LCJyZXZpZXdfY2F0ZWdvcnlfdGFncyI6W119LHsiY2F0ZWdvcnkiOiJsb2NhdGlvbiIsInJhdGluZyI6NSwicmV2aWV3X2NhdGVnb3J5X3RhZ3MiOlsiR1VFU1RfUkVWSUVXX0hPU1RfUE9TSVRJVkVfV0FMS0FCTEUiXX0seyJjYXRlZ29yeSI6InZhbHVlIiwicmF0aW5nIjo1LCJyZXZpZXdfY2F0ZWdvcnlfdGFncyI6W119XSwiZXhwaXJlc19hdCI6IjIwMjUtMDMtMjZUMTQ6Mzk6MDguNzk2WiIsImZpcnN0X2NvbXBsZXRlZF9hdCI6IjIwMjUtMDMtMTJUMTU6MjE6NTMuMzY4WiIsInN1Ym1pdHRlZF9hdCI6IjIwMjUtMDMtMTJUMTU6MjY6MzMuNzkzWiIsImNhdGVnb3J5X3JhdGluZ3NfY2xlYW5saW5lc3MiOjUsImNhdGVnb3J5X3JhdGluZ3NfYWNjdXJhY3kiOjUsImNhdGVnb3J5X3JhdGluZ3NfY2hlY2tpbiI6NSwiY2F0ZWdvcnlfcmF0aW5nc19jb21tdW5pY2F0aW9uIjo1LCJjYXRlZ29yeV9yYXRpbmdzX2xvY2F0aW9uIjo1LCJjYXRlZ29yeV9yYXRpbmdzX3ZhbHVlIjo1fSwicmVzZXJ2YXRpb25JZCI6IjY3ZTFlODE2YWM3YjhiMDAxMjlmY2VmZSIsInVwZGF0ZWRBdCI6IjIwMjUtMDMtMjZUMTQ6Mzk6MjAuODUyWiIsInVwZGF0ZWRBdEd1ZXN0eSI6IjIwMjUtMDMtMjZUMTQ6Mzk6MjAuODk5WiIsInJldmlld1JlcGxpZXMiOltdfV0sImxpbWl0IjoxMDAsInNraXAiOjB9
+  recorded_at: Sun, 20 Apr 2025 04:19:40 GMT
+recorded_with: VCR 6.3.1

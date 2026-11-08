@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://open-api.guesty.com/v1/reservations-v3
+    body:
+      encoding: UTF-8
+      string: '{"guestId":"6a06c68212b85ea2a96d3621","listingId":"67ee2d9c059de0003a2982be","source":"guestit","status":"confirmed","ignoreCalendar":true,"ignoreTerms":true,"confirmedAt":"2026-05-27","guestsCount":2,"checkInDateLocalized":"2026-06-25","checkOutDateLocalized":"2026-06-27","accommodationFare":"100.0","cleaningFee":"50.0","numberOfGuests":{"numberOfAdults":1,"numberOfChildren":1}}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.2
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Wed, 27 May 2026 10:55:22 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '581'
+      Connection:
+      - keep-alive
+      Ratelimit-Remaining:
+      - '14'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      Ratelimit-Reset:
+      - '1'
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      Ratelimit-Limit:
+      - '15'
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Uber-Trace-Id:
+      - c6be7d8e8ab31236:c6be7d8e8ab31236:0:1
+      Uberctx-Accountid:
+      - 678f68617f87dd47600c7161
+      X-Request-Id:
+      - c6be7d8e8ab31236
+      Etag:
+      - W/"245-Nu1twmxUTsqsDdSTNNJTusaxTY0"
+      Vary:
+      - Accept-Encoding
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Gst-Kong-Dc:
+      - production-2
+    body:
+      encoding: UTF-8
+      string: '{"reservationId":"6a16cd9a31056afb2fbb7b61","quoteId":"6a16cd9931056afb2fbb7b53","confirmationCode":"GY-PtgX4X9Y","status":"confirmed","guestId":"6a06c68212b85ea2a96d3621","numberOfGuests":{"numberOfAdults":1,"numberOfChildren":1},"unitId":"67ee2d9c059de0003a2982be","confirmedAt":"2026-05-27T00:00:00.000Z","creationTime":"2026-05-27T10:55:22.390Z","bookingDate":"2026-05-27T10:55:22.390Z","checkInDate":"2026-06-25T16:00:00.000Z","checkOutDate":"2026-06-27T10:00:00.000Z","unitTypeId":"67ee2d9c059de0003a2982be","source":"guestit","channel":"manual_reservations","guestsCount":2}'
+  recorded_at: Wed, 27 May 2026 10:55:22 GMT
+recorded_with: VCR 6.4.0

@@ -1,0 +1,87 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/availability-pricing/api/calendar/listings/minified/67ee2ce21ce3a2001334966b?endDate=2026-08-31&startDate=2026-08-16&view=full
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.4
+      Authorization:
+      - Bearer <API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 13 Oct 2026 17:20:09 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      Ratelimit-Limit:
+      - '15'
+      Ratelimit-Remaining:
+      - '14'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      Ratelimit-Reset:
+      - '1'
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      X-Request-Id:
+      - Root=1-6ace6849-2c04f6c57c400736417b6ef9
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Access-Control-Allow-Origin:
+      - "*"
+      Gst-Pep:
+      - 1.5.2
+      Etag:
+      - W/"1924-w6Ul/EEpueTk4Ogf8ZGG2ZQitJI"
+      Vary:
+      - Accept-Encoding
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Gst-Kong-Dc:
+      - production-2
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":200,"data":{"days":{"listingId":"67ee2ce21ce3a2001334966b","startDate":"2026-08-16","endDate":"2026-08-31","currency":"SEK","calendar":[{"date":"2026-08-16","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-17","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-18","price":0,"minNights":1,"blocks":{"b":true},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":["6a4cd8092b515dc3d2727762"]},{"date":"2026-08-19","price":0,"minNights":1,"blocks":{"m":true,"b":true},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":["6a4cd96b2b515dc3d2728857","6a4ce19f1981b6967d5b8740"]},{"date":"2026-08-20","price":0,"minNights":1,"blocks":{"m":true},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":["6a4ce19f1981b6967d5b8740"]},{"date":"2026-08-21","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-22","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-23","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-24","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-25","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-26","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-27","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-28","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-29","price":0,"minNights":1,"blocks":{},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":[]},{"date":"2026-08-30","price":0,"minNights":1,"blocks":{"m":true},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":["6a4cd01a3cfa598c3983b917"]},{"date":"2026-08-31","price":0,"minNights":1,"blocks":{"m":true},"isBasePrice":true,"isBaseMinNights":true,"requestToBook":false,"cta":false,"ctd":false,"blockIds":["6a4cd01a3cfa598c3983b917"]}],"blocks":{"6a4cd8092b515dc3d2727762":{"_id":"6a4cd8092b515dc3d2727762","listingId":"67ee2ce21ce3a2001334966b","startDate":"2026-08-18T00:00:00.000Z","endDate":"2026-08-18T00:00:00.000Z","type":"b","reservationId":"6a4cd80863f33b1efce3859e","reservation":{"_id":"6a4cd80863f33b1efce3859e","listingId":"67ee2ce21ce3a2001334966b","accountId":"678f68617f87dd47600c7161","inquiryId":"6a4cd7f8967035a3898e0e1c","checkInDateLocalized":"2026-08-18","checkOutDateLocalized":"2026-08-19","status":"confirmed","confirmationCode":"GY-R48X9pAQ","source":"manual","listing":{"defaultCheckInTime":"16:00","timezone":"Europe/Stockholm","nickname":"BF12"},"money":{"balanceDue":995,"currency":"SEK","hostPayout":995,"totalPaid":0,"fareAccommodationAdjusted":0,"nightsBreakdown":[{"date":"2026-08-18","basePrice":0}]},"nightsCount":1,"plannedArrival":"","plannedDeparture":"","guest":{"_id":"6a06c68212b85ea2a96d3621","fullName":"Rick
+        Astley"},"guestsCount":1,"integration":{"platform":"direct"},"checkIn":"2026-08-18T16:00:00+00:00","checkOut":"2026-08-19T10:00:00+00:00","createdAt":"2026-07-07T10:42:16.000Z","reservedExpiresAt":null,"createdBy":"host.test@example.com","numberOfGuests":{"numberOfChildren":0,"numberOfInfants":0,"numberOfAdults":1},"earlyCheckIn":null,"lateCheckOut":null,"guestStay":{"status":"not_set"}},"staysMetadata":{"totalStays":1,"stayIndex":1},"createdBy":"host.test@example.com","createdAt":"2026-07-07T10:42:17.676Z"},"6a4cd96b2b515dc3d2728857":{"_id":"6a4cd96b2b515dc3d2728857","listingId":"67ee2ce21ce3a2001334966b","startDate":"2026-08-19T00:00:00.000Z","endDate":"2026-08-19T00:00:00.000Z","type":"b","reservationId":"6a4cd96a934817ceb32e1c62","reservation":{"_id":"6a4cd96a934817ceb32e1c62","listingId":"67ee2ce21ce3a2001334966b","accountId":"678f68617f87dd47600c7161","inquiryId":"6a4cd96c67df3da757ad949a","checkInDateLocalized":"2026-08-19","checkOutDateLocalized":"2026-08-20","status":"confirmed","confirmationCode":"OS6db7129a3b7c","source":"owner_guest","listing":{"defaultCheckInTime":"16:00","timezone":"Europe/Stockholm","nickname":"BF12"},"money":{"balanceDue":37.72,"currency":"SEK","hostPayout":37.72,"totalPaid":0,"fareAccommodationAdjusted":0,"nightsBreakdown":[{"date":"2026-08-19","basePrice":0}]},"nightsCount":1,"plannedArrival":"16:00","plannedDeparture":"10:00","guest":{"_id":"6a4cd965bd7788bb593e7aa0","fullName":"Dohn
+        Joe"},"guestsCount":1,"integration":{"platform":"direct"},"checkIn":"2026-08-19T16:00:00+00:00","checkOut":"2026-08-20T10:00:00+00:00","createdAt":"2026-07-07T10:48:10.000Z","notes":{},"createdBy":"Core
+        dev","numberOfGuests":{"numberOfChildren":0,"numberOfInfants":0,"numberOfAdults":1},"earlyCheckIn":{},"lateCheckOut":{},"guestStay":{"status":"not_set"}},"staysMetadata":{"totalStays":1,"stayIndex":1},"createdBy":"Core
+        dev","createdAt":"2026-07-07T10:48:11.325Z"},"6a4ce19f1981b6967d5b8740":{"_id":"6a4ce19f1981b6967d5b8740","listingId":"67ee2ce21ce3a2001334966b","startDate":"2026-08-19T00:00:00.000Z","endDate":"2026-08-20T00:00:00.000Z","type":"m","blockReason":"Emergency
+        out of order","note":"OOO","createdAt":"2026-07-07T11:23:11.167Z","createdBy":"host.test@example.com"},"6a4cd01a3cfa598c3983b917":{"_id":"6a4cd01a3cfa598c3983b917","listingId":"67ee2ce21ce3a2001334966b","startDate":"2026-08-30T00:00:00.000Z","endDate":"2026-09-02T00:00:00.000Z","type":"m","blockReason":"Owner
+        block","note":"Owner block via guesty","createdAt":"2026-07-07T10:08:26.114Z","createdBy":"host.test@example.com"}}}},"message":"OK"}'
+  recorded_at: Tue, 13 Oct 2026 17:20:09 GMT
+recorded_with: VCR 6.4.0

@@ -1,0 +1,82 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://open-api.guesty.com/v1/reviews?limit=100&skip=0&startDate=2025-03-25T23:00:00Z
+      body:
+        encoding: US-ASCII
+        string: ''
+      headers:
+        User-Agent:
+          - Faraday v2.13.0
+        Authorization:
+          - Bearer <SECRET_TOKEN>
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Sun, 20 Apr 2025 04:19:40 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        X-Ratelimit-Limit-Second:
+          - '15'
+        X-Ratelimit-Limit-Minute:
+          - '120'
+        X-Ratelimit-Limit-Hour:
+          - '5000'
+        X-Ratelimit-Remaining-Second:
+          - '14'
+        X-Ratelimit-Remaining-Minute:
+          - '119'
+        X-Ratelimit-Remaining-Hour:
+          - '4999'
+        Ratelimit-Remaining:
+          - '14'
+        Ratelimit-Reset:
+          - '1'
+        Ratelimit-Limit:
+          - '15'
+        Access-Control-Allow-Origin:
+          - "*"
+        X-Dns-Prefetch-Control:
+          - 'off'
+        X-Frame-Options:
+          - deny
+        Strict-Transport-Security:
+          - max-age=31536000;includesubdomains
+        X-Download-Options:
+          - noopen
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1;mode=block
+        Uber-Trace-Id:
+          - ea7d030f16fc889d:ea7d030f16fc889d:0:1
+        Uberctx-Accountid:
+          - 67853b83eab5de1fd4c47333
+        X-Request-Id:
+          - ea7d030f16fc889d
+        Etag:
+          - W/"9c7-xxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        Vary:
+          - Accept-Encoding
+        X-Content-Type:
+          - nosniff
+        X-Permitted-Cross-Domain-Policies:
+          - none
+      body:
+        encoding: ASCII-8BIT
+        string: !binary |-
+          eyJkYXRhIjpbeyJfaWQiOiI2N2U0MTE5OGM2NjRkZDMwZTNiNGFkMzUiLCJleHRlcm5hbFJldmlld0lkIjoiMTM3NTM0MjA1MTA2NTkxMDg2NSIsImFjY291bnRJZCI6IjY3ODUzYjgzZWFiNWRlMWZkNGM0NzMzMyIsImNoYW5uZWxJZCI6ImhvbWVhd2F5MiIsImNyZWF0ZWRBdCI6IjIwMjUtMDMtMTJUMTU6MjE6NTMuMzY4WiIsImNyZWF0ZWRBdEd1ZXN0eSI6IjIwMjUtMDMtMjZUMTQ6Mzk6MjAuODk5WiIsImV4dGVybmFsTGlzdGluZ0lkIjoiOTgzODUwMDAwOTMzMDgxNjk0IiwiZXh0ZXJuYWxSZXNlcnZhdGlvbklkIjoiSE0yUUs0RUhFVCIsImd1ZXN0SWQiOiI2N2UxZTgxNTczMjc1OTJlY2MzNWJkZjQiLCJsaXN0aW5nSWQiOiI2N2UxZTdhMDU2MTQwMzAwN2FmMmU4MzMiLCJyYXdSZXZpZXciOiB7CiJzdGF0dXMiOiAiQVBQUk9WRUQiLAoiYnJhbmROYW1lIjogIlZyYm8iLAoic291cmNlIjogIlBMQVRGT1JNIiwKImNyZWF0ZWREYXRlVGltZSI6ICIyMDI1LTA0LTAxVDIxOjMzOjM0WiIsCiJsYXN0VXBkYXRlZERhdGVUaW1lIjogIjIwMjUtMDQtMTVUMjE6MzQ6MDYuNDIxOTkxWiIsCiJ0aXRsZSI6IHsKInZhbHVlIjogIk5pY2UgYnV0IG5vdCBhY2N1cmF0ZSAiLAoibG9jYWxlIjogImVuLVVTIgp9LAoiYm9keSI6IHsKInZhbHVlIjogIkJlZCBpbiBtYXN0ZXIgd2FzIG5vdCBzdHVyZHkuIFRoZWF0cmUgcm9vbSBpcyBhbm90aGVyIHNpdHRpbmcgYXJlYS4gUG9vbCB0YWJsZSBpcyBvbmx5IHN1aXRhYmxlIGZvciB2ZXJ5IHNtYWxsIGNoaWxkcmVuLiBHYW1lIHJvb20gaXMgZm9yIHlvdW5nIGNoaWxkcmVuLiBQb29sIHNlZW1zIHZlcnkgc21hbGwgYW5kIG9ubHkgb25lIGRpc2ggd2FzaGVyIHdvcmtzLiBOb3QgbmVhcmx5IGVub3VnaCBwb3RzIiwKImxvY2FsZSI6ICJlbi1VUyIKfSwKInN0YXJSYXRpbmdzIjogWwp7CiJjYXRlZ29yeSI6ICJjaGVja0luIiwKInZhbHVlIjogIjIiCn0sCnsKImNhdGVnb3J5IjogIm92ZXJhbGwiLAoidmFsdWUiOiAiMyIKfSwKewoiY2F0ZWdvcnkiOiAibG9jYXRpb24iLAoidmFsdWUiOiAiMiIKfSwKewoiY2F0ZWdvcnkiOiAiY29tbXVuaWNhdGlvbiIsCiJ2YWx1ZSI6ICIyIgp9LAp7CiJjYXRlZ29yeSI6ICJyb29tQ2xlYW5saW5lc3MiLAoidmFsdWUiOiAiNCIKfSwKewoiY2F0ZWdvcnkiOiAib25saW5lTGlzdGluZyIsCiJ2YWx1ZSI6ICIxIgp9LAp7CiJjYXRlZ29yeSI6ICJjbGVhbmxpbmVzcyIsCiJ2YWx1ZSI6ICI0Igp9Cl0sCiJpc0VsaWdpYmxlRm9yUmVzcG9uc2UiOiB0cnVlLAoicmVzcG9uc2UiOiBudWxsLAoic3RhclJhdGluZ092ZXJhbGwiOiAiMyIKfSwicmVzZXJ2YXRpb25JZCI6IjY3ZTFlODE2YWM3YjhiMDAxMjlmY2VmZSIsInVwZGF0ZWRBdCI6IjIwMjUtMDMtMjZUMTQ6Mzk6MjAuODUyWiIsInVwZGF0ZWRBdEd1ZXN0eSI6IjIwMjUtMDMtMjZUMTQ6Mzk6MjAuODk5WiIsInJldmlld1JlcGxpZXMiOltdfV0sImxpbWl0IjoxMDAsInNraXAiOjB9
+    recorded_at: Sun, 20 Apr 2025 04:19:40 GMT
+recorded_with: VCR 6.3.1

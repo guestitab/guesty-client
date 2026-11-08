@@ -1,0 +1,83 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://open-api.guesty.com/v1/guests-crud
+      body:
+        encoding: UTF-8
+        string: '{"firstName":"John","lastName":"Doe","email":"john.doe@example.com","emails":["tim.apple@example.com"],"phone":"+46700000000"}'
+      headers:
+        User-Agent:
+          - Faraday v2.12.2
+        Authorization:
+          - Bearer <SECRET_TOKEN>
+        Content-Type:
+          - application/json
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Sat, 22 Mar 2025 13:15:42 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Content-Length:
+          - "671"
+        Connection:
+          - keep-alive
+        Ratelimit-Reset:
+          - "1"
+        X-Ratelimit-Limit-Second:
+          - "15"
+        X-Ratelimit-Limit-Minute:
+          - "120"
+        X-Ratelimit-Limit-Hour:
+          - "5000"
+        X-Ratelimit-Remaining-Hour:
+          - "4999"
+        X-Ratelimit-Remaining-Second:
+          - "14"
+        X-Ratelimit-Remaining-Minute:
+          - "119"
+        Ratelimit-Limit:
+          - "15"
+        Ratelimit-Remaining:
+          - "14"
+        X-Dns-Prefetch-Control:
+          - "off"
+        X-Frame-Options:
+          - deny
+        Strict-Transport-Security:
+          - max-age=31536000;includesubdomains
+        X-Download-Options:
+          - noopen
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1;mode=block
+        Uber-Trace-Id:
+          - 92618f0c2d5dc9b9:92618f0c2d5dc9b9:0:1
+        Uberctx-Accountid:
+          - 678f68617f87dd47600c7161
+        X-Request-Id:
+          - 92618f0c2d5dc9b9
+        Etag:
+          - W/"29f-hiv9A1AzDDJ3zO+uyWhQ1ANo8sA"
+        Vary:
+          - Accept-Encoding
+        X-Content-Type:
+          - nosniff
+        X-Permitted-Cross-Domain-Policies:
+          - none
+      body:
+        encoding: UTF-8
+        string:
+          '{"archive":{"isArchived":false,"at":null},"paymentProvidersCustomers":[],"paymentMethodIds":[],"communicationMethods":["email","sms"],"contactType":"guest","isOtaModified":false,"otaLinks":[],"interests":[],"allergies":[],"dietaryPreferences":[],"tags":[],"airbnb2":{"id":"449010345506284"},"airbnb":{"id":"449010345496428"},"phone":"46700000000","phones":["46700000000"],"email":"john.doe@example.com","emails":["tim.apple@example.com","john.doe@example.com"],"verifications":[],"fullName":"John
+          Doe","lastName":"Doe","firstName":"John","accountId":"678f68617f87dd47600c7161","_id":"67deb7fde1a3acd9ac9c36b3","createdAt":"2025-03-22T13:15:41.969Z","pictures":[],"__v":0}'
+    recorded_at: Sat, 22 Mar 2025 13:15:42 GMT
+recorded_with: VCR 6.3.1

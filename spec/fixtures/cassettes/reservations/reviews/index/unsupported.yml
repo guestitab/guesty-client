@@ -1,0 +1,82 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://open-api.guesty.com/v1/reviews?limit=100&skip=0&startDate=2025-03-25T23:00:00Z
+      body:
+        encoding: US-ASCII
+        string: ''
+      headers:
+        User-Agent:
+          - Faraday v2.13.0
+        Authorization:
+          - Bearer <SECRET_TOKEN>
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Sun, 20 Apr 2025 04:19:40 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        X-Ratelimit-Limit-Second:
+          - '15'
+        X-Ratelimit-Limit-Minute:
+          - '120'
+        X-Ratelimit-Limit-Hour:
+          - '5000'
+        X-Ratelimit-Remaining-Second:
+          - '14'
+        X-Ratelimit-Remaining-Minute:
+          - '119'
+        X-Ratelimit-Remaining-Hour:
+          - '4999'
+        Ratelimit-Remaining:
+          - '14'
+        Ratelimit-Reset:
+          - '1'
+        Ratelimit-Limit:
+          - '15'
+        Access-Control-Allow-Origin:
+          - "*"
+        X-Dns-Prefetch-Control:
+          - 'off'
+        X-Frame-Options:
+          - deny
+        Strict-Transport-Security:
+          - max-age=31536000;includesubdomains
+        X-Download-Options:
+          - noopen
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1;mode=block
+        Uber-Trace-Id:
+          - ea7d030f16fc889d:ea7d030f16fc889d:0:1
+        Uberctx-Accountid:
+          - 67853b83eab5de1fd4c47333
+        X-Request-Id:
+          - ea7d030f16fc889d
+        Etag:
+          - W/"88e-s4Wc5X7tUsBhTP40YNOQa9ApO9c"
+        Vary:
+          - Accept-Encoding
+        X-Content-Type:
+          - nosniff
+        X-Permitted-Cross-Domain-Policies:
+          - none
+      body:
+        encoding: ASCII-8BIT
+        string: !binary |-
+          eyJkYXRhIjpbeyJfaWQiOiI2N2U0MTE5OGM2NjRkZDMwZTNiNGFkMzUiLCJleHRlcm5hbFJldmlld0lkIjoiMTM3NTM0MjA1MTA2NTkxMDg2NSIsImFjY291bnRJZCI6IjY3ODUzYjgzZWFiNWRlMWZkNGM0NzMzMyIsImNoYW5uZWxJZCI6InVuc3VwcG9ydGVkIiwiY3JlYXRlZEF0IjoiMjAyNS0wMy0xMlQxNToyMTo1My4zNjhaIiwiY3JlYXRlZEF0R3Vlc3R5IjoiMjAyNS0wMy0yNlQxNDozOToyMC44OTlaIiwiZXh0ZXJuYWxMaXN0aW5nSWQiOiI5ODM4NTAwMDA5MzMwODE2OTQiLCJleHRlcm5hbFJlc2VydmF0aW9uSWQiOiJITTJRSzRFSEVUIiwiZ3Vlc3RJZCI6IjY3ZTFlODE1NzMyNzU5MmVjYzM1YmRmNCIsImxpc3RpbmdJZCI6IjY3ZTFlN2EwNTYxNDAzMDA3YWYyZTgzMyIsInJhd1JldmlldyI6eyJ0ZXh0IjogIkdyZWF0IHN0YXkifSwicmVzZXJ2YXRpb25JZCI6IjY3ZTFlODE2YWM3YjhiMDAxMjlmY2VmZSIsInVwZGF0ZWRBdCI6IjIwMjUtMDMtMjZUMTQ6Mzk6MjAuODUyWiIsInVwZGF0ZWRBdEd1ZXN0eSI6IjIwMjUtMDMtMjZUMTQ6Mzk6MjAuODk5WiIsInJldmlld1JlcGxpZXMiOltdfV0sImxpbWl0IjoxMDAsInNraXAiOjB9          
+    recorded_at: Sun, 20 Apr 2025 04:19:40 GMT
+recorded_with: VCR 6.3.1

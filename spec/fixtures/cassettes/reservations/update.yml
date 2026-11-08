@@ -1,0 +1,93 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://open-api.guesty.com/v1/reservations/67ef3355b7c0bb000fa668d5
+    body:
+      encoding: UTF-8
+      string: '{"checkInDateLocalized":"2025-04-09","checkOutDateLocalized":"2025-04-12","totalPrice":1000}'
+    headers:
+      User-Agent:
+      - Faraday v2.13.0
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 12 Apr 2025 12:24:28 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '138'
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Reset:
+      - '1'
+      Ratelimit-Limit:
+      - '15'
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '7200'
+      Access-Control-Allow-Headers:
+      - Authorization, Origin, Content-Type, X-CSRF-Token, X-Requested-With, Accept,
+        Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version, X-File-Name,
+        g-aid-cs
+      Access-Control-Allow-Methods:
+      - POST, GET, PUT, DELETE, PATCH, OPTIONS
+      Uber-Trace-Id:
+      - dedc154ce25842f0:dedc154ce25842f0:0:1
+      Uberctx-Accountid:
+      - 678f68617f87dd47600c7161
+      X-Request-Id:
+      - dedc154ce25842f0
+      Gst-Pep:
+      - 1.2.1
+      Etag:
+      - W/"8a-9wTHkxj8WvJvQShiG02/lwCYAaU"
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+    body:
+      encoding: UTF-8
+      string: '{"checkInDateLocalized":"2025-04-09","checkOutDateLocalized":"2025-04-12","id":"67ef3355b7c0bb000fa668d5","confirmationCode":"83xWAJ5GW"}'
+  recorded_at: Sat, 12 Apr 2025 12:24:28 GMT
+recorded_with: VCR 6.3.1

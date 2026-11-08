@@ -1,0 +1,78 @@
+require 'active_support'
+require 'active_support/core_ext'
+require 'active_support/security_utils'
+require 'dry/monads'
+require 'faraday'
+require 'faraday/retry'
+require 'mini_mime'
+require 'oj'
+
+require_relative 'guesty/version'
+require_relative 'guesty/error'
+require_relative 'guesty/memory_token_store'
+require_relative 'guesty/memory_rate_limiter'
+require_relative 'guesty/config'
+require_relative 'guesty/operation'
+require_relative 'guesty/rate_limiter_middleware'
+require_relative 'guesty/api_error'
+require_relative 'guesty/client'
+require_relative 'guesty/access_tokens/upsert'
+require_relative 'guesty/conversations'
+require_relative 'guesty/conversations/attachments/index'
+require_relative 'guesty/conversations/index'
+require_relative 'guesty/conversations/messages/reply'
+require_relative 'guesty/conversations/posts/index'
+require_relative 'guesty/conversations/posts/since'
+require_relative 'guesty/conversations/search'
+require_relative 'guesty/conversations/show'
+require_relative 'guesty/guest_folio/invoice_items/index'
+require_relative 'guesty/guests'
+require_relative 'guesty/guests/profiles/create'
+require_relative 'guesty/guests/profiles/show'
+require_relative 'guesty/guests/profiles/update'
+require_relative 'guesty/homes/calendars/show'
+require_relative 'guesty/homes/search'
+require_relative 'guesty/reservations'
+require_relative 'guesty/reservations/accommodation_fare/update'
+require_relative 'guesty/reservations/approve'
+require_relative 'guesty/reservations/create'
+require_relative 'guesty/reservations/custom_fields/update'
+require_relative 'guesty/reservations/dates/update'
+require_relative 'guesty/reservations/decline'
+require_relative 'guesty/reservations/flags/update'
+require_relative 'guesty/reservations/payments/create'
+require_relative 'guesty/reservations/pre_approve'
+require_relative 'guesty/reservations/recover'
+require_relative 'guesty/reservations/reviews/extractors/base'
+require_relative 'guesty/reservations/reviews/extractors/airbnb'
+require_relative 'guesty/reservations/reviews/extractors/booking_com'
+require_relative 'guesty/reservations/reviews/extractors/vrbo'
+require_relative 'guesty/reservations/reviews/index'
+require_relative 'guesty/reservations/search'
+require_relative 'guesty/reservations/show'
+require_relative 'guesty/reservations/status/cancel'
+require_relative 'guesty/reservations/status/update'
+require_relative 'guesty/reservations/stays/update'
+require_relative 'guesty/reservations/update'
+require_relative 'guesty/reviews/respond'
+require_relative 'guesty/views/create'
+require_relative 'guesty/views/update'
+require_relative 'guesty/webhooks/create'
+require_relative 'guesty/webhooks/index'
+require_relative 'guesty/webhooks/signatures/verify'
+require_relative 'guesty/webhooks/sync'
+require_relative 'guesty/webhooks/update'
+
+module Guesty
+  class << self
+    # @rbs () { (Config) -> void } -> void
+    def configure
+      yield(config)
+    end
+
+    # @rbs () -> Config
+    def config
+      @config ||= Config.new
+    end
+  end
+end

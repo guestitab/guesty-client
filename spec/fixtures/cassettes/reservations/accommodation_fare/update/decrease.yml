@@ -1,0 +1,194 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/reservations/6acfa83dee6ae3f00da2bfd4?fields=money.invoiceItems
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.4
+      Authorization:
+      - Bearer <API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 14 Oct 2026 16:05:33 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1330'
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      Ratelimit-Limit:
+      - '15'
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Reset:
+      - '1'
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '7200'
+      Access-Control-Allow-Headers:
+      - Authorization, Origin, Content-Type, X-CSRF-Token, X-Requested-With, Accept,
+        Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version, X-File-Name,
+        g-aid-cs
+      Access-Control-Allow-Methods:
+      - POST, GET, PUT, DELETE, PATCH, OPTIONS
+      Uber-Trace-Id:
+      - 96832c3f79fc57d8:96832c3f79fc57d8:0:1
+      Uberctx-Accountid:
+      - 678f68617f87dd47600c7161
+      X-Request-Id:
+      - 96832c3f79fc57d8
+      Gst-Pep:
+      - 1.3.4
+      Etag:
+      - W/"532-IHteW5evOaYfqKofUnQmoiNBG3M"
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Gst-Kong-Dc:
+      - production-3
+    body:
+      encoding: UTF-8
+      string: '{"_id":"6acfa83dee6ae3f00da2bfd4","accountId":"678f68617f87dd47600c7161","guest":{"_id":"6a06c68212b85ea2a96d3621"},"guestId":"6a06c68212b85ea2a96d3621","integration":{"_id":"6793ab9bf1da170013bec4ce","platform":"manual","limitations":{"availableStatuses":[]}},"listing":{"_id":"67ee2adda2683c00109263d2"},"listingId":"67ee2adda2683c00109263d2","money":{"currency":"SEK","invoiceItems":[{"title":"Accommodation
+        fare","amount":2400,"currency":"SEK","isLocked":true,"type":"ACCOMMODATION_FARE","normalType":"AF","refId":"8fab0147-644a-4515-a020-350d99627cdb","origin":"AUTOMATIC","internalIndex":0,"originalGrosses":{"amount":2400,"baseAmount":2400,"breakdown":[{"date":"2027-08-09","price":0},{"date":"2027-08-10","price":2400}]},"_id":"6acfa83d690c3d375a561339"},{"title":"Deducted
+        Taxes","amount":-257.14,"baseAmount":-257.14,"currency":"SEK","isLocked":true,"normalType":"TAXD","tags":["part-of-af"],"refId":"af96ec0a-9e4a-405c-9fcb-59e07f1e78eb","origin":"AUTOMATIC","internalIndex":0,"_id":"6acfa83d690c3d375a56133b"},{"title":"General
+        VAT","amount":257.14,"baseAmount":257.14,"currency":"SEK","isLocked":true,"isTax":true,"isDeducted":true,"type":"TAX","normalType":"VAT","metadata":{"calculated":true},"refId":"e045f4da-58d5-4da0-bb58-34387bd3978f","origin":"AUTOMATIC","internalIndex":0,"_id":"6acfa83d690c3d375a56133a"}]}}'
+  recorded_at: Wed, 14 Oct 2026 16:05:33 GMT
+- request:
+    method: post
+    uri: https://open-api.guesty.com/v1/price-adjustments/manual-total-amount
+    body:
+      encoding: UTF-8
+      string: '{"reservationId":"6acfa83dee6ae3f00da2bfd4","priceAdjustments":[{"normalType":"AF","amount":-1500.0}]}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.4
+      Authorization:
+      - Bearer <API_TOKEN>
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Wed, 14 Oct 2026 16:05:34 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      Ratelimit-Limit:
+      - '15'
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Reset:
+      - '1'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Uber-Trace-Id:
+      - 5f052471a0633422:5f052471a0633422:0:1
+      Uberctx-Accountid:
+      - 678f68617f87dd47600c7161
+      X-Request-Id:
+      - 5f052471a0633422
+      Gst-Pep:
+      - 1.3.4
+      Etag:
+      - W/"2182-78G3/jBW8VgEn6P656snopU0zr0"
+      Vary:
+      - Accept-Encoding
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Gst-Kong-Dc:
+      - production-2
+    body:
+      encoding: ASCII-8BIT
+      string: '{"_id":"6acfa83d690c3d375a561341","reservationId":"6acfa83dee6ae3f00da2bfd4","listingId":"67ee2adda2683c00109263d2","accountId":"678f68617f87dd47600c7161","invoiceItems":[{"title":"Accommodation
+        fare","amount":2400,"currency":"SEK","isLocked":true,"type":"ACCOMMODATION_FARE","normalType":"AF","refId":"0c0a6280-b72b-49ff-a2fa-7dbf273fbc38","origin":"AUTOMATIC","internalIndex":0,"originalGrosses":{"amount":2400,"baseAmount":2400,"breakdown":[{"date":"2027-08-09","price":0},{"date":"2027-08-10","price":2400}]},"_id":"6acfa83d690c3d375a561339"},{"title":"Accommodation
+        fare discount","amount":-1500,"currency":"SEK","isLocked":true,"type":"ACCOMMODATION_FARE_DISCOUNT","normalType":"AFD","secondIdentifier":"ACCOMMODATION_FARE_DISCOUNT","tags":["part-of-af"],"refId":"bb84d7c6-224b-418c-a933-9370c3e82168","origin":"MANUAL","internalIndex":0,"_id":"6acfa84ed00592c7c3eccbbc"},{"title":"Deducted
+        Taxes","amount":-96.43,"baseAmount":-96.43,"currency":"SEK","isLocked":true,"normalType":"TAXD","tags":["part-of-af"],"refId":"5fb15894-7658-4bed-ba98-d0004ffa91b8","origin":"AUTOMATIC","internalIndex":0,"_id":"6acfa83d690c3d375a56133b"},{"title":"General
+        VAT","amount":96.43,"baseAmount":96.43,"currency":"SEK","isLocked":true,"isTax":true,"isDeducted":true,"type":"TAX","normalType":"VAT","metadata":{"calculated":true},"refId":"bc7fe6fb-ba0f-4e33-b2fe-3d266710e56d","origin":"AUTOMATIC","internalIndex":0,"_id":"6acfa83d690c3d375a56133a"}],"nightlyRateInvoiceItems":[{"_id":"6acfa83d690c3d375a561339","adjustments":[{"amount":-1500,"creationMethod":"MANUAL","type":"TOTAL_AMOUNT","userName":"Core
+        dev","createdAt":"2026-10-14T16:05:34.646Z","attributedAt":"2027-08-09T00:00:00.000Z","nightsBreakdown":[{"date":"2027-08-09","basePrice":-1500,"_id":"6acfa84ed00592c7c3eccbd9"}],"adjustmentFlow":"MANUAL_GUESTY","parentInvoiceItemId":"6acfa83d690c3d375a561339","_id":"6acfa84e41ff23bbb777ed68"}],"includedAdjustments":[],"internalIndex":0,"isCalculatedByGuesty":true,"nightsBreakdown":[{"date":"2027-08-09","basePrice":0,"_id":"6acfa83d690c3d375a561350"},{"date":"2027-08-10","basePrice":2400,"_id":"6acfa83d690c3d375a561351"}],"normalType":"AF","origin":"AUTOMATIC","refId":"0c0a6280-b72b-49ff-a2fa-7dbf273fbc38","taxesData":{"taxes":[{"normalType":"VAT","nightsBreakdown":[{"date":"2027-08-09","basePrice":0,"_id":"6acfa84ed00592c7c3eccbd4"},{"date":"2027-08-10","basePrice":257.15,"_id":"6acfa84ed00592c7c3eccbd5"}],"totalNightsPrice":257.15,"adjustments":[{"amount":-160.72,"creationMethod":"AUTO_CALCULATED","type":"NIGHTLY_RATE","userName":"Core
+        dev","createdAt":"2026-10-14T16:05:34.646Z","description":"Line Item Adjustment","attributedAt":"2027-08-09T00:00:00.000Z","nightsBreakdown":[{"date":"2027-08-09","basePrice":-160.72,"_id":"6acfa84ed00592c7c3eccbd7"}],"adjustmentFlow":"MANUAL_GUESTY","parentInvoiceItemId":"6acfa83d690c3d375a56133a","_id":"6acfa84ed00592c7c3eccbd6"}],"totalPrice":96.43,"title":"General
+        VAT","_id":"6acfa84ed00592c7c3eccbd3"}],"totalTaxes":96.43,"totalWithTaxes":900,"_id":"6acfa84ed00592c7c3eccbd2"},"title":"Accommodation
+        fare","totalNightsPrice":2400,"totalPrice":900},{"_id":"6acfa83d690c3d375a56133a","adjustments":[{"amount":-160.72,"creationMethod":"AUTO_CALCULATED","type":"NIGHTLY_RATE","userName":"Core
+        dev","createdAt":"2026-10-14T16:05:34.646Z","attributedAt":"2027-08-09T00:00:00.000Z","nightsBreakdown":[{"date":"2027-08-09","basePrice":-160.72,"_id":"6acfa84ed00592c7c3eccbe5"}],"adjustmentFlow":"AUTOMATIC_DEPENDENT_LINE_ITEM","parentInvoiceItemId":"6acfa83d690c3d375a56133a","sourceType":"BASE_DEPENDANT_AUTO_ADJUSTMENT","_id":"6acfa84e0aa868ead72fd847"}],"detailedBreakdown":[{"id":"6acfa83d690c3d375a56133a_6acfa83d690c3d375a561339","invoiceItemId":"6acfa83d690c3d375a56133a","baseInvoiceItemId":"6acfa83d690c3d375a561339","baseNormalType":"AF","normalType":"VAT","nightsBreakdown":[{"date":"2027-08-09","basePrice":0,"_id":"6acfa84ed00592c7c3eccbe0"},{"date":"2027-08-10","basePrice":257.15,"_id":"6acfa84ed00592c7c3eccbe1"}],"totalNightsPrice":257.15,"adjustments":[{"baseAdjustmentId":"6acfa84e41ff23bbb777ed68","total":-160.72,"nightsBreakdown":[{"date":"2027-08-09","basePrice":-160.72,"_id":"6acfa84ed00592c7c3eccbe3"}],"_id":"6acfa84ed00592c7c3eccbe2"}],"totalPrice":96.43,"_id":"6acfa84ed00592c7c3eccbdf"}],"directAdjustmentsIds":[],"includedAdjustments":[],"internalIndex":0,"isCalculatedByGuesty":true,"isDeducted":true,"metadata":{"calculated":true},"multiplier":"PER_STAY","nightsBreakdown":[{"date":"2027-08-09","basePrice":0,"_id":"6acfa84ed00592c7c3eccbe6"},{"date":"2027-08-10","basePrice":257.15,"_id":"6acfa84ed00592c7c3eccbe7"}],"normalType":"VAT","origin":"AUTOMATIC","refId":"bc7fe6fb-ba0f-4e33-b2fe-3d266710e56d","title":"General
+        VAT","totalNightsPrice":257.15,"totalPrice":96.43},{"_id":"6acfa83d690c3d375a56133b","adjustments":[],"includedAdjustments":[{"amount":160.71,"creationMethod":"AUTO_CALCULATED","type":"NIGHTLY_RATE","userName":"Core
+        dev","createdAt":"2026-10-14T16:05:34.775Z","attributedAt":"2027-08-09T00:00:00.000Z","nightsBreakdown":[],"adjustmentFlow":"AUTOMATIC_GUESTY","sourceName":"guestit","parentInvoiceItemId":"6acfa83d690c3d375a56133b","_id":"6acfa84ed00592c7c3eccbbf"}],"internalIndex":0,"isCalculatedByGuesty":true,"multiplier":"PER_STAY","nightsBreakdown":[{"date":"2027-08-09","basePrice":-48.21,"_id":"6acfa83d690c3d375a561352"},{"date":"2027-08-10","basePrice":-48.22,"_id":"6acfa83d690c3d375a561353"}],"normalType":"TAXD","origin":"AUTOMATIC","refId":"5fb15894-7658-4bed-ba98-d0004ffa91b8","tags":["part-of-af"],"title":"Deducted
+        Taxes","totalNightsPrice":-96.43,"totalPrice":-96.43}],"currency":"SEK","platform":"manual","source":"guestit","fareAccommodationAdjustment":0,"fareAccommodationDiscount":-1500,"fareAccommodation":2400,"fareAccommodationAdjusted":803.57,"fareAccommodationBundleFeesApplied":0,"fareCleaning":0,"hostServiceFee":0,"hostServiceFeeTax":0,"hostServiceFeeIncTax":0,"subTotalPrice":803.57,"hostPayout":900,"hostPayoutUsd":89.41,"totalTaxes":96.43,"totalFees":0,"useAccountRevenueShare":true,"netIncomeFormula":"host_payout","netIncome":900,"commissionFormula":"net_income","commission":900,"commissionTaxPercentage":0,"commissionTax":0,"commissionIncTax":900,"ownerRevenueFormula":"net_income
+        - pm_commission","ownerRevenue":0,"channelCommissionRules":null,"currencyConversionRateToAccount":1,"channelAfBreakdown":null,"overrides":{"fareCleaning":0},"deductedFees":[],"altered":false,"version":4,"bundledFees":[],"createdAt":"2026-10-14T16:05:17.476Z","updatedAt":"2026-10-14T16:05:34.866Z","__v":0,"settingsSnapshot":{"currency":{"from":"SEK","to":"SEK","rateDate":"2026-10-14T16:05:16.513Z","rate":1},"guestsIncludedInRegularFee":1,"extraPersonFee":0,"channelCommission":{"manual":[]},"taxes":[{"name":"General
+        VAT","type":"VAT","units":"PERCENTAGE","quantifier":"PER_STAY","amount":12,"appliedToAllFees":true,"appliedOnFees":["AF","ACTIVITIES","ADDITIONAL_BED","ADDITIONAL_CHARGE","AIR_CONDITIONING","BABY_BED","BEVERAGE","BOOKING_FEE","BREAKFAST","BUSINESS_CENTER","CAR_RENTAL","CHEF","CLEANING","CF","CLUB_CARD","COMMISSION_CHARGE","COMMUNITY","CONCIERGE","CREDIT_CARD_PROCESSING_FEE","DAMAGE_CHARGE","DAMAGE_WAIVER","DEPOSIT","DIRECT_SERVICE","DOCK_FEE","EARLY_CHECK_IN","EARLY_CHECKOUT","ELECTRICITY","EQUIPMENT_RENTAL","FLIGHTS","FOOD","GIFT_BASKET","GOLF_CART_RENTAL","GUEST_SERVICE","HEATING","HOMEOWNERS_ASSOCIATION","HOT_TUB","HOUSEKEEPING","INSURANCE","INTERNET","LATE_CHECK_IN","LATE_CHECKOUT","LAUNDRY","LINENS","MANAGEMENT","MEAL","MEET_AND_GREET","MINIBAR","MISCELLANEOUS","OIL","PARKING","PAYMENT_FEE","PET","POOL","POOL_HEATING","PROPERTY_INSURANCE","RESERVATION_FEE","RESORT","SERVICE","SHIPPING","SPA","TOILETRIES","TOUR","TOWELS","TRANSFER","TRANSPORTATION","UTILITY_FEE","VALET","VIP_SERVICES","WATER","WELLNESS","WIFI","WOOD","PF"],"isAppliedByDefault":true,"appliedByDefaultOnChannels":["manual"],"conditionalOverrides":{"viewType":"LOS","maxNightCountToApplyOn":90},"_id":"68c7c64bda290c433a8e766f"}],"monthlyPriceFactor":1,"weeklyPriceFactor":1,"useAccountRevenueShare":true,"useAccountAdditionalFees":true,"cleaningFeeFormula":{"value":{"formula":895,"valueType":"FIXED","multiplier":"PER_STAY"}},"additionalFees":[],"markup":null,"separateAfToSeveralInvoiceItems":true,"useDeductedTaxesFormula":true,"isTaxesPerLineItemReservation":true,"isDeductedFeesV2Enabled":true,"extractInclusiveTaxesEnabled":true,"extractManualInclusiveTaxesEnabled":true,"isDeductMarkupOnFeesEnabled":false,"isChannelSpecificTaxesReservation":false,"isChannelCommissionTaxBreakdownEnabled":true,"isInclusiveTaxAdjustmentsEnabled":false,"__v":0}}'
+  recorded_at: Wed, 14 Oct 2026 16:05:34 GMT
+recorded_with: VCR 6.4.0

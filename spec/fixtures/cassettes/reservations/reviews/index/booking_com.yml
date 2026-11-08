@@ -1,0 +1,82 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://open-api.guesty.com/v1/reviews?limit=100&skip=0&startDate=2025-03-25T23:00:00Z
+      body:
+        encoding: US-ASCII
+        string: ''
+      headers:
+        User-Agent:
+          - Faraday v2.13.0
+        Authorization:
+          - Bearer <SECRET_TOKEN>
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Sun, 20 Apr 2025 04:19:40 GMT
+        Content-Type:
+          - application/json; charset=utf-8
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        X-Ratelimit-Limit-Second:
+          - '15'
+        X-Ratelimit-Limit-Minute:
+          - '120'
+        X-Ratelimit-Limit-Hour:
+          - '5000'
+        X-Ratelimit-Remaining-Second:
+          - '14'
+        X-Ratelimit-Remaining-Minute:
+          - '119'
+        X-Ratelimit-Remaining-Hour:
+          - '4999'
+        Ratelimit-Remaining:
+          - '14'
+        Ratelimit-Reset:
+          - '1'
+        Ratelimit-Limit:
+          - '15'
+        Access-Control-Allow-Origin:
+          - "*"
+        X-Dns-Prefetch-Control:
+          - 'off'
+        X-Frame-Options:
+          - deny
+        Strict-Transport-Security:
+          - max-age=31536000;includesubdomains
+        X-Download-Options:
+          - noopen
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1;mode=block
+        Uber-Trace-Id:
+          - ea7d030f16fc889d:ea7d030f16fc889d:0:1
+        Uberctx-Accountid:
+          - 67853b83eab5de1fd4c47333
+        X-Request-Id:
+          - ea7d030f16fc889d
+        Etag:
+          - W/"9c7-xxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        Vary:
+          - Accept-Encoding
+        X-Content-Type:
+          - nosniff
+        X-Permitted-Cross-Domain-Policies:
+          - none
+      body:
+        encoding: ASCII-8BIT
+        string: !binary |-
+          eyJkYXRhIjpbeyJfaWQiOiI2N2U0MTE5OGM2NjRkZDMwZTNiNGFkMzUiLCJleHRlcm5hbFJldmlld0lkIjoiMTM3NTM0MjA1MTA2NTkxMDg2NSIsImFjY291bnRJZCI6IjY3ODUzYjgzZWFiNWRlMWZkNGM0NzMzMyIsImNoYW5uZWxJZCI6ImJvb2tpbmdDb20iLCJjcmVhdGVkQXQiOiIyMDI1LTAzLTEyVDE1OjIxOjUzLjM2OFoiLCJjcmVhdGVkQXRHdWVzdHkiOiIyMDI1LTAzLTI2VDE0OjM5OjIwLjg5OVoiLCJleHRlcm5hbExpc3RpbmdJZCI6Ijk4Mzg1MDAwMDkzMzA4MTY5NCIsImV4dGVybmFsUmVzZXJ2YXRpb25JZCI6IkhNMlFLNEVIRVQiLCJndWVzdElkIjoiNjdlMWU4MTU3MzI3NTkyZWNjMzViZGY0IiwibGlzdGluZ0lkIjoiNjdlMWU3YTA1NjE0MDMwMDdhZjJlODMzIiwicmF3UmV2aWV3IjogewoiY3JlYXRlZF90aW1lc3RhbXAiOiAiMjAyNS0wNC0xNSAxMDo1OTo1NSIsCiJsYXN0X2NoYW5nZV90aW1lc3RhbXAiOiAiMjAyNS0wNC0xNSAxMTozMTo1NiIsCiJjb250ZW50IjogewoiaGVhZGxpbmUiOiAiTm90IGltcHJlc3NlZCIsCiJwb3NpdGl2ZSI6ICJMb2NhdGlvbiB3YXMgZ29vZCIsCiJuZWdhdGl2ZSI6ICJUaGUgYmVkIGZyYW1lIGxpdGVyYWxseSBicm9rZSBpbiBoYWxmIGFuZCB0aGV5IHdvdWxkIG5vdCBmaXggaXQuIE5vciB3b3VsZCB0aGV5IG9mZmVyIGEgcmVmdW5kLiBPbmx5IGEgcGFydGlhbCByZWZ1bmQuIFdlIHdlcmUgb24gb3V0IGhvbmV5bW9vbiBmcm9tIEF1c3RyYWxpYSwgYW5kIGhhZCB0byBzbGVlcCBvbiB0aGUgZmxvb3IuIFdlIGhhZCB0byBwaHlzaWNhbGx5IG1vdmUgdGhlIGJlZGZyYW1lIGludG8gdGhlIHlhcmQgYW5kIHNsZWVwIG9uIHRoZSBmbG9vci4iLAoibGFuZ3VhZ2VfY29kZSI6ICJlbi1nYiIKfSwKInNjb3JpbmciOiB7CiJmYWNpbGl0aWVzIjogNy41LAoiY29tZm9ydCI6IDIuNSwKInN0YWZmIjogNSwKInZhbHVlIjogNSwKImNsZWFuIjogNy41LAoibG9jYXRpb24iOiA3LjUsCiJyZXZpZXdfc2NvcmUiOiAxCn0sCiJyZXZpZXdlciI6IHsKIm5hbWUiOiAiIiwKImNvdW50cnlfY29kZSI6ICJ1cyIsCiJpc19nZW5pdXMiOiB0cnVlCn0sCiJyZXBseSI6IG51bGwsCiJ1cmwiOiAiIgp9LCJyZXNlcnZhdGlvbklkIjoiNjdlMWU4MTZhYzdiOGIwMDEyOWZjZWZlIiwidXBkYXRlZEF0IjoiMjAyNS0wMy0yNlQxNDozOToyMC44NTJaIiwidXBkYXRlZEF0R3Vlc3R5IjoiMjAyNS0wMy0yNlQxNDozOToyMC44OTlaIiwicmV2aWV3UmVwbGllcyI6W119XSwibGltaXQiOjEwMCwic2tpcCI6MH0=    recorded_at: Sun, 20 Apr 2025 04:19:40 GMT
+    recorded_at: Sun, 20 Apr 2025 04:19:40 GMT
+recorded_with: VCR 6.3.1

@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/availability-pricing/api/calendar/listings/minified/67ee2b0e25977e0019b9e459?endDate=2027-01-24&startDate=2027-01-16&view=full
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.4
+      Authorization:
+      - Bearer <API_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 15 Oct 2026 10:31:03 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      Ratelimit-Limit:
+      - '15'
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Reset:
+      - '1'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Uber-Trace-Id:
+      - d85fd498c3bb6190:d85fd498c3bb6190:0:1
+      Uberctx-Accountid:
+      - 678f68617f87dd47600c7161
+      X-Request-Id:
+      - d85fd498c3bb6190
+      Gst-Pep:
+      - 1.5.2
+      Etag:
+      - W/"122b-5uZi86SX7db8wIET/5eSZReGHrk"
+      Vary:
+      - Accept-Encoding
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Gst-Kong-Dc:
+      - production-2
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdGF0dXMiOjIwMCwiZGF0YSI6eyJkYXlzIjp7Imxpc3RpbmdJZCI6IjY3ZWUyYjBlMjU5NzdlMDAxOWI5ZTQ1OSIsInN0YXJ0RGF0ZSI6IjIwMjctMDEtMTYiLCJlbmREYXRlIjoiMjAyNy0wMS0yNCIsImN1cnJlbmN5IjoiU0VLIiwiY2FsZW5kYXIiOlt7ImRhdGUiOiIyMDI3LTAxLTE2IiwicHJpY2UiOjAsIm1pbk5pZ2h0cyI6MSwiYmxvY2tzIjp7fSwiaXNCYXNlUHJpY2UiOnRydWUsImlzQmFzZU1pbk5pZ2h0cyI6dHJ1ZSwicmVxdWVzdFRvQm9vayI6ZmFsc2UsImN0YSI6ZmFsc2UsImN0ZCI6ZmFsc2UsImJsb2NrSWRzIjpbXX0seyJkYXRlIjoiMjAyNy0wMS0xNyIsInByaWNlIjowLCJtaW5OaWdodHMiOjEsImJsb2NrcyI6e30sImlzQmFzZVByaWNlIjp0cnVlLCJpc0Jhc2VNaW5OaWdodHMiOnRydWUsInJlcXVlc3RUb0Jvb2siOmZhbHNlLCJjdGEiOmZhbHNlLCJjdGQiOmZhbHNlLCJibG9ja0lkcyI6W119LHsiZGF0ZSI6IjIwMjctMDEtMTgiLCJwcmljZSI6MCwibWluTmlnaHRzIjoxLCJibG9ja3MiOnsiYiI6dHJ1ZX0sImlzQmFzZVByaWNlIjp0cnVlLCJpc0Jhc2VNaW5OaWdodHMiOnRydWUsInJlcXVlc3RUb0Jvb2siOmZhbHNlLCJjdGEiOmZhbHNlLCJjdGQiOmZhbHNlLCJibG9ja0lkcyI6WyI2YWQwYWFjZDRjNzgyYTVjYjViMzQ2ZjEiXX0seyJkYXRlIjoiMjAyNy0wMS0xOSIsInByaWNlIjowLCJtaW5OaWdodHMiOjEsImJsb2NrcyI6eyJiIjp0cnVlfSwiaXNCYXNlUHJpY2UiOnRydWUsImlzQmFzZU1pbk5pZ2h0cyI6dHJ1ZSwicmVxdWVzdFRvQm9vayI6ZmFsc2UsImN0YSI6ZmFsc2UsImN0ZCI6ZmFsc2UsImJsb2NrSWRzIjpbIjZhZDBhYWNkNGM3ODJhNWNiNWIzNDZmMSJdfSx7ImRhdGUiOiIyMDI3LTAxLTIwIiwicHJpY2UiOjAsIm1pbk5pZ2h0cyI6MSwiYmxvY2tzIjp7ImIiOnRydWV9LCJpc0Jhc2VQcmljZSI6dHJ1ZSwiaXNCYXNlTWluTmlnaHRzIjp0cnVlLCJyZXF1ZXN0VG9Cb29rIjpmYWxzZSwiY3RhIjpmYWxzZSwiY3RkIjpmYWxzZSwiYmxvY2tJZHMiOlsiNmFkMGFhY2U0Yzc4MmE1Y2I1YjM0NzA4Il19LHsiZGF0ZSI6IjIwMjctMDEtMjEiLCJwcmljZSI6MCwibWluTmlnaHRzIjoxLCJibG9ja3MiOnsiYiI6dHJ1ZX0sImlzQmFzZVByaWNlIjp0cnVlLCJpc0Jhc2VNaW5OaWdodHMiOnRydWUsInJlcXVlc3RUb0Jvb2siOmZhbHNlLCJjdGEiOmZhbHNlLCJjdGQiOmZhbHNlLCJibG9ja0lkcyI6WyI2YWQwYWFjZTRjNzgyYTVjYjViMzQ3MDgiXX0seyJkYXRlIjoiMjAyNy0wMS0yMiIsInByaWNlIjowLCJtaW5OaWdodHMiOjEsImJsb2NrcyI6e30sImlzQmFzZVByaWNlIjp0cnVlLCJpc0Jhc2VNaW5OaWdodHMiOnRydWUsInJlcXVlc3RUb0Jvb2siOmZhbHNlLCJjdGEiOmZhbHNlLCJjdGQiOmZhbHNlLCJibG9ja0lkcyI6W119LHsiZGF0ZSI6IjIwMjctMDEtMjMiLCJwcmljZSI6MCwibWluTmlnaHRzIjoxLCJibG9ja3MiOnt9LCJpc0Jhc2VQcmljZSI6dHJ1ZSwiaXNCYXNlTWluTmlnaHRzIjp0cnVlLCJyZXF1ZXN0VG9Cb29rIjpmYWxzZSwiY3RhIjpmYWxzZSwiY3RkIjpmYWxzZSwiYmxvY2tJZHMiOltdfSx7ImRhdGUiOiIyMDI3LTAxLTI0IiwicHJpY2UiOjAsIm1pbk5pZ2h0cyI6MSwiYmxvY2tzIjp7fSwiaXNCYXNlUHJpY2UiOnRydWUsImlzQmFzZU1pbk5pZ2h0cyI6dHJ1ZSwicmVxdWVzdFRvQm9vayI6ZmFsc2UsImN0YSI6ZmFsc2UsImN0ZCI6ZmFsc2UsImJsb2NrSWRzIjpbXX1dLCJibG9ja3MiOnsiNmFkMGFhY2Q0Yzc4MmE1Y2I1YjM0NmYxIjp7Il9pZCI6IjZhZDBhYWNkNGM3ODJhNWNiNWIzNDZmMSIsImxpc3RpbmdJZCI6IjY3ZWUyYjBlMjU5NzdlMDAxOWI5ZTQ1OSIsInN0YXJ0RGF0ZSI6IjIwMjctMDEtMThUMDA6MDA6MDAuMDAwWiIsImVuZERhdGUiOiIyMDI3LTAxLTE5VDAwOjAwOjAwLjAwMFoiLCJ0eXBlIjoiYiIsInJlc2VydmF0aW9uSWQiOiI2YWQwYWFjYzUzNWVmNDM5ZTIxM2E2Y2IiLCJyZXNlcnZhdGlvbiI6eyJfaWQiOiI2YWQwYWFjYzUzNWVmNDM5ZTIxM2E2Y2IiLCJsaXN0aW5nSWQiOiI2N2VlMmIwZTI1OTc3ZTAwMTliOWU0NTkiLCJhY2NvdW50SWQiOiI2NzhmNjg2MTdmODdkZDQ3NjAwYzcxNjEiLCJpbnF1aXJ5SWQiOiI2YWQwYWFjYTUzNWVmNDM5ZTIxM2E2YjgiLCJjaGVja0luRGF0ZUxvY2FsaXplZCI6IjIwMjctMDEtMTgiLCJjaGVja091dERhdGVMb2NhbGl6ZWQiOiIyMDI3LTAxLTIwIiwic3RhdHVzIjoiY29uZmlybWVkIiwiY29uZmlybWF0aW9uQ29kZSI6IlFBLUFESi1BLTBiYWFhZiIsInNvdXJjZSI6Im1hbnVhbCIsImxpc3RpbmciOnsiZGVmYXVsdENoZWNrSW5UaW1lIjoiMTY6MDAiLCJ0aW1lem9uZSI6IkV1cm9wZS9TdG9ja2hvbG0iLCJuaWNrbmFtZSI6IsOWMzIgMTEwNiJ9LCJtb25leSI6eyJiYWxhbmNlRHVlIjoxMDAwLCJjdXJyZW5jeSI6IlNFSyIsImhvc3RQYXlvdXQiOjEwMDAsInRvdGFsUGFpZCI6MCwiZmFyZUFjY29tbW9kYXRpb25BZGp1c3RlZCI6ODkyLjg2LCJuaWdodHNCcmVha2Rvd24iOlt7ImRhdGUiOiIyMDI3LTAxLTE4IiwiYmFzZVByaWNlIjowfSx7ImRhdGUiOiIyMDI3LTAxLTE5IiwiYmFzZVByaWNlIjoxMDAwfV19LCJuaWdodHNDb3VudCI6MiwicGxhbm5lZEFycml2YWwiOiIiLCJwbGFubmVkRGVwYXJ0dXJlIjoiIiwiZ3Vlc3QiOnsiX2lkIjoiNmFjZjIyNzhkOGMyMGU4MGU5NDNmYzgyIiwiZnVsbE5hbWUiOiJRQSBDb25mbGljdCJ9LCJndWVzdHNDb3VudCI6MSwiaW50ZWdyYXRpb24iOnsicGxhdGZvcm0iOiJkaXJlY3QifSwiY2hlY2tJbiI6IjIwMjctMDEtMThUMTY6MDA6MDArMDA6MDAiLCJjaGVja091dCI6IjIwMjctMDEtMjBUMTA6MDA6MDArMDA6MDAiLCJjcmVhdGVkQXQiOiIyMDI2LTEwLTE1VDEwOjI4OjI4LjAwMFoiLCJyZXNlcnZlZEV4cGlyZXNBdCI6bnVsbCwiY3JlYXRlZEJ5IjoiQ29yZSBkZXYiLCJudW1iZXJPZkd1ZXN0cyI6eyJudW1iZXJPZkNoaWxkcmVuIjowLCJudW1iZXJPZkluZmFudHMiOjAsIm51bWJlck9mQWR1bHRzIjoxfSwiZWFybHlDaGVja0luIjpudWxsLCJsYXRlQ2hlY2tPdXQiOm51bGwsImd1ZXN0U3RheSI6eyJzdGF0dXMiOiJub3Rfc2V0In19LCJzdGF5c01ldGFkYXRhIjp7InRvdGFsU3RheXMiOjEsInN0YXlJbmRleCI6MX0sImNyZWF0ZWRCeSI6IkNvcmUgZGV2IiwiY3JlYXRlZEF0IjoiMjAyNi0xMC0xNVQxMDoyODoyOS41NDlaIn0sIjZhZDBhYWNlNGM3ODJhNWNiNWIzNDcwOCI6eyJfaWQiOiI2YWQwYWFjZTRjNzgyYTVjYjViMzQ3MDgiLCJsaXN0aW5nSWQiOiI2N2VlMmIwZTI1OTc3ZTAwMTliOWU0NTkiLCJzdGFydERhdGUiOiIyMDI3LTAxLTIwVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNy0wMS0yMVQwMDowMDowMC4wMDBaIiwidHlwZSI6ImIiLCJyZXNlcnZhdGlvbklkIjoiNmFkMGFhY2UwZWI0NGVmYWY1OGRmZDQxIiwicmVzZXJ2YXRpb24iOnsiX2lkIjoiNmFkMGFhY2UwZWI0NGVmYWY1OGRmZDQxIiwibGlzdGluZ0lkIjoiNjdlZTJiMGUyNTk3N2UwMDE5YjllNDU5IiwiYWNjb3VudElkIjoiNjc4ZjY4NjE3Zjg3ZGQ0NzYwMGM3MTYxIiwiaW5xdWlyeUlkIjoiNmFkMGFhY2QwZWI0NGVmYWY1OGRmZDMwIiwiY2hlY2tJbkRhdGVMb2NhbGl6ZWQiOiIyMDI3LTAxLTIwIiwiY2hlY2tPdXREYXRlTG9jYWxpemVkIjoiMjAyNy0wMS0yMiIsInN0YXR1cyI6ImNvbmZpcm1lZCIsImNvbmZpcm1hdGlvbkNvZGUiOiJRQS1BREotQi0wYmFhYWYiLCJzb3VyY2UiOiJtYW51YWwiLCJsaXN0aW5nIjp7ImRlZmF1bHRDaGVja0luVGltZSI6IjE2OjAwIiwidGltZXpvbmUiOiJFdXJvcGUvU3RvY2tob2xtIiwibmlja25hbWUiOiLDljMyIDExMDYifSwibW9uZXkiOnsiYmFsYW5jZUR1ZSI6MTAwMCwiY3VycmVuY3kiOiJTRUsiLCJob3N0UGF5b3V0IjoxMDAwLCJ0b3RhbFBhaWQiOjAsImZhcmVBY2NvbW1vZGF0aW9uQWRqdXN0ZWQiOjg5Mi44NiwibmlnaHRzQnJlYWtkb3duIjpbeyJkYXRlIjoiMjAyNy0wMS0yMCIsImJhc2VQcmljZSI6MH0seyJkYXRlIjoiMjAyNy0wMS0yMSIsImJhc2VQcmljZSI6MTAwMH1dfSwibmlnaHRzQ291bnQiOjIsInBsYW5uZWRBcnJpdmFsIjoiIiwicGxhbm5lZERlcGFydHVyZSI6IiIsImd1ZXN0Ijp7Il9pZCI6IjZhY2YyMjc4ZDhjMjBlODBlOTQzZmM4MiIsImZ1bGxOYW1lIjoiUUEgQ29uZmxpY3QifSwiZ3Vlc3RzQ291bnQiOjEsImludGVncmF0aW9uIjp7InBsYXRmb3JtIjoiZGlyZWN0In0sImNoZWNrSW4iOiIyMDI3LTAxLTIwVDE2OjAwOjAwKzAwOjAwIiwiY2hlY2tPdXQiOiIyMDI3LTAxLTIyVDEwOjAwOjAwKzAwOjAwIiwiY3JlYXRlZEF0IjoiMjAyNi0xMC0xNVQxMDoyODozMC4wMDBaIiwicmVzZXJ2ZWRFeHBpcmVzQXQiOm51bGwsImNyZWF0ZWRCeSI6IkNvcmUgZGV2IiwibnVtYmVyT2ZHdWVzdHMiOnsibnVtYmVyT2ZDaGlsZHJlbiI6MCwibnVtYmVyT2ZJbmZhbnRzIjowLCJudW1iZXJPZkFkdWx0cyI6MX0sImVhcmx5Q2hlY2tJbiI6bnVsbCwibGF0ZUNoZWNrT3V0IjpudWxsLCJndWVzdFN0YXkiOnsic3RhdHVzIjoibm90X3NldCJ9fSwic3RheXNNZXRhZGF0YSI6eyJ0b3RhbFN0YXlzIjoxLCJzdGF5SW5kZXgiOjF9LCJjcmVhdGVkQnkiOiJDb3JlIGRldiIsImNyZWF0ZWRBdCI6IjIwMjYtMTAtMTVUMTA6Mjg6MzAuNDIxWiJ9fX19LCJtZXNzYWdlIjoiT0sifQ==
+  recorded_at: Thu, 15 Oct 2026 10:31:03 GMT
+recorded_with: VCR 6.4.0

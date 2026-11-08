@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://open-api.guesty.com/v1/reviews/67e41198c664dd30e3b4ad35/reply
+    body:
+      encoding: UTF-8
+      string: '{"reviewReply":"Thank you for your feedback. We appreciate your review
+        and will work to improve."}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 24 Mar 2026 03:30:32 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Reset:
+      - '1'
+      Ratelimit-Limit:
+      - '15'
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJfaWQiOiI2N2U0MTE5OGM2NjRkZDMwZTNiNGFkMzUiLCJhY2NvdW50SWQiOiI2Nzg1M2I4M2VhYjVkZTFmZDRjNDczMzMiLCJleHRlcm5hbFJldmlld0lkIjoiMTM3NTM0MjA1MTA2NTkxMDg2NSIsImNoYW5uZWxJZCI6ImJvb2tpbmdDb20iLCJjdXN0b21DaGFubmVsTmFtZSI6Ik1hcmtldGluZyBXZWJzaXRlIEEiLCJzdWJMaXN0aW5nSWQiOiI2N2UxZTdhMDU2MTQwMzAwN2FmMmU4MzMiLCJsaXN0aW5nSWQiOiI2N2UxZTdhMDU2MTQwMzAwN2FmMmU4MzMiLCJjb21wbGV4SWQiOiI2N2UxZTdhMDU2MTQwMzAwN2FmMmU4MzQiLCJleHRlcm5hbExpc3RpbmdJZCI6Ijk4Mzg1MDAwMDkzMzA4MTYiLCJleHRlcm5hbENvbXBsZXhJZCI6Ijk4Mzg1MDAwMDkzMzA4MTciLCJyZXNlcnZhdGlvbklkIjoiNjdlMWU4MTZhYzdiOGIwMDEyOWZjZWZlIiwiZXh0ZXJuYWxSZXNlcnZhdGlvbklkIjoiSE0yUUs0RUhFVCIsImd1ZXN0SWQiOiI2N2UxZTgxNTczMjc1OTI5Y2MzNWJkZjQiLCJjcmVhdGVkQXQiOiIyMDI2LTAzLTI0IiwidXBkYXRlZEF0IjoiMjAyNi0wMy0yNCIsImNyZWF0ZWRBdEd1ZXN0eSI6IjIwMjYtMDMtMjQiLCJ1cGRhdGVkQXRHdWVzdHkiOiIyMDI2LTAzLTI0IiwicmF3UmV2aWV3Ijp7fSwiY29udGVudHMiOnsiYm9keSI6Ik5vdCBncmVhdCBzdGF5IiwicmV2aWV3ZXJOYW1lIjoiSm9obiBEb2UiLCJ0aXRsZSI6IkNvdWxkIGJlIGJldHRlciIsImxvY2FsZSI6ImVuLVVTIiwicmF0aW5nIjozfSwicmV2aWV3UmVwbGllcyI6W3sic3RhdHVzIjoiUEVORElORyIsInJldmlld1JlcGx5IjoiVGhhbmsgeW91IGZvciB5b3VyIGZlZWRiYWNrLiBXZSBhcHByZWNpYXRlIHlvdXIgcmV2aWV3IGFuZCB3aWxsIHdvcmsgdG8gaW1wcm92ZS4iLCJyZXBseUF0IjoiMjAyNi0wMy0yNFQwMzozMDozMi4xODhaIn1dfQ==
+  recorded_at: Mon, 24 Mar 2026 03:30:32 GMT
+recorded_with: VCR 6.4.0

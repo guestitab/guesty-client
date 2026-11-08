@@ -1,0 +1,119 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://open-api.guesty.com/oauth2/token
+    body:
+      encoding: UTF-8
+      string: client_id=[GUESTY_DEFAULT_0_CLIENT_ID]&client_secret=[GUESTY_DEFAULT_0_CLIENT_SECRET]&grant_type=client_credentials&scope=open-api
+    headers:
+      User-Agent:
+      - Faraday v2.12.2
+      Accept:
+      - application/json
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 27 Feb 2025 06:10:06 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Ratelimit-Remaining:
+      - '2'
+      Ratelimit-Limit:
+      - '5'
+      X-Ratelimit-Remaining-Day:
+      - '2'
+      X-Ratelimit-Limit-Day:
+      - '5'
+      Ratelimit-Reset:
+      - '64195'
+      Client-Id:
+      - [GUESTY_DEFAULT_0_CLIENT_ID]
+      Vary:
+      - Origin, Accept-Encoding
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Uber-Trace-Id:
+      - a87c5eec9f57399f:a87c5eec9f57399f:0:1
+      X-Request-Id:
+      - a87c5eec9f57399f
+      X-Okta-Request-Id:
+      - 0d01faed96a03b4a02d4ed5a36ef9efe
+      P3p:
+      - CP="HONK"
+      Set-Cookie:
+      - JSESSIONID=0D084D7595E803F37A820004A7E305F6; Path=/; Secure; HttpOnly
+      - activate_ca_modal_triggered=""; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Path=/
+      - autolaunch_triggered=""; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Path=/
+      - sid="";Version=1;Path=/;Max-Age=0
+      - xids="";Version=1;Path=/;Max-Age=0
+      Content-Security-Policy:
+      - 'default-src ''self'' guesty-iam.okta.com *.oktacdn.com; connect-src ''self''
+        guesty-iam.okta.com guesty-iam-admin.okta.com *.oktacdn.com *.mixpanel.com
+        *.mapbox.com *.mtls.okta.com guesty-iam.kerberos.okta.com *.authenticatorlocalprod.com:8769
+        http://localhost:8769 http://127.0.0.1:8769 *.authenticatorlocalprod.com:65111
+        http://localhost:65111 http://127.0.0.1:65111 *.authenticatorlocalprod.com:65121
+        http://localhost:65121 http://127.0.0.1:65121 *.authenticatorlocalprod.com:65131
+        http://localhost:65131 http://127.0.0.1:65131 *.authenticatorlocalprod.com:65141
+        http://localhost:65141 http://127.0.0.1:65141 *.authenticatorlocalprod.com:65151
+        http://localhost:65151 http://127.0.0.1:65151 https://oinmanager.okta.com
+        data: *.ingest.sentry.io data.pendo.io pendo-static-5634101834153984.storage.googleapis.com
+        pendo-static-5391521872216064.storage.googleapis.com; script-src ''unsafe-inline''
+        ''unsafe-eval'' ''self'' ''report-sample'' guesty-iam.okta.com *.oktacdn.com;
+        style-src ''unsafe-inline'' ''self'' guesty-iam.okta.com *.oktacdn.com; frame-src
+        ''self'' guesty-iam.okta.com guesty-iam-admin.okta.com login.okta.com *.vidyard.com
+        com-okta-authenticator:; img-src ''self'' guesty-iam.okta.com *.oktacdn.com
+        *.tiles.mapbox.com *.mapbox.com *.vidyard.com data: data.pendo.io pendo-static-5634101834153984.storage.googleapis.com
+        pendo-static-5391521872216064.storage.googleapis.com blob:; font-src ''self''
+        guesty-iam.okta.com data: *.oktacdn.com fonts.gstatic.com; frame-ancestors
+        ''self'''
+      X-Rate-Limit-Limit:
+      - '1000'
+      X-Rate-Limit-Remaining:
+      - '998'
+      X-Rate-Limit-Reset:
+      - '1740636606'
+      Cache-Control:
+      - no-cache, no-store
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Accept-Ch:
+      - Sec-CH-UA-Platform-Version
+      X-Robots-Tag:
+      - noindex,nofollow
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+    body:
+      encoding: ASCII-8BIT
+      string: '{"token_type":"Bearer","expires_in":86400,"access_token":"<API_TOKEN>","scope":"open-api"}'
+  recorded_at: Thu, 27 Feb 2025 06:10:06 GMT
+recorded_with: VCR 6.3.1

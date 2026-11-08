@@ -1,0 +1,79 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/guests-crud/6819e3c13566dbd0562b9b84?fields=tags%20firstName
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.13.1
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 14 May 2025 08:56:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '99'
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      Ratelimit-Limit:
+      - '15'
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Reset:
+      - '1'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Uber-Trace-Id:
+      - 7260afa16906f940:7260afa16906f940:0:1
+      Uberctx-Accountid:
+      - 678f68617f87dd47600c7161
+      X-Request-Id:
+      - 7260afa16906f940
+      Etag:
+      - W/"63-oMPo/nAbyvx0nJdhK8UsdHrF97A"
+      Vary:
+      - Accept-Encoding
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+    body:
+      encoding: UTF-8
+      string: '{"_id":"6819e3c13566dbd0562b9b84","tags":["friendsAndFamily","blocklisted"],"firstName":"Test"}'
+  recorded_at: Wed, 14 May 2025 08:56:00 GMT
+recorded_with: VCR 6.3.1

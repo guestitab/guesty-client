@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/communication/conversations/6935776e986f1c0011038b7b/posts?limit=500&sort=-createdAt
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 16 Mar 2026 12:09:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Ratelimit-Remaining:
+      - '13'
+      Ratelimit-Limit:
+      - '15'
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"data":{"count":4,"limit":500,"cursor":{"after":"","before":""},"posts":[{"_id":"post_photo","conversationId":"6935776e986f1c0011038b7b","body":"","sentBy":"guest","module":{"type":"airbnb2"},"attachments":[{"_id":"att_1","attachmentUrl":"production/67853b83eab5de1fd4c47333/jpeg/60a5fa8262e3a0fea0e6e42528a22ce6_broken-window.jpeg","origFileName":"broken-window.jpeg","type":"jpeg","contentName":"ugcAttachment"}],"isAutomatic":false,"createdAt":"2026-01-01T13:00:00.000Z"},{"_id":"post_photos","conversationId":"6935776e986f1c0011038b7b","body":"","sentBy":"guest","module":{"type":"airbnb2"},"attachments":[{"_id":"att_2","attachmentUrl":"production/67853b83eab5de1fd4c47333/png/7c1e0b4f2a9d3e6b8c5a0f1d2e3b4c5d_kitchen-1.png","origFileName":"kitchen-1.png","type":"png","contentName":"ugcAttachment"},{"_id":"att_3","attachmentUrl":"production/67853b83eab5de1fd4c47333/jpeg/9d2f1a0c3b8e7d6a5f4c2b1e0d9a8c7b_kitchen-2.jpeg","origFileName":"kitchen-2.jpeg","type":"jpeg","contentName":"ugcAttachment"}],"isAutomatic":false,"createdAt":"2026-01-01T14:00:00.000Z"},{"_id":"post_unnamed","conversationId":"6935776e986f1c0011038b7b","body":"","sentBy":"guest","module":{"type":"airbnb2"},"attachments":[{"_id":"att_4","attachmentUrl":"production/67853b83eab5de1fd4c47333/pdf/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d","type":"pdf","contentName":"ugcAttachment"}],"isAutomatic":false,"createdAt":"2026-01-01T15:00:00.000Z"},{"_id":"post_captioned","conversationId":"6935776e986f1c0011038b7b","body":"The window is broken","sentBy":"guest","module":{"type":"airbnb2"},"attachments":[{"_id":"att_5","attachmentUrl":"production/67853b83eab5de1fd4c47333/jpeg/2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e_broken-window.jpeg","origFileName":"broken-window.jpeg","type":"jpeg","contentName":"ugcAttachment"}],"isAutomatic":false,"createdAt":"2026-01-01T16:00:00.000Z"}]}}'
+  recorded_at: Mon, 16 Mar 2026 12:09:01 GMT
+recorded_with: VCR 6.4.0

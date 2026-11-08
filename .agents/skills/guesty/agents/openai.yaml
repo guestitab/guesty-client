@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guesty"
+  short_description: "Guesty API behaviour and Core's Guesty integration"
+  default_prompt: "Use $guesty before changing the Guesty provider, webhooks, imports or guest messaging."

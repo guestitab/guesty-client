@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/communication/conversations?fields=_id%20meta.reservations._id%20meta.reservations.status&filters=%5B%7B%22field%22:%22reservation._id%22,%22operator%22:%22$eq%22,%22value%22:%226935779d2c1ef50013ec8835%22%7D%5D&limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 16 Mar 2026 12:08:57 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Limit:
+      - '15'
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"data":{"count":1,"limit":100,"cursor":{"after":"","before":""},"conversations":[{"_id":"6935776e986f1c0011038b7b","meta":{"reservations":[{"_id":"6935779d2c1ef50013ec8835","status":"confirmed"}]},"accountId":"67853b83eab5de1fd4c47333","createdAt":"2025-12-07T12:47:42.607Z","state":{"read":false,"status":"OPEN"}}]}}'
+  recorded_at: Mon, 16 Mar 2026 12:08:57 GMT
+recorded_with: VCR 6.4.0

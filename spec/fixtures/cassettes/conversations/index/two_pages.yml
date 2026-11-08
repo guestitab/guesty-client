@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/communication/conversations?fields=updatedAt%20meta.reservations._id%20meta.reservations.status&limit=100&sort=-updatedAt
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"data":{"count":3,"limit":100,"cursor":{"after":"page-2","before":""},"conversations":[{"_id":"conversation-newest","meta":{"reservations":[{"_id":"reservation-newest","status":"confirmed"},{"_id":"reservation-newest-sibling","status":"canceled"}],"guest":{"_id":"guest-1"}},"accountId":"acc","updatedAt":"2026-08-19T13:42:08.979Z","state":{"read":false,"status":"OPEN"}},{"_id":"conversation-in-window","meta":{"reservations":[{"_id":"reservation-in-window","status":"inquiry"}],"guest":{"_id":"guest-2"}},"accountId":"acc","updatedAt":"2026-08-19T13:35:00.000Z","state":{"read":true,"status":"OPEN"}}]}}'
+  recorded_at: Wed, 19 Aug 2026 13:45:00 GMT
+- request:
+    method: get
+    uri: https://open-api.guesty.com/v1/communication/conversations?cursorAfter=page-2&fields=updatedAt%20meta.reservations._id%20meta.reservations.status&limit=100&sort=-updatedAt
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"data":{"count":3,"limit":100,"cursor":{"after":"","before":""},"conversations":[{"_id":"conversation-stale","meta":{"reservations":[{"_id":"reservation-stale","status":"expired"}],"guest":{"_id":"guest-3"}},"accountId":"acc","updatedAt":"2026-08-19T13:00:00.000Z","state":{"read":true,"status":"OPEN"}}]}}'
+  recorded_at: Wed, 19 Aug 2026 13:45:00 GMT
+recorded_with: VCR 6.4.0

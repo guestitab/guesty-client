@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Provider"
+  short_description: "Add or change Guestit provider integrations"
+  default_prompt: "Use $write-provider to add or change a Guestit provider integration and its spec."

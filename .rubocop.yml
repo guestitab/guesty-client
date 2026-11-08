@@ -1,0 +1,63 @@
+plugins:
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - vendor/**/*
+    - tmp/**/*
+    - spec/fixtures/**/*
+
+Layout/LineLength:
+  Max: 180
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Style/Documentation:
+  Enabled: false
+
+# Inline RBS sigils (`#:`) are comments without a leading space.
+Layout/LeadingCommentSpace:
+  Enabled: false
+
+# The Faraday builder DSL in Guesty.connection/do_request is inherently branchy,
+# and argument guards are one condition per line (they replace core's dry schemas).
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/CyclomaticComplexity:
+  Max: 12
+
+Metrics/PerceivedComplexity:
+  Max: 12
+
+# Ported core specs keep their structure and idioms.
+Style/Lambda:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - guesty.gemspec
+
+Metrics/MethodLength:
+  Max: 20
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4

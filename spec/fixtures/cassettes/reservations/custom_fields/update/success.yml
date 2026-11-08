@@ -1,0 +1,81 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://open-api.guesty.com/v1/reservations-v3/67eecfe9543d7c0012467e5d/custom-fields
+    body:
+      encoding: UTF-8
+      string: '{"customFields":[{"fieldId":"6821ff700090ff004bcc8175","value":"false"}]}'
+    headers:
+      User-Agent:
+      - Faraday v2.14.1
+      Authorization:
+      - Bearer <SECRET_TOKEN>
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 13 Feb 2026 13:13:28 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '230'
+      Connection:
+      - keep-alive
+      X-Ratelimit-Remaining-Second:
+      - '14'
+      X-Ratelimit-Remaining-Minute:
+      - '119'
+      Ratelimit-Limit:
+      - '15'
+      Ratelimit-Remaining:
+      - '14'
+      Ratelimit-Reset:
+      - '1'
+      X-Ratelimit-Limit-Second:
+      - '15'
+      X-Ratelimit-Limit-Minute:
+      - '120'
+      X-Ratelimit-Limit-Hour:
+      - '5000'
+      X-Ratelimit-Remaining-Hour:
+      - '4999'
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - deny
+      Strict-Transport-Security:
+      - max-age=31536000;includesubdomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1;mode=block
+      Uber-Trace-Id:
+      - ee1e8bffeb3e635b:ee1e8bffeb3e635b:0:1
+      Uberctx-Accountid:
+      - 678f68617f87dd47600c7161
+      X-Request-Id:
+      - ee1e8bffeb3e635b
+      Etag:
+      - W/"e6-eAvvs+lL+nLdLqxa1dLUKF8Ht1s"
+      Vary:
+      - Accept-Encoding
+      X-Content-Type:
+      - nosniff
+      X-Permitted-Cross-Domain-Policies:
+      - none
+    body:
+      encoding: UTF-8
+      string: '{"reservationId":"67eecfe9543d7c0012467e5d","customFields":[{"_id":"6824a486b72b61001fc7a297","fieldId":"6821ff700090ff004bcc8175","value":false},{"_id":"68246a9b37c085002ac4942a","fieldId":"6824663219a2750010a979e2","value":""}]}'
+  recorded_at: Fri, 13 Feb 2026 13:13:28 GMT
+recorded_with: VCR 6.4.0
