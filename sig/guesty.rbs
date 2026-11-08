@@ -1,0 +1,427 @@
+# Public API of the gem, mirroring the inline `# @rbs` annotations in lib/.
+# Shipped with the gem so host apps pick it up through `rbs collection`.
+module Guesty
+  VERSION: ::String
+
+  BASE_URL: ::String
+  TIMEOUT: ::Integer
+  RETRY_OPTIONS: ::Hash[::Symbol, untyped]
+
+  type slot = {
+    key: ::String,
+    client_id: ::String,
+    secret: ::String
+  }
+
+  def self.configure: () { (Config) -> void } -> void
+  def self.config: () -> Config
+
+  def self.connection: (?url: ::String, ?skip_auth: bool, ?timeout: ::Integer) -> untyped
+  def self.do_request: (::Symbol | ::String request_method, ::String path, ?::Hash[::Symbol, untyped] params, ?retries: ::Integer, ?timeout: ::Integer) -> untyped
+  def self.with_priority: (::Symbol priority) { (?) -> untyped } -> untyped
+  def self.current_priority: () -> ::Symbol
+  def self.current_slot: () -> slot
+  def self.rate_limit_key: (::Symbol window) -> ::Symbol
+  def self.token_slots: (?::Symbol priority) -> ::Array[slot]
+  def self.webhook_key: () -> ::String?
+  def self.sync_guest_and_reservation_changes?: () -> bool
+  def self.pick_slot: (::Symbol priority) -> slot
+  def self.successful_response?: (untyped response) -> bool
+  def self.retryable_read?: (::StandardError error) -> bool
+  def self.unapplied?: (::StandardError error) -> bool
+  def self.delivery_unknown?: (::StandardError error) -> bool
+  def self.auth_token: () -> ::String
+
+  class Error < ::StandardError
+    attr_reader fatal: bool
+
+    def initialize: (?::String message, ?fatal: bool) -> void
+  end
+
+  # Raised by operations before any network call when the arguments are unusable.
+  class ArgumentError < Error
+  end
+
+  # Raised by the rate limiter middleware when the injected limiter refuses the
+  # request: the call never left the process, so no write landed upstream.
+  class ThrottledError < Error
+    attr_reader key: ::Symbol
+    attr_reader threshold: ::Integer
+    attr_reader interval: untyped
+    attr_reader retry_after: untyped
+
+    def initialize: (key: ::Symbol, threshold: ::Integer, interval: untyped, retry_after: untyped) -> void
+  end
+
+  # A rejected Guesty response, classified so callers can tell a retryable
+  # glitch from a write that never landed.
+  class ApiError < Error
+    attr_reader raw_body: untyped
+    attr_reader response: untyped
+
+    def initialize: (untyped response) -> void
+
+    def status: () -> ::Integer
+    def guesty_glitch?: () -> bool
+    def retryable_non_delivery?: () -> bool
+    def permanent_rejection?: () -> bool
+    def transient?: () -> bool
+  end
+
+  class Config
+    attr_accessor credentials: ::Hash[::Symbol, untyped]
+    attr_accessor token_store: untyped
+    attr_accessor rate_limiter: untyped
+    attr_accessor slot_picker: untyped
+    attr_accessor base_url: ::String
+    attr_accessor sync_guest_and_reservation_changes: bool
+    attr_accessor custom_fields: ::Hash[::Symbol, ::String]
+    attr_accessor default_currency: ::String?
+  end
+
+  class MemoryTokenStore
+    class Token
+      attr_accessor access_token: ::String
+      attr_accessor expires_at: ::Time?
+
+      def initialize: (access_token: ::String, expires_at: ::Time?) -> void
+      def expired?: () -> bool
+    end
+
+    def read: (::String slot_key) -> Token?
+    def save: (slot_key: ::String, access_token: ::String, expires_at: ::Time) -> Token
+    def clear: () -> ::Hash[untyped, untyped]
+  end
+
+  class MemoryRateLimiter
+    def throttle!: (key: ::Symbol, threshold: ::Integer, interval: untyped) -> void
+  end
+
+  class RateLimiterMiddleware
+    def initialize: (untyped app, ?::Hash[::Symbol, untyped] options) -> void
+    def on_request: (untyped env) -> void
+  end
+
+  # #call! returns the same Result as #call, raising the failure instead of
+  # wrapping it — hence the `alias call! call` on every operation below.
+  module Operation
+    def call!: (*untyped, **untyped) -> untyped
+  end
+
+  module AccessTokens
+    class Upsert
+      OAUTH_ENDPOINT: ::String
+
+      def call: () -> ::Dry::Monads::Result[untyped]
+      alias call! call
+    end
+  end
+
+  module Reservations
+    CANCELLED_STATUS: ::String
+    CLOSED_STATUSES: ::Array[::String]
+
+    def self.from_conversation: (untyped conversation) -> ::Array[::Hash[::Symbol, untyped]]
+
+    class Search
+      FILTER_MAPPINGS: ::Hash[::Symbol, ::Hash[::Symbol, ::String]]
+
+      def self.filters: (::Hash[::Symbol, untyped] attributes) -> ::Array[::Hash[::Symbol, untyped]]
+      def call: (fields: ::Array[::String], attributes: ::Hash[::Symbol, untyped], ?skip: ::Integer, ?take: ::Integer) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    class Show
+      def call: (reservation_id: ::String, fields: ::Array[::String]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    class Create
+      def call: (attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[::String]
+      alias call! call
+    end
+
+    class Update
+      def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[bool]
+      alias call! call
+    end
+
+    class Recover
+      def call: (confirmation_code: ::String, start_date: ::Date, end_date: ::Date) -> ::Dry::Monads::Result[::String?]
+      alias call! call
+    end
+
+    class Approve
+      def call: (reservation_id: ::String) -> ::Dry::Monads::Result[bool]
+      alias call! call
+    end
+
+    class Decline
+      def call: (reservation_id: ::String, reason: ::String, message: ::String) -> ::Dry::Monads::Result[bool]
+      alias call! call
+    end
+
+    class PreApprove
+      def call: (reservation_id: ::String) -> ::Dry::Monads::Result[bool]
+      alias call! call
+    end
+
+    module Status
+      class Update
+        def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+
+      class Cancel
+        CANCELLED_BY: ::Hash[::Symbol, ::String]
+
+        def call: (reservation_id: ::String, note: ::String, cancelled_by: ::Symbol) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+    end
+
+    module Dates
+      class Update
+        def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+    end
+
+    module Stays
+      class Update
+        def call: (reservation_id: ::String, stay: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+    end
+
+    module Flags
+      class Update
+        def call: (reservation_id: ::String, flags: ::Hash[::Symbol, bool]) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+    end
+
+    module AccommodationFare
+      class Update
+        FARE_TYPES: ::Array[::String]
+        ADJUSTED_TYPE: ::String
+
+        def call: (reservation_id: ::String, amount: ::Integer | ::Float | ::BigDecimal) -> ::Dry::Monads::Result[::BigDecimal]
+        alias call! call
+      end
+    end
+
+    module CustomFields
+      class Update
+        def call: (reservation_id: ::String, custom_fields: ::Array[::Hash[::Symbol, untyped]]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        alias call! call
+      end
+    end
+
+    module Payments
+      class Create
+        PAYMENT_METHOD_NAME: ::String
+        HISTORY_UNAVAILABLE: ::String
+
+        def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        alias call! call
+      end
+    end
+
+    module Reviews
+      class Index
+        def call: (since: ::Time, ?skip: ::Integer, ?take: ::Integer) -> ::Dry::Monads::Result[::Array[::Hash[::Symbol, untyped]]]
+        alias call! call
+      end
+
+      module Extractors
+        class Base
+          def call: (raw_review: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+          alias call! call
+        end
+
+        class Airbnb < Base
+        end
+
+        class BookingCom < Base
+        end
+
+        class Vrbo < Base
+        end
+      end
+    end
+  end
+
+  module Conversations
+    CHANNELS: ::Hash[::String, ::String]
+
+    def self.channel: (::String module_type) -> ::String
+
+    class Index
+      FIELDS: ::String
+      LIMIT: ::Integer
+      MAX_PAGES: ::Integer
+
+      def call: (since: ::Time) -> ::Dry::Monads::Result[::Array[::Hash[::Symbol, untyped]]]
+      alias call! call
+    end
+
+    class Search
+      FIELDS: ::String
+
+      def call: (external_id: ::String) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]?]
+      alias call! call
+    end
+
+    class Show
+      FIELDS: ::String
+
+      def call: (conversation_id: ::String) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    module Posts
+      class Index
+        LIMIT: ::Integer
+
+        def call: (conversation_id: ::String, ?cursor: ::String?) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        alias call! call
+      end
+
+      class Since
+        MAX_PAGES: ::Integer
+
+        def call: (conversation_id: ::String, ?since: ::Time?) -> ::Dry::Monads::Result[::Array[untyped]]
+        alias call! call
+      end
+    end
+
+    module Messages
+      class Reply
+        BOOKING_MODULE_TYPES: ::Hash[::String, ::String]
+
+        def self.module_type_for: (::String? channel_name) -> ::String?
+
+        def call: (conversation_id: ::String, body: ::String, ?module_type: ::String?) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        alias call! call
+      end
+    end
+
+    module Attachments
+      class Index
+        BATCH_SIZE: ::Integer
+
+        def call: (keys: ::Array[::String]) -> ::Dry::Monads::Result[::Hash[::String, ::String]]
+        alias call! call
+      end
+    end
+  end
+
+  module Guests
+    OTA_LINK_TYPES: ::Hash[::Symbol, ::String]
+
+    module Profiles
+      class Create
+        def call: (attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        alias call! call
+      end
+
+      class Show
+        def call: (guest_id: ::String, ?fields: ::Array[::String]?) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        alias call! call
+      end
+
+      class Update
+        def call: (guest_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        alias call! call
+      end
+    end
+  end
+
+  module Homes
+    class Search
+      def call: (attributes: ::Hash[::Symbol, untyped], ?skip: ::Integer, ?take: ::Integer) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    module Calendars
+      class Show
+        BLOCK_TYPE_MAPPING: ::Hash[::Symbol, ::Symbol]
+
+        def call: (home_id: ::String, start_date: ::Date, end_date: ::Date) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        alias call! call
+      end
+    end
+  end
+
+  module GuestFolio
+    module InvoiceItems
+      class Index
+        FIELDS: ::Array[::String]
+
+        type item = {
+          external_id: ::String,
+          normal_type: ::String?,
+          amount: ::BigDecimal?,
+          currency: ::String,
+          occurred_at: ::Time?
+        }
+
+        def call: (reservation_id: ::String) -> ::Dry::Monads::Result[::Array[item]]
+        alias call! call
+      end
+    end
+  end
+
+  module Reviews
+    class Respond
+      def call: (review_id: ::String, text: ::String) -> ::Dry::Monads::Result[bool]
+      alias call! call
+    end
+  end
+
+  module Views
+    class Create
+      def call: (title: ::String, section: ::String) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    class Update
+      def call: (id: ::String, ?title: ::String?, ?fields: ::String?, ?filters: ::Array[::Hash[::Symbol, untyped]]?, ?sort: ::String?) -> ::Dry::Monads::Result[untyped]
+      alias call! call
+    end
+  end
+
+  module Webhooks
+    class Index
+      def call: () -> ::Dry::Monads::Result[::Array[untyped]]
+      alias call! call
+    end
+
+    class Create
+      def call: (url: ::String, events: ::Array[::String]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    class Update
+      def call: (id: ::String, url: ::String, events: ::Array[::String]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    class Sync
+      def call: (urls: ::Array[::String], events: ::Array[::String]) -> ::Dry::Monads::Result[::Hash[::Symbol, ::Array[::String]]]
+      alias call! call
+    end
+
+    module Signatures
+      class Verify
+        SECRET_PREFIX: ::String
+        SIGNATURE_VERSION: ::String
+        TOLERANCE: ::ActiveSupport::Duration
+
+        def call: (payload: ::String, headers: untyped) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+    end
+  end
+end

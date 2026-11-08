@@ -11,6 +11,7 @@
   `delivery_unknown?` error classification, `webhook_key`.
 - `Guesty.configure` injecting credentials, token store, rate limiter, slot picker,
   custom field ids, default currency and the sync flag — no Rails dependency.
+- `sig/guesty.rbs` declaring the public API, loaded by host apps through `rbs collection`.
 - Operations (`include Guesty::Operation`, monadic Results, `argument!` / `error!` refusals):
   - `AccessTokens::Upsert` — OAuth client-credentials mint, one stored token per slot.
   - Reservations: `Search`, `Show`, `Create`, `Update`, `Recover`, `Approve`, `Decline`,
