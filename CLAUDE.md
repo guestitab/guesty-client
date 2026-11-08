@@ -1,8 +1,9 @@
 # Repository Guidelines
 
-`guesty` is a host-agnostic Ruby client for the Guesty Open API, extracted from
-the Guestit core app. It has no Rails dependency; the host injects credentials,
-a token store, a rate limiter and a slot picker via `Guesty.configure`.
+`guesty-client` (module `Guesty`, `require 'guesty'`) is a host-agnostic Ruby client for the Guesty Open API,
+extracted from the Guestit core app and published on RubyGems. It has no Rails dependency; the host injects
+credentials, a token store, a rate limiter and a slot picker via `Guesty.configure`. README is the public guide and
+holds the release steps.
 
 ## Project Structure
 

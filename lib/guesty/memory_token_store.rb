@@ -1,8 +1,8 @@
 module Guesty
   # The default token store: keeps one token per credential slot in memory for
   # the life of the process. Guesty mints only 5 tokens per client id per 24
-  # hours, so a multi-process host must inject a shared, persistent store (the
-  # core app backs it with its guesty_access_tokens table and cache).
+  # hours, so a multi-process host must inject a shared, persistent store, such
+  # as a database table behind a cache.
   class MemoryTokenStore
     Token = Struct.new(:access_token, :expires_at, keyword_init: true) do
       def expired?

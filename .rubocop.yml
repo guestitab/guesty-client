@@ -48,7 +48,12 @@ Style/ModuleFunction:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
-    - guesty.gemspec
+    - guesty-client.gemspec
+
+# The gem is named guesty-client, so Bundler requires lib/guesty-client.rb.
+Naming/FileName:
+  Exclude:
+    - lib/guesty-client.rb
 
 Metrics/MethodLength:
   Max: 20

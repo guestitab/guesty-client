@@ -11,7 +11,7 @@ module Guesty
   end
 
   # Raised by operations before any network call when the arguments are unusable.
-  # fatal: true marks a refusal no retry can fix (the host decides; core pins the flag).
+  # fatal: true marks a refusal no retry can fix; the host decides what to do with it.
   class ArgumentError < Error; end
 
   # Raised by the rate limiter middleware when the injected limiter refuses the
