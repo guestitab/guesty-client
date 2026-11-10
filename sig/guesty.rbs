@@ -233,7 +233,7 @@ module Guesty
 
     module CustomFields
       class Update
-        def call: (reservation_id: ::String, custom_fields: ::Array[::Hash[::Symbol, untyped]]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        def call: (reservation_id: ::String, custom_fields: ::Array[::Hash[::Symbol, untyped]]) -> ::Dry::Monads::Result[untyped]
         alias call! call
       end
     end
