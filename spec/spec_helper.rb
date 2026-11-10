@@ -5,13 +5,9 @@ require 'active_support/testing/time_helpers'
 
 Dir[File.expand_path('support/**/*.rb', __dir__)].each { |file| require file }
 
-# Core's app time zone, so Time.zone.local in ported specs builds the same
-# instants the cassettes were recorded with.
+# The time zone the cassettes were recorded in.
 Time.zone = 'Europe/Stockholm'
 
-# Fake real-looking credentials, filtered into the cassettes' placeholders
-# (ported from core's spec/support/vcr.rb, where the real account secrets
-# were scrubbed to [GUESTY_<PRIORITY>_<INDEX>_CLIENT_ID] etc.).
 GUESTY_TEST_CREDENTIALS = {
   default: [
     { client_id: 'test-default-0-client-id', secret: 'test-default-0-client-secret' },

@@ -1,7 +1,5 @@
 module Guesty
   module Reservations
-    # Finds the Guesty reservation matching a confirmation code and stay window,
-    # skipping canceled ones. Returns nil when none matches.
     class Recover
       include Guesty::Operation
 

@@ -1,9 +1,5 @@
 module Guesty
   module AccessTokens
-    # Ensures a live access token for the current credential slot: reuse the
-    # stored one, else mint one. Persistence, caching and expiry policy live in
-    # the injected token store (Guesty.config.token_store).
-    #
     # Guesty mints only 5 access tokens per client id within 24 hours and
     # answers 429 to everything after, so a token must never be discarded.
     class Upsert

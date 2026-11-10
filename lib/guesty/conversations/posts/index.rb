@@ -28,8 +28,7 @@ module Guesty
           { results: posts, cursor_after: data.dig(:cursor, :after).presence, oldest_created_at: oldest_created_at(raw_posts) }
         end
 
-        # Taken before the filter. A page of only skipped post types must still tell the caller
-        # how far back it reached.
+        # Taken before the filter, so a page of skipped posts still tells how far back it reached.
         # @rbs (::Array[untyped] raw_posts) -> ::Time?
         def oldest_created_at(raw_posts)
           raw_posts.filter_map { |post| Time.iso8601(post[:createdAt]) if post[:createdAt].present? }.min
@@ -43,8 +42,7 @@ module Guesty
           attachments.map { |attachment| attachment_media_type(attachment[:type]) }
         end
 
-        # Parallel to #normalize_attachments. Index N names the same attachment in both arrays,
-        # so a missing attachmentUrl keeps its slot as an empty string.
+        # Index-aligned with #normalize_attachments, so a missing attachmentUrl keeps its slot.
         def normalize_attachment_keys(attachments)
           attachments.map { |attachment| attachment[:attachmentUrl].to_s }
         end
@@ -56,9 +54,7 @@ module Guesty
           MiniMime.lookup_by_extension(type)&.content_type || 'application/octet-stream'
         end
 
-        # Guesty allows a post that is only an attachment. A post with neither text nor a file
-        # carries nothing. Provider-side automation posts stay visible so the host does not answer a
-        # turn that was already answered.
+        # Automation posts stay so the host does not answer a turn twice.
         def importable?(post, attachments)
           return false if post[:_id].blank? || post[:createdAt].blank?
           return false if SYSTEM_MODULE_TYPES.include?(post.dig(:module, :type))
@@ -66,7 +62,6 @@ module Guesty
           SENDERS.include?(post[:sentBy]) && (post[:body].present? || attachments.any?)
         end
 
-        # provider_reservation_id routes the post to its stay and author_name lands on the sync row; neither is a message column.
         # @rbs (untyped post) -> untyped
         def normalize_post(post)
           raw_attachments = post.fetch(:attachments, [])
@@ -86,8 +81,6 @@ module Guesty
           }
         end
 
-        # Guesty's own scheduled posts and reservation logs are system posts. Everything else keeps the sender
-        # Guesty names.
         # @rbs (untyped post) -> String
         def sender_kind(post)
           post[:isAutomatic] || post[:sentBy] == LOG_SENDER ? 'system' : post[:sentBy]
@@ -98,7 +91,6 @@ module Guesty
           post.dig(:module, :type) unless post[:sentBy] == LOG_SENDER
         end
 
-        # Only a person answering from Guesty has a name worth keeping.
         # @rbs (untyped post) -> String?
         def author_name(post)
           return if post[:isAutomatic] || post[:sentBy] != 'host'

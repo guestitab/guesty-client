@@ -1,7 +1,5 @@
 module Guesty
   module Reservations
-    # Moves a reservation to another listing (the legacy listingId update on
-    # PUT /reservations/{id} retires on 2027-03-01).
     class Relocate
       include Guesty::Operation
 

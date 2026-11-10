@@ -1,8 +1,5 @@
 module Guesty
   module Payments
-    # Lists a reservation's payments plus the summary fields (totalPaid,
-    # balanceDue, isFullyPaid, ...). One reservation per request. Replaces the
-    # money.payments read on the legacy reservation resource.
     class Index
       include Guesty::Operation
 

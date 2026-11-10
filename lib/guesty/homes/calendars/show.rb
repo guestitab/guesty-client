@@ -47,8 +47,6 @@ module Guesty
           }
         end
 
-        # The host prices in one currency; a listing in another would silently
-        # misprice. Skipped when the host has not configured one.
         # @rbs (::String? currency) -> void
         def validate_currency(currency)
           return if @days.empty? || Guesty.config.default_currency.nil?

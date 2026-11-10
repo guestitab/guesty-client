@@ -1,4 +1,3 @@
-# Pin the message with `let(:message)` and the retry semantics with `let(:fatal)`.
 RSpec.shared_examples 'failed call' do |failure_class: nil|
   it 'fails with the error' do
     expect(result).to be_failure

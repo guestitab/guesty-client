@@ -1,8 +1,7 @@
 module Guesty
   module Conversations
     module Attachments
-      # Trades attachment storage keys for signed URLs (they expire after about
-      # an hour). Keys that are already links pass through unchanged.
+      # Signed URLs expire after about an hour.
       class Index
         include Guesty::Operation
 

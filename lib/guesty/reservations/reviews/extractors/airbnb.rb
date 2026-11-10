@@ -2,7 +2,6 @@ module Guesty
   module Reservations
     module Reviews
       module Extractors
-        # Airbnb raw reviews carry category_ratings[].review_category_tags.
         class Airbnb < Base
           POSITIVE_TAG = 'GUEST_REVIEW_HOST_POSITIVE_'.freeze #: ::String
           NEGATIVE_TAG = 'GUEST_REVIEW_HOST_NEGATIVE_'.freeze #: ::String

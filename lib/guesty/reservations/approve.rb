@@ -1,7 +1,6 @@
 module Guesty
   module Reservations
-    # Approves a request to book (a reservation in status `reserved`). Runs
-    # asynchronously on Guesty's side; a repeat answers 400 DUPLICATE.
+    # Asynchronous on Guesty's side; a repeat answers 400 DUPLICATE.
     class Approve
       include Guesty::Operation
 

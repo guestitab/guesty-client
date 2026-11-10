@@ -1,8 +1,5 @@
 module Guesty
   module Webhooks
-    # Subscribes the urls to the events: creates the missing, updates the
-    # drifted, leaves the rest. Returns the urls grouped by :created, :updated,
-    # :unchanged.
     class Sync
       include Guesty::Operation
 

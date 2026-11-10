@@ -1,10 +1,7 @@
 module Guesty
   module Payments
-    # Records a payment taken outside Guesty without charging a processor
-    # (POST /payments/record). A past paid_at records immediately (SUCCEEDED).
     # Guesty answers 503 PAYMENT_RESERVATION_NOT_READY right after the
-    # reservation is created; the ApiError classifies as transient, so the host
-    # can retry later.
+    # reservation is created; the ApiError is transient, so retry later.
     class Record
       include Guesty::Operation
 

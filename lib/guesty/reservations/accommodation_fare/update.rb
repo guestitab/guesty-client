@@ -22,10 +22,7 @@ module Guesty
 
         private
 
-        # Reads the current fare from the guest folio (the money read on the
-        # legacy reservation resource retires on 2027-03-01). An unknown
-        # reservation yields no items, so the adjustment lands on the
-        # price-adjustments endpoint, which rejects it.
+        # An unknown reservation has no folio items; price-adjustments then rejects the write.
         # @rbs (::String reservation_id) -> ::BigDecimal
         def current_fare(reservation_id)
           items = GuestFolio::InvoiceItems::Index.new.call!(reservation_id:).value!

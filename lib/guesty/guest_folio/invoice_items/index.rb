@@ -1,8 +1,7 @@
 module Guesty
   module GuestFolio
     module InvoiceItems
-      # Closed Airbnb Resolution Center items: negative amounts are refunds and
-      # positive amounts are guest charges.
+      # Negative amounts are refunds, positive amounts guest charges.
       class Index
         include Guesty::Operation
 

@@ -1,20 +1,7 @@
 module Guesty
   module Homes
-    # `active` is a filter, so all listings take two passes. Tags come back as
-    # ids on the listing; tag names live on GET listings/tags.
     class Search
       include Guesty::Operation
-
-      # @example
-      #   attributes: {
-      #     params: { ids: 'guestyID', available: { checkIn: "YYYY-MM-DD", checkOut: "YYYY-MM-DD", minOccupancy: 3 }.to_json }
-      #     filters: [{ operator: '$eq', field: 'type', value: 'MTL_CHILD' }],
-      #     response_keys: %w[
-      #       _id
-      #       nickname
-      #       type
-      #     ]
-      #   }
 
       # @rbs (attributes: ::Hash[::Symbol, untyped], ?skip: ::Integer, ?take: ::Integer) -> Dry::Monads::Result[::Hash[::Symbol, untyped]]
       def call(attributes:, skip: 0, take: 100)

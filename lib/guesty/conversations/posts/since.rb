@@ -1,7 +1,6 @@
 module Guesty
   module Conversations
     module Posts
-      # Walks a thread newest-first until the page that reaches `since`, or to the end without one.
       class Since
         include Guesty::Operation
 

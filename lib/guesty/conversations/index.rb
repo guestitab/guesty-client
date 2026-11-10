@@ -1,6 +1,5 @@
 module Guesty
   module Conversations
-    # Conversations updated since a time, newest first, paged until one is older.
     class Index
       include Guesty::Operation
 
