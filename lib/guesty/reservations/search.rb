@@ -54,16 +54,7 @@ module Guesty
       def call(attributes:, skip: 0, take: TAKE, sort: 'createdAt')
         validate_arguments!(attributes:, take:, sort:)
 
-        response = Guesty.do_request(:get, 'reservations-v3/search', params(attributes:, skip:, take:, sort:))
-        return response unless response.success?
-
-        body = response.value!.body
-        result = {
-          results: body[:results],
-          pagination: body[:pagination]
-        }
-
-        Success(result)
+        Success(request(:get, 'reservations-v3/search', params(attributes:, skip:, take:, sort:)).slice(:results, :pagination))
       end
 
       private

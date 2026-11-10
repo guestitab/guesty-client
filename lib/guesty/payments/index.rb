@@ -10,10 +10,7 @@ module Guesty
       def call(reservation_id:)
         argument! reservation_id: :required if reservation_id.blank?
 
-        response = Guesty.do_request(:get, 'payments', { reservationId: reservation_id })
-        return response unless response.success?
-
-        Success(response.value!.body)
+        Success(request(:get, 'payments', { reservationId: reservation_id }))
       end
     end
   end

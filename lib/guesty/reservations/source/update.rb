@@ -11,14 +11,7 @@ module Guesty
           argument! reservation_id: :required if reservation_id.blank?
           argument! source: :required if source.blank?
 
-          body = {
-            source:,
-            pointOfSale: point_of_sale,
-            applyRecalculation: apply_recalculation
-          }.compact
-          response = Guesty.do_request(:put, "reservations-v3/#{reservation_id}/source", body)
-
-          raise response.failure if response.failure?
+          request(:put, "reservations-v3/#{reservation_id}/source", { source:, pointOfSale: point_of_sale, applyRecalculation: apply_recalculation }.compact)
 
           Success(true)
         end

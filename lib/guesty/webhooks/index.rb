@@ -5,13 +5,7 @@ module Guesty
 
       # @rbs () -> Dry::Monads::Result[::Array[untyped]]
       def call
-        response = Guesty.do_request :get, 'webhooks'
-
-        if response.success?
-          Success(response.value!.body)
-        else
-          response
-        end
+        Success(request(:get, 'webhooks'))
       end
     end
   end

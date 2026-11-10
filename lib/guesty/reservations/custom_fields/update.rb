@@ -9,16 +9,7 @@ module Guesty
           argument! reservation_id: :required if reservation_id.blank?
           argument! custom_fields: :required if custom_fields.blank?
 
-          response = Guesty.do_request :put, "reservations-v3/#{reservation_id}/custom-fields", { customFields: custom_fields }
-          Success(handle_response(response))
-        end
-
-        private
-
-        def handle_response(response)
-          raise response.failure unless response.success?
-
-          response.value!.body
+          Success(request(:put, "reservations-v3/#{reservation_id}/custom-fields", { customFields: custom_fields }))
         end
       end
     end

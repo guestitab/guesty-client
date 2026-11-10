@@ -9,12 +9,7 @@ module Guesty
       def call(reservation_id:)
         argument! reservation_id: :required if reservation_id.blank?
 
-        response = Guesty.do_request(
-          :post,
-          "reservations-v3/#{reservation_id}/pre-approve",
-          retries: 0
-        )
-        return response unless response.success?
+        request(:post, "reservations-v3/#{reservation_id}/pre-approve", retries: 0)
 
         Success(true)
       end

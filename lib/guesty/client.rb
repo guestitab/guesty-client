@@ -37,15 +37,14 @@ module Guesty
     Fiber[:guesty__slot] = pick_slot(current_priority)
 
     http = connection(timeout:)
-    response = params.present? ? http.send(request_method, path, params) : http.send(request_method, path)
-    result = successful_response?(response) ? Success(response) : Failure(ApiError.new(response))
+    response = params.present? ? http.public_send(request_method, path, params) : http.public_send(request_method, path)
+    return Success(response) if successful_response?(response)
 
-    if retries.positive? && result.failure? && result.failure.guesty_glitch?
-      sleep(1.0)
-      result = do_request(request_method, path, params, retries: (retries - 1), timeout:)
-    end
+    error = ApiError.new(response)
+    return Failure(error) unless retries.positive? && error.guesty_glitch?
 
-    result
+    sleep(1.0)
+    do_request(request_method, path, params, retries: retries - 1, timeout:)
   end
 
   # @rbs (::Symbol priority) { (?) -> untyped } -> untyped

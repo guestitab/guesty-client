@@ -18,10 +18,7 @@ module Guesty
           urls = links.index_with(&:itself)
 
           storage_keys.each_slice(BATCH_SIZE) do |batch|
-            response = Guesty.do_request :get, 'communication/conversations/get-attachments', { keys: batch }
-            return response unless response.success?
-
-            urls.merge!(normalize_response(batch, response.value!.body))
+            urls.merge!(normalize_response(batch, request(:get, 'communication/conversations/get-attachments', { keys: batch })))
           end
 
           Success(urls)

@@ -9,9 +9,7 @@ module Guesty
           argument! reservation_id: :required if reservation_id.blank?
           argument! attributes: :required if attributes.blank?
 
-          response = Guesty.do_request :put, "reservations-v3/#{reservation_id}/status", attributes
-
-          raise response.failure unless response.success?
+          request(:put, "reservations-v3/#{reservation_id}/status", attributes)
 
           Success(true)
         end

@@ -8,25 +8,7 @@ module Guesty
         argument! id: :required if id.blank?
         argument! attributes: :invalid if [title, fields, filters, sort].all?(&:nil?)
 
-        response = Guesty.do_request :put,
-                                     "views/#{id}",
-                                     payload(
-                                       id,
-                                       title:,
-                                       fields:,
-                                       filters:,
-                                       sort:
-                                     )
-
-        raise response.failure unless response.success?
-
-        Success(response.value!.body)
-      end
-
-      private
-
-      def payload(id, title:, fields:, filters:, sort:)
-        { _id: id, title:, fields:, filters:, sort: }.compact
+        Success(request(:put, "views/#{id}", { _id: id, title:, fields:, filters:, sort: }.compact))
       end
     end
   end

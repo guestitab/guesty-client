@@ -9,14 +9,7 @@ module Guesty
           argument! reservation_id: :required if reservation_id.blank?
           argument! attributes: :required if attributes.blank?
 
-          payload = date_attributes(attributes)
-          response = Guesty.do_request(
-            :put,
-            "reservations-v3/#{reservation_id}/dates",
-            payload
-          )
-
-          raise response.failure if response.failure?
+          request(:put, "reservations-v3/#{reservation_id}/dates", date_attributes(attributes))
 
           Success(true)
         end

@@ -25,6 +25,13 @@ module Guesty
 
     private
 
+    # Sends the request through Guesty.do_request and returns the parsed body.
+    # A rejection raises its ApiError, which #call returns as the Failure.
+    # @rbs (::Symbol request_method, ::String path, ?::Hash[::Symbol, untyped] params, ?retries: ::Integer, ?timeout: ::Integer) -> untyped
+    def request(...)
+      Guesty.do_request(...).value_or { |error| raise error }.body
+    end
+
     def argument!(fatal: false, **attrs)
       key, reason = attrs.first
       raise Guesty::ArgumentError.new("#{key}: #{reason}", fatal:)

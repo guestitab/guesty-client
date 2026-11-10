@@ -8,9 +8,7 @@ module Guesty
         argument! review_id: :required if review_id.blank?
         argument! text: :required if text.blank?
 
-        response = Guesty.do_request(:put, "reviews/#{review_id}/reply", { reviewReply: text })
-
-        raise response.failure unless response.success?
+        request(:put, "reviews/#{review_id}/reply", { reviewReply: text })
 
         Success(true)
       end

@@ -11,13 +11,7 @@ module Guesty
           argument! reservation_id: :required if reservation_id.blank?
           argument! booking_date: :required if booking_date.blank?
 
-          response = Guesty.do_request(
-            :put,
-            "reservations-v3/#{reservation_id}/booking-date",
-            { bookingDate: booking_date.utc.iso8601(3) }
-          )
-
-          raise response.failure if response.failure?
+          request(:put, "reservations-v3/#{reservation_id}/booking-date", { bookingDate: booking_date.utc.iso8601(3) })
 
           Success(true)
         end

@@ -1,21 +1,12 @@
 module Guesty
   # Faraday request middleware delegating throttling to the injected limiter
   # (Guesty.config.rate_limiter), so a host can share the windows across
-  # processes. Registered as :guesty_rate_limiter.
+  # processes. Registered as :guesty_rate_limiter; options are threshold:,
+  # interval: and a key: lambda, resolved per request for the current slot.
   class RateLimiterMiddleware < Faraday::Middleware
-    # @rbs (untyped app, ?::Hash[::Symbol, untyped] options) -> void
-    def initialize(app, options = {})
-      super
-
-      @key = options[:key]
-      @threshold = options[:threshold]
-      @interval = options[:interval]
-    end
-
+    # @rbs (untyped env) -> void
     def on_request(_env)
-      key = @key.is_a?(Proc) ? @key.call : @key
-
-      Guesty.config.rate_limiter.throttle!(key:, threshold: @threshold, interval: @interval)
+      Guesty.config.rate_limiter.throttle!(key: options[:key].call, threshold: options[:threshold], interval: options[:interval])
     end
   end
 

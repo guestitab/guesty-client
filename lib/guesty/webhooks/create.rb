@@ -8,13 +8,7 @@ module Guesty
         argument! url: :required if url.blank?
         argument! events: :required if events.blank?
 
-        response = Guesty.do_request :post, 'webhooks', { url:, events: }
-
-        if response.success?
-          Success(response.value!.body)
-        else
-          response
-        end
+        Success(request(:post, 'webhooks', { url:, events: }))
       end
     end
   end

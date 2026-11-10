@@ -20,13 +20,7 @@ module Guesty
       def call(attributes:, skip: 0, take: 100)
         argument! take: :invalid if take.blank? || take <= 0
 
-        response = Guesty.do_request :get, 'listings', query(attributes, skip, take)
-
-        raise response.failure unless response.success?
-
-        body = response.value!.body
-
-        Success(body.slice(:results, :count))
+        Success(request(:get, 'listings', query(attributes, skip, take)).slice(:results, :count))
       end
 
       private
@@ -34,11 +28,11 @@ module Guesty
       def query(attributes, skip, take)
         {
           active: true,
-          fields: (attributes[:response_keys] || []).join(' '),
+          fields: Array(attributes[:response_keys]).join(' '),
           limit: take,
           skip:,
-          **(attributes[:filters].present? ? { filters: attributes[:filters].to_json } : {}),
-          **(attributes[:params] || {})
+          filters: attributes[:filters].presence&.to_json,
+          **attributes.fetch(:params, {})
         }.compact_blank
       end
     end

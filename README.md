@@ -94,10 +94,10 @@ A lane with several credentials gets one slot per credential. Each slot has its 
 Operations live under `Guesty::<Resource>::<Action>`. Build a fresh instance for every call:
 
 ```ruby
-result = Guesty::Reservations::Show.new.call(reservation_id: '67ebc9c7c5904c0010502f89', fields: %w[status money])
+result = Guesty::Reservations::Show.new.call(reservation_id: '67ebc9c7c5904c0010502f89')
 
 if result.success?
-  result.value!   # => { _id: '67ebc9c7c5904c0010502f89', status: 'confirmed', money: { ... } }
+  result.value!   # => { _id: '67ebc9c7c5904c0010502f89', status: 'confirmed', stay: [...], ... }
 else
   result.failure  # => a Guesty::Error or a Faraday::Error
 end

@@ -25,9 +25,5 @@ module Guesty
     def save(slot_key:, access_token:, expires_at:)
       @tokens[slot_key] = Token.new(access_token:, expires_at:)
     end
-
-    def clear
-      @tokens = {}
-    end
   end
 end
