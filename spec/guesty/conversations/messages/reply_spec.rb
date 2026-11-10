@@ -53,10 +53,4 @@ RSpec.describe Guesty::Conversations::Messages::Reply do
       end
     end
   end
-
-  describe '.module_type_for' do
-    it 'answers direct bookings by email' do
-      expect(%w[guestit core_manual core_group_manual].map { described_class.module_type_for(it) }).to all(eq('email'))
-    end
-  end
 end

@@ -14,7 +14,7 @@ holds the release steps.
 - `lib/guesty/rate_limiter_middleware.rb` — Faraday middleware; throttling policy lives in the
   injected `Guesty.config.rate_limiter` (`Guesty::MemoryRateLimiter` by default).
 - `lib/guesty/config.rb` — injected `credentials` (priority slots + `webhook_key`), `token_store`,
-  `rate_limiter`, `slot_picker`, `base_url`, `sync_guest_and_reservation_changes`.
+  `rate_limiter`, `slot_picker`, `base_url`, `default_currency`.
 - `lib/guesty/operation.rb` — the monadic base (`#call` returns a Result, `#call!` unwraps/raises).
 - `lib/guesty/<resource>/<action>.rb` — one operation per file, namespaced `Guesty::<Resource>::<Action>`.
 - `spec/` — RSpec + VCR; cassettes in `spec/fixtures/cassettes`.
