@@ -13,14 +13,9 @@ module Guesty
 
       # @rbs () -> Dry::Monads::Result[untyped]
       def call
-        if (token = store.read(Guesty.current_slot[:key]))
-          return Success(token)
-        end
+        slot = Guesty.current_slot
 
-        response = request_access_token
-        raise ApiError, response unless Guesty.successful_response?(response)
-
-        Success(save_token(response))
+        Success(store.read(slot[:key]) || mint(slot))
       end
 
       private
@@ -29,32 +24,15 @@ module Guesty
         Guesty.config.token_store
       end
 
-      def client_id
-        Guesty.current_slot[:client_id]
-      end
-
-      def client_secret
-        Guesty.current_slot[:secret]
-      end
-
-      def request_access_token
-        Guesty.connection(url: OAUTH_ENDPOINT, skip_auth: true).post do |req|
+      # @rbs (Guesty::slot slot) -> untyped
+      def mint(slot)
+        response = Guesty.connection(url: OAUTH_ENDPOINT, skip_auth: true).post do |req|
           req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-          req.body = {
-            grant_type: 'client_credentials',
-            scope: 'open-api',
-            client_secret:,
-            client_id:
-          }
+          req.body = { grant_type: 'client_credentials', scope: 'open-api', client_secret: slot[:secret], client_id: slot[:client_id] }
         end
-      end
+        raise ApiError, response unless Guesty.successful_response?(response)
 
-      def save_token(response)
-        store.save(
-          slot_key: Guesty.current_slot[:key],
-          access_token: response.body[:access_token],
-          expires_at: response.body[:expires_in].seconds.from_now
-        )
+        store.save(slot_key: slot[:key], access_token: response.body[:access_token], expires_at: response.body[:expires_in].seconds.from_now)
       end
     end
   end

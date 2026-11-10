@@ -9,12 +9,9 @@ module Guesty
       def call(external_id:)
         argument! external_id: :required if external_id.blank?
 
-        response = Guesty.do_request(:get, 'communication/conversations', query(external_id))
-        return response unless response.success?
+        conversation = request(:get, 'communication/conversations', query(external_id))[:data][:conversations].first
 
-        conversation = response.value!.body[:data][:conversations].first
-
-        Success(conversation && { id: conversation.fetch(:_id), reservations: Guesty::Reservations.from_conversation(conversation) })
+        Success(conversation && Conversations.summary(conversation))
       end
 
       private

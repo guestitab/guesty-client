@@ -19,8 +19,7 @@ module Guesty
       def call(attributes:)
         validate_attributes!(attributes)
 
-        response = Guesty.do_request :post, 'reservations-v3', attributes, retries: 0, timeout: 60
-        Success(handle_response(response))
+        Success(request(:post, 'reservations-v3', attributes, retries: 0, timeout: 60).fetch(:reservationId))
       end
 
       private
@@ -38,12 +37,6 @@ module Guesty
         GUEST_COUNT_KEYS.each do |key|
           argument! key => :required if guests[key].blank?
         end
-      end
-
-      def handle_response(response)
-        raise response.failure unless response.success?
-
-        response.value!.body.fetch(:reservationId)
       end
     end
   end

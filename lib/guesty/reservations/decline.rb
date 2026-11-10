@@ -11,17 +11,7 @@ module Guesty
         argument! reason: :required if reason.blank?
         argument! message: :required if message.blank?
 
-        body = {
-          reason:,
-          messageToGuest: message
-        }
-        response = Guesty.do_request(
-          :post,
-          "reservations-v3/#{reservation_id}/decline",
-          body,
-          retries: 0
-        )
-        return response unless response.success?
+        request(:post, "reservations-v3/#{reservation_id}/decline", { reason:, messageToGuest: message }, retries: 0)
 
         Success(true)
       end

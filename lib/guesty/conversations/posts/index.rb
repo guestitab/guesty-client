@@ -14,14 +14,7 @@ module Guesty
         def call(conversation_id:, cursor: nil)
           argument! conversation_id: :required if conversation_id.blank?
 
-          response = Guesty.do_request(
-            :get,
-            "communication/conversations/#{conversation_id}/posts",
-            query(cursor)
-          )
-          return response unless response.success?
-
-          Success(normalize_response(response.value!.body[:data]))
+          Success(normalize_response(request(:get, "communication/conversations/#{conversation_id}/posts", query(cursor))[:data]))
         end
 
         private
@@ -43,9 +36,7 @@ module Guesty
         end
 
         def query(cursor)
-          params = { limit: LIMIT, sort: '-createdAt' }
-          params[:cursorAfter] = cursor if cursor.present?
-          params
+          { limit: LIMIT, sort: '-createdAt', cursorAfter: cursor.presence }.compact
         end
 
         def normalize_attachments(attachments)

@@ -20,6 +20,20 @@ Migrates the reservation surface off the legacy `/reservations` resources, which
   `Source::Update`, `BookingDate::Update` and `Relocate`.
 - `Reservations::AccommodationFare::Update` reads the current fare from `GuestFolio::InvoiceItems::Index`
   instead of the legacy reservation's `money.invoiceItems`.
+- `Guesty::MemoryTokenStore#clear` and `Reservations::Payments::Create::PAYMENT_METHOD_NAME` are removed.
+  `Payments::Create` records with `Payments::Record`'s default method, still `RECORDED_CASH`.
+
+### Changed
+
+- Every operation reads its response through one private `Operation#request`, which returns the parsed body
+  and raises the `ApiError` that `#call` turns into the `Failure`. The failures are the same, with one
+  exception: `Conversations::Index` now fails with the `Guesty::ApiError` itself instead of re-wrapping its
+  message in a plain `Guesty::Error`.
+- `Reservations::Show` reads through `Reservations::Index`, and `Reservations::Flags::Update` writes through
+  `Reservations::CustomFields::Update`, so `Flags::Update` now refuses a blank `reservation_id` or `flags`
+  before any request.
+- `Conversations.summary(conversation)` builds the `{ id:, reservations: }` hash that `Conversations::Index`,
+  `Search` and `Show` return.
 
 ### Added
 

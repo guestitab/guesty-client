@@ -25,66 +25,51 @@ module Guesty
           argument! home_id: :required if home_id.blank?
           argument! end_date: :invalid if end_date <= start_date
 
-          response = fetch_calendar_data(home_id, start_date, end_date)
+          body = request(:get, "availability-pricing/api/calendar/listings/minified/#{home_id}", { startDate: start_date, endDate: end_date, view: 'full' })
 
-          raise response.failure if response.failure?
-
-          Success(normalize_calendar(response.value!.body))
+          Success(normalize_calendar(body.dig(:data, :days) || {}))
         end
 
         private
 
-        def fetch_calendar_data(home_id, start_date, end_date)
-          params = {
-            startDate: start_date,
-            endDate: end_date,
-            view: 'full'
-          }
-
-          Guesty.do_request :get, "availability-pricing/api/calendar/listings/minified/#{home_id}", params
-        end
-
-        def normalize_calendar(body)
-          calendar = body.dig(:data, :days) || {}
+        # @rbs (::Hash[::Symbol, untyped] calendar) -> ::Hash[::Symbol, untyped]
+        def normalize_calendar(calendar)
           @blocks = calendar[:blocks] || {}
           @days = calendar[:calendar] || []
+          validate_currency(calendar[:currency])
+
           available, unavailable = @days.partition { |day| available_day?(day) }
 
-          validate_currency(calendar[:currency], @days)
-
           {
-            available: attrs_for_available(available),
-            unavailable: attrs_for_unavailable(unavailable),
-            blocks: attrs_for_blocks
+            available: available.map { |day| day_attributes(day, check_in: day[:blocks].empty?) },
+            unavailable: unavailable.map { |day| day_attributes(day, check_in: false, blocked_as: day[:blocks].keys.filter_map { BLOCK_TYPE_MAPPING[it] }) },
+            blocks: @blocks.values.map { |block| block_attributes(block) }
           }
         end
 
         # The host prices in one currency; a listing in another would silently
         # misprice. Skipped when the host has not configured one.
-        # @rbs (::String? currency, ::Array[::Hash[::Symbol, untyped]] days) -> void
-        def validate_currency(currency, days)
-          return nil if days.empty? || Guesty.config.default_currency.nil?
-          return nil if currency.to_s.upcase == Guesty.config.default_currency
+        # @rbs (::String? currency) -> void
+        def validate_currency(currency)
+          return if @days.empty? || Guesty.config.default_currency.nil?
+          return if currency.to_s.upcase == Guesty.config.default_currency
 
           error! "unsupported currency #{currency}"
         end
 
         # @rbs (::Hash[::Symbol, untyped] day) -> bool
         def available_day?(day)
-          day[:blocks].empty? || day_is_available_for_checkout?(day)
+          day[:blocks].empty? || available_for_checkout?(day)
         end
 
+        # A day booked only by a reservation checking in that day still takes a
+        # check-out, unless the night before is blocked too.
         # @rbs (::Hash[::Symbol, untyped] day) -> bool
-        def day_is_available_for_checkout?(day)
+        def available_for_checkout?(day)
           return false if day[:blocks].except(:b).any?
-          return false if previous_night_blocked?(day)
+          return false if blocked_dates.include?(day[:date].to_date.prev_day.iso8601)
 
           day[:blockIds].any? { |id| @blocks.dig(id.to_sym, :reservation, :checkInDateLocalized) == day[:date] }
-        end
-
-        # @rbs (::Hash[::Symbol, untyped] day) -> bool
-        def previous_night_blocked?(day)
-          blocked_dates.include?(day[:date].to_date.prev_day.iso8601)
         end
 
         # @rbs () -> ::Set[::String]
@@ -92,41 +77,19 @@ module Guesty
           @blocked_dates ||= @days.reject { |day| day[:blocks].empty? }.to_set { |day| day[:date] }
         end
 
-        # @rbs (::Array[::Hash[::Symbol, untyped]] days) -> ::Array[::Hash[::Symbol, untyped]]
-        def attrs_for_available(days)
-          days.map do |day|
-            {
-              date: day[:date],
-              price: day[:price],
-              min_nights: day[:minNights],
-              check_in: day[:blocks].empty?
-            }
-          end
+        # @rbs (::Hash[::Symbol, untyped] day, **untyped) -> ::Hash[::Symbol, untyped]
+        def day_attributes(day, **attributes)
+          { date: day[:date], price: day[:price], min_nights: day[:minNights], **attributes }
         end
 
-        # @rbs (::Array[::Hash[::Symbol, untyped]] days) -> ::Array[::Hash[::Symbol, untyped]]
-        def attrs_for_unavailable(days)
-          days.map do |day|
-            {
-              date: day[:date],
-              price: day[:price],
-              min_nights: day[:minNights],
-              check_in: false,
-              blocked_as: day[:blocks].keys.filter_map { |key| BLOCK_TYPE_MAPPING[key] }
-            }
-          end
-        end
-
-        # @rbs () -> ::Array[::Hash[::Symbol, untyped]]
-        def attrs_for_blocks
-          @blocks.values.map do |block|
-            {
-              kind: BLOCK_TYPE_MAPPING[block[:type].to_sym],
-              start_date: block[:startDate].to_date,
-              end_date: block[:endDate].to_date,
-              comment: block[:note].presence
-            }
-          end
+        # @rbs (::Hash[::Symbol, untyped] block) -> ::Hash[::Symbol, untyped]
+        def block_attributes(block)
+          {
+            kind: BLOCK_TYPE_MAPPING[block[:type].to_sym],
+            start_date: block[:startDate].to_date,
+            end_date: block[:endDate].to_date,
+            comment: block[:note].presence
+          }
         end
       end
     end

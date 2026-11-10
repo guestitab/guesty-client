@@ -13,11 +13,7 @@ module Guesty
           missing = REQUIRED_ATTRIBUTES.find { |attribute| attributes[attribute].blank? }
           argument! missing => :required if missing
 
-          response = Guesty.do_request :post, 'guests-crud', attributes, retries: 0
-
-          raise response.failure unless response.success?
-
-          Success(response.value!.body)
+          Success(request(:post, 'guests-crud', attributes, retries: 0))
         end
       end
     end

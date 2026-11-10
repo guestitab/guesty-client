@@ -12,10 +12,7 @@ module Guesty
         argument! reservation_ids: :required if reservation_ids.blank?
         argument! reservation_ids: :invalid if reservation_ids.size > TAKE
 
-        response = Guesty.do_request(:get, 'reservations-v3', { reservationIds: reservation_ids })
-        return response unless response.success?
-
-        Success(response.value!.body)
+        Success(request(:get, 'reservations-v3', { reservationIds: reservation_ids }))
       end
     end
   end

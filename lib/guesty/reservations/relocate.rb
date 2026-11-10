@@ -10,15 +10,8 @@ module Guesty
         argument! reservation_id: :required if reservation_id.blank?
         argument! listing_id: :required if listing_id.blank?
 
-        body = {
-          listingId: listing_id,
-          ignoreCalendar: ignore_calendar,
-          ignoreTerms: ignore_terms,
-          ignoreBlocks: ignore_blocks
-        }.compact
-        response = Guesty.do_request(:put, "reservations-v3/#{reservation_id}/relocate", body)
-
-        raise response.failure if response.failure?
+        body = { listingId: listing_id, ignoreCalendar: ignore_calendar, ignoreTerms: ignore_terms, ignoreBlocks: ignore_blocks }.compact
+        request(:put, "reservations-v3/#{reservation_id}/relocate", body)
 
         Success(true)
       end

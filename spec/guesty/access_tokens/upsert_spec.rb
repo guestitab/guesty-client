@@ -19,7 +19,7 @@ RSpec.describe Guesty::AccessTokens::Upsert do
   end
 
   context 'when no token is stored', vcr: { cassette_name: 'access_tokens/upsert' } do
-    before { store.clear }
+    before { Guesty.config.token_store = Guesty::MemoryTokenStore.new }
 
     it 'mints and stores a token' do
       expect(result.value!.access_token).to eq('<API_TOKEN>')

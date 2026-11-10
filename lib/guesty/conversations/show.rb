@@ -9,16 +9,7 @@ module Guesty
       def call(conversation_id:)
         argument! conversation_id: :required if conversation_id.blank?
 
-        response = Guesty.do_request(
-          :get,
-          "communication/conversations/#{conversation_id}",
-          { fields: FIELDS }
-        )
-        return response unless response.success?
-
-        conversation = response.value!.body[:data]
-
-        Success({ id: conversation.fetch(:_id), reservations: Guesty::Reservations.from_conversation(conversation) })
+        Success(Conversations.summary(request(:get, "communication/conversations/#{conversation_id}", { fields: FIELDS })[:data]))
       end
     end
   end

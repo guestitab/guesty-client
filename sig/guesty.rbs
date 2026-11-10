@@ -90,7 +90,6 @@ module Guesty
 
     def read: (::String slot_key) -> Token?
     def save: (slot_key: ::String, access_token: ::String, expires_at: ::Time) -> Token
-    def clear: () -> ::Hash[untyped, untyped]
   end
 
   class MemoryRateLimiter
@@ -98,7 +97,6 @@ module Guesty
   end
 
   class RateLimiterMiddleware
-    def initialize: (untyped app, ?::Hash[::Symbol, untyped] options) -> void
     def on_request: (untyped env) -> void
   end
 
@@ -252,7 +250,6 @@ module Guesty
 
     module Payments
       class Create
-        PAYMENT_METHOD_NAME: ::String
         HISTORY_UNAVAILABLE: ::String
 
         def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
@@ -288,6 +285,7 @@ module Guesty
     CHANNELS: ::Hash[::String, ::String]
 
     def self.channel: (::String module_type) -> ::String
+    def self.summary: (untyped conversation) -> ::Hash[::Symbol, untyped]
 
     class Index
       FIELDS: ::String

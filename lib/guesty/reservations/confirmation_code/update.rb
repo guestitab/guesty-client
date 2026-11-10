@@ -13,13 +13,7 @@ module Guesty
           argument! confirmation_code: :required if confirmation_code.blank?
           argument! confirmation_code: :invalid unless LENGTH.cover?(confirmation_code.length)
 
-          response = Guesty.do_request(
-            :put,
-            "reservations-v3/#{reservation_id}/confirmation-code",
-            { confirmationCode: confirmation_code }
-          )
-
-          raise response.failure if response.failure?
+          request(:put, "reservations-v3/#{reservation_id}/confirmation-code", { confirmationCode: confirmation_code })
 
           Success(true)
         end

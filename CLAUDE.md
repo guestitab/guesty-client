@@ -42,6 +42,9 @@ holds the release steps.
   return `Dry::Monads::Result`, invoke with a fresh instance (`Op.new.call(...)` / `Op.new.call!(...)`).
 - Validate arguments up front with `argument!` (e.g. `argument! reservation_id: :required`) before
   any network call.
+- Send each request with the private `request(method, path, params, **options)`: it returns the parsed
+  body and raises a rejection's `ApiError`, which `#call` returns as the `Failure`. Wrap the value in
+  `Success(...)`.
 - Keep all HTTP and response normalization in `Guesty`'s module functions and the operations; never
   leak wire decisions past the operation boundary.
 - No `Rails`, no app constants — the gem stays framework-free (host injects config). ActiveSupport

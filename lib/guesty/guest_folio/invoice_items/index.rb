@@ -13,10 +13,7 @@ module Guesty
         def call(reservation_id:)
           argument! reservation_id: :required if reservation_id.blank?
 
-          response = Guesty.do_request(:get, 'guest-folio/invoice-items', query(reservation_id))
-          return response unless response.success?
-
-          Success(normalize_response(response.value!.body, reservation_id))
+          Success(normalize_response(request(:get, 'guest-folio/invoice-items', query(reservation_id)), reservation_id))
         end
 
         private

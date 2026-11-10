@@ -9,11 +9,7 @@ module Guesty
           argument! guest_id: :required if guest_id.blank?
           argument! attributes: :required, fatal: true if attributes.blank?
 
-          response = Guesty.do_request :put, "guests-crud/#{guest_id}", prepare_tags(guest_id, attributes)
-
-          raise response.failure unless response.success?
-
-          Success(response.value!.body)
+          Success(request(:put, "guests-crud/#{guest_id}", prepare_tags(guest_id, attributes)))
         end
 
         private

@@ -8,11 +8,7 @@ module Guesty
         argument! title: :required if title.blank?
         argument! section: :required if section.blank?
 
-        response = Guesty.do_request :post, 'views', { title:, section: }
-
-        raise response.failure unless response.success?
-
-        Success(response.value!.body)
+        Success(request(:post, 'views', { title:, section: }))
       end
     end
   end

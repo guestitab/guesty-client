@@ -1,6 +1,6 @@
 module Guesty
   module Reservations
-    # Reads one reservation from reservations-v3 (the legacy /reservations/{id}
+    # Reads one reservation through Index (the legacy /reservations/{id}
     # retires on 2027-03-01). The payload carries stay segments (stay[] with
     # unitId/unitTypeId, localized dates, eta/etd and the guests breakdown), an
     # embedded money object and channelMetadata; the guest comes by reference
@@ -12,10 +12,7 @@ module Guesty
       def call(reservation_id:)
         argument! reservation_id: :required if reservation_id.blank?
 
-        response = Guesty.do_request(:get, 'reservations-v3', { reservationIds: [reservation_id] })
-        return response unless response.success?
-
-        reservation = response.value!.body.find { |row| row[:_id] == reservation_id }
+        reservation = Index.new.call!(reservation_ids: [reservation_id]).value!.find { |row| row[:_id] == reservation_id }
         error! "Reservation #{reservation_id} not found on Guesty", fatal: true unless reservation
 
         Success(reservation)

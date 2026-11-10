@@ -15,10 +15,7 @@ module Guesty
       def call(reservation_id:, attributes:)
         validate_arguments!(reservation_id:, attributes:)
 
-        response = Guesty.do_request(:post, 'payments/record', payload(reservation_id:, attributes:), retries: 0)
-        return response unless response.success?
-
-        Success(response.value!.body)
+        Success(request(:post, 'payments/record', payload(reservation_id:, attributes:), retries: 0))
       end
 
       private

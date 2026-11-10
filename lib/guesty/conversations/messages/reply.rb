@@ -27,15 +27,9 @@ module Guesty
           argument! module_type: :invalid, fatal: true if !module_type.nil? && module_type.blank?
 
           # On `platform` Guesty picks the booking channel, or email, and echoes the channel it used.
-          response = Guesty.do_request(
-            :post,
-            "communication/conversations/#{conversation_id}/send-message",
-            { module: { type: module_type || 'platform' }, body: },
-            retries: 0
-          )
-          return response unless response.success?
+          post = request(:post, "communication/conversations/#{conversation_id}/send-message", { module: { type: module_type || 'platform' }, body: }, retries: 0)
 
-          Success(normalize(response.value!.body.fetch(:data)))
+          Success(normalize(post.fetch(:data)))
         end
 
         private

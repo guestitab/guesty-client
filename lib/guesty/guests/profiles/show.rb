@@ -8,14 +8,7 @@ module Guesty
         def call(guest_id:, fields: nil)
           argument! guest_id: :required if guest_id.blank?
 
-          attributes = {} #: ::Hash[::Symbol, ::String]
-          attributes[:fields] = fields.join(' ') if fields.present?
-
-          response = Guesty.do_request :get, "guests-crud/#{guest_id}", attributes
-
-          raise response.failure unless response.success?
-
-          Success(response.value!.body)
+          Success(request(:get, "guests-crud/#{guest_id}", { fields: fields&.join(' ') }.compact_blank))
         end
       end
     end

@@ -15,8 +15,7 @@ module Guesty
           adjustment = amount.to_d - current_fare(reservation_id)
           return Success(adjustment) if adjustment.zero?
 
-          response = Guesty.do_request :post, 'price-adjustments/manual-total-amount', payload(reservation_id, adjustment), retries: 0
-          return response unless response.success?
+          request(:post, 'price-adjustments/manual-total-amount', payload(reservation_id, adjustment), retries: 0)
 
           Success(adjustment)
         end
@@ -31,7 +30,7 @@ module Guesty
         def current_fare(reservation_id)
           items = GuestFolio::InvoiceItems::Index.new.call!(reservation_id:).value!
 
-          items.select { |item| FARE_TYPES.include?(item[:normal_type]) }.sum(BigDecimal('0')) { |item| item[:amount] || BigDecimal('0') }
+          items.select { |item| FARE_TYPES.include?(item[:normal_type]) }.sum(0.to_d) { |item| item[:amount].to_d }
         end
 
         # @rbs (::String reservation_id, ::BigDecimal adjustment) -> ::Hash[::Symbol, untyped]
