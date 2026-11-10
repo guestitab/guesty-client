@@ -1,5 +1,5 @@
 RSpec.describe Guesty::Reservations::Recover do
-  subject(:result) { described_class.new.call(**args) }
+  include_context 'operations'
 
   let(:args) { { confirmation_code: 'HMYWKZA92Z', start_date: Date.new(2026, 7, 1), end_date: Date.new(2026, 7, 2) } }
   let(:endpoint) { 'https://open-api.guesty.com/v1/reservations-v3/search' }

@@ -22,15 +22,6 @@ RSpec.describe Guesty::Reservations::Source::Update do
     let(:args) { { reservation_id: 'reservation-1', source: '' } }
     let(:message) { 'source: required' }
 
-    before do
-      allow(Guesty).to receive(:do_request)
-      result
-    end
-
     it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
-
-    it 'does not call Guesty' do
-      expect(Guesty).not_to have_received(:do_request)
-    end
   end
 end

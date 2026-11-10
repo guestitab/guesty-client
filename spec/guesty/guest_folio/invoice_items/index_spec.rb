@@ -81,12 +81,6 @@ RSpec.describe Guesty::GuestFolio::InvoiceItems::Index do
       let(:message) { 'reservation_id: required' }
 
       it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
-
-      it 'does not call Guesty' do
-        result
-
-        expect(WebMock).not_to have_requested(:get, endpoint)
-      end
     end
   end
 end

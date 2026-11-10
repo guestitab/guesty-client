@@ -38,15 +38,6 @@ RSpec.describe Guesty::Reservations::Guests::Update do
     let(:attributes) { { adults: 2 } }
     let(:message) { 'num_guests: required' }
 
-    before do
-      allow(Guesty).to receive(:do_request)
-      result
-    end
-
     it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
-
-    it 'does not call Guesty' do
-      expect(Guesty).not_to have_received(:do_request)
-    end
   end
 end

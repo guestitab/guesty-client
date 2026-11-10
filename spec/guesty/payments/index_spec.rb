@@ -1,5 +1,5 @@
 RSpec.describe Guesty::Payments::Index do
-  subject(:result) { described_class.new.call(**args) }
+  include_context 'operations'
 
   let(:args) { { reservation_id: } }
   let(:reservation_id) { '67ebc9c7c5904c0010502f89' }

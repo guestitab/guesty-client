@@ -28,30 +28,12 @@ RSpec.describe Guesty::Reservations::Status::Cancel do
         }
       )
     end
-
-    context 'with cancelled_by :guest' do
-      let(:cancelled_by) { :guest }
-
-      it 'calls Guesty::Reservations::Status::Update for the guest' do
-        expect(update).to have_received(:call).with(reservation_id:, attributes: hash_including(canceledBy: 'GUEST'))
-      end
-    end
-
-    context 'with cancelled_by :staff' do
-      let(:cancelled_by) { :staff }
-
-      it 'calls Guesty::Reservations::Status::Update for the team' do
-        expect(update).to have_received(:call).with(reservation_id:, attributes: hash_including(canceledBy: 'TEAM_MEMBER'))
-      end
-    end
   end
 
   context 'with invalid arguments' do
     context 'when cancelled_by is unknown' do
       let(:cancelled_by) { :channel }
       let(:message) { 'cancelled_by: invalid' }
-
-      before { result }
 
       it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
     end

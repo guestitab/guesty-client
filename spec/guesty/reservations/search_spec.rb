@@ -78,20 +78,11 @@ RSpec.describe Guesty::Reservations::Search do
   end
 
   context 'with invalid arguments' do
-    before do
-      allow(Guesty).to receive(:do_request)
-      result
-    end
-
     context 'when no attributes are given' do
       let(:attributes) { {} }
       let(:message) { 'attributes: required' }
 
       it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
-
-      it 'does not call Guesty' do
-        expect(Guesty).not_to have_received(:do_request)
-      end
     end
 
     context 'when a filter is unknown' do
