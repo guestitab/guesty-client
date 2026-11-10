@@ -1,38 +1,66 @@
 module Guesty
   module Reservations
-    # Searches the legacy /reservations index (deprecated, switching off at the
-    # end of 2026 — new reservation calls use reservations-v3).
+    # Searches the reservations-v3 index (the legacy /reservations index retires
+    # on 2027-03-01). The payload is lean and fixed: the item id is reservationId
+    # and guest, money and conversationId are not embedded — use Show,
+    # Guests::Profiles::Show and Payments::Index for those. There is no
+    # lastUpdatedAt filter; order incremental syncs on the reservation.updated.v2
+    # webhook instead.
     class Search
       include Guesty::Operation
 
+      # Identifier fields accept one value or an Array (an implicit "in"); range
+      # fields take a Ruby Range of dates or datetimes.
       FILTER_MAPPINGS = {
-        ids: { field: '_id', operator: '$in' },
-        updated_at: { field: 'lastUpdatedAt', operator: '$gt' },
-        conversation_id: { field: 'conversationId', operator: '$eq' },
-        status: { field: 'status', operator: '$eq' },
-        confirmation_code: { field: 'confirmationCode', operator: '$eq' }
+        status: { field: 'status' },
+        confirmation_code: { field: 'confirmationCode' },
+        listing_id: { field: 'listingId' },
+        source: { field: 'source' },
+        check_in: { field: 'checkIn', range: :date },
+        check_out: { field: 'checkOut', range: :date },
+        created_at: { field: 'createdAt', range: :datetime }
       }.freeze
 
-      # @rbs (::Hash[::Symbol, untyped] attributes) -> ::Array[::Hash[::Symbol, untyped]]
-      def self.filters(attributes)
-        attributes.map do |key, value|
-          normalized = key == :updated_at ? value&.strftime('%Y-%m-%d') : value
+      SORTS = %w[_id -_id checkIn -checkIn checkOut -checkOut createdAt -createdAt].freeze #: ::Array[::String]
+      TAKE = 100 #: ::Integer # Max allowed by the Guesty API
 
-          FILTER_MAPPINGS.fetch(key).merge(value: normalized)
+      # @rbs (::Hash[::Symbol, untyped] attributes) -> ::Array[::Hash[::Symbol, ::String]]
+      def self.filters(attributes)
+        attributes.flat_map do |key, value|
+          mapping = FILTER_MAPPINGS.fetch(key)
+          next [{ name: "filter[#{mapping[:field]}]", value: Array.wrap(value).join(',') }] unless mapping[:range]
+
+          range_entries(mapping.fetch(:range), mapping.fetch(:field), value)
         end
       end
 
-      # @rbs (fields: ::Array[::String], attributes: ::Hash[::Symbol, untyped], ?skip: ::Integer, ?take: ::Integer) -> Dry::Monads::Result[::Hash[::Symbol, untyped]]
-      def call(fields:, attributes:, skip: 0, take: 100)
-        validate_arguments!(fields:, attributes:, take:)
+      # @rbs (::Symbol kind, ::String field, ::Range range) -> ::Array[::Hash[::Symbol, ::String]]
+      def self.range_entries(kind, field, range)
+        entries = []
+        entries << { name: "filter[#{field}][gte]", value: range_bound(kind, range.begin) } if range.begin
+        entries << { name: "filter[#{field}][#{range.exclude_end? ? 'lt' : 'lte'}]", value: range_bound(kind, range.end) } if range.end
 
-        response = Guesty.do_request(:get, 'reservations', params(fields:, attributes:, skip:, take:))
+        entries
+      end
+      private_class_method :range_entries
+
+      # @rbs (::Symbol kind, untyped value) -> ::String
+      def self.range_bound(kind, value)
+        kind == :date ? value.strftime('%Y-%m-%d') : value.iso8601
+      end
+      private_class_method :range_bound
+
+      # @rbs (attributes: ::Hash[::Symbol, untyped], ?skip: ::Integer, ?take: ::Integer, ?sort: ::String) -> Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      def call(attributes:, skip: 0, take: TAKE, sort: 'createdAt')
+        validate_arguments!(attributes:, take:, sort:)
+
+        response = Guesty.do_request(:get, 'reservations-v3/search', params(attributes:, skip:, take:, sort:))
         return response unless response.success?
 
         body = response.value!.body
         result = {
           results: body[:results],
-          count: body[:count]
+          pagination: body[:pagination]
         }
 
         Success(result)
@@ -40,23 +68,33 @@ module Guesty
 
       private
 
-      def validate_arguments!(fields:, attributes:, take:)
-        argument! fields: :required, fatal: true if fields.blank?
+      def validate_arguments!(attributes:, take:, sort:)
         argument! attributes: :required if attributes.blank?
-        argument! take: :invalid if take && take <= 0
+        argument! take: :invalid if take <= 0
+        argument! sort: :invalid unless SORTS.include?(sort)
         argument! attributes: :invalid unless attributes.keys.all? { |name| FILTER_MAPPINGS.key?(name) }
-        argument! updated_at: :required if attributes.key?(:updated_at) && attributes[:updated_at].blank?
-        argument! ids: :required if attributes.key?(:ids) && attributes[:ids].empty?
+
+        attributes.each { |key, value| validate_filter!(key, value) }
       end
 
-      def params(fields:, attributes:, skip:, take:)
-        {
-          filters: self.class.filters(attributes).to_json,
-          sort: 'createdAt',
-          limit: take,
-          skip:,
-          fields: fields.join(' ')
-        }
+      # @rbs (::Symbol key, untyped value) -> void
+      def validate_filter!(key, value)
+        mapping = FILTER_MAPPINGS.fetch(key)
+
+        if mapping[:range]
+          argument! key => :invalid unless value.is_a?(Range) && (value.begin || value.end)
+        elsif value.blank?
+          argument! key => :required
+        end
+      end
+
+      # @rbs (attributes: ::Hash[::Symbol, untyped], skip: ::Integer, take: ::Integer, sort: ::String) -> ::Hash[::String, untyped]
+      def params(attributes:, skip:, take:, sort:)
+        self.class.filters(attributes).to_h { |entry| [entry[:name], entry[:value]] }.merge(
+          'sort' => sort,
+          'limit' => take,
+          'skip' => skip
+        )
       end
     end
   end

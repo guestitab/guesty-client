@@ -2,6 +2,40 @@
 
 ## [Unreleased]
 
+Migrates the reservation surface off the legacy `/reservations` resources, which Guesty retires on
+2027-03-01 (<https://open-api-docs.guesty.com/docs/reservation-migration>).
+
+### Breaking
+
+- `Reservations::Search` now reads `GET /reservations-v3/search`: the `fields:` keyword is gone (the payload
+  is fixed and lean, keyed by `reservationId`; guest, money and conversationId are not embedded) and the
+  result is `{ results:, pagination: }` with `pagination.hasMore` instead of `count`. Filters are
+  `status`, `confirmation_code`, `listing_id`, `source` (one value or an Array) and `check_in`, `check_out`,
+  `created_at` (a Ruby Range); `ids`, `updated_at` and `conversation_id` have no v3 equivalent.
+- `Reservations::Show` now reads `GET /reservations-v3`: the `fields:` keyword is gone, and an unknown id
+  fails with a fatal `Guesty::Error` instead of a 404 `Guesty::ApiError`.
+- `Reservations::Update` and `Reservations::Stays::Update` are removed. The broad `PUT /reservations/{id}`
+  is replaced by one endpoint per operation: `Status::Update`/`Status::Cancel`, `Dates::Update`,
+  `CustomFields::Update` (all unchanged) plus the new `Guests::Update`, `ConfirmationCode::Update`,
+  `Source::Update`, `BookingDate::Update` and `Relocate`.
+- `Reservations::AccommodationFare::Update` reads the current fare from `GuestFolio::InvoiceItems::Index`
+  instead of the legacy reservation's `money.invoiceItems`.
+
+### Added
+
+- `Reservations::Index`: up to 10 reservations by id from `GET /reservations-v3`.
+- `Reservations::Guests::Update`: `PUT /reservations-v3/{id}/guests` (guestsCount + numberOfGuests).
+- `Reservations::ConfirmationCode::Update`: `PUT /reservations-v3/{id}/confirmation-code`.
+- `Reservations::Source::Update`: `PUT /reservations-v3/{id}/source`.
+- `Reservations::BookingDate::Update`: `PUT /reservations-v3/{id}/booking-date` (the real-world booking
+  date; `createdAt` stays canonical for Guesty).
+- `Reservations::Relocate`: `PUT /reservations-v3/{id}/relocate` (change the listing).
+- `Payments::Index`: `GET /payments` — a reservation's payments with `totalPaid`, `balanceDue` and
+  `isFullyPaid`.
+- `Payments::Record`: `POST /payments/record` — record an offline payment. `Reservations::Payments::Create`
+  keeps its contract on top of these two (same idempotency per payment intent; the write now sends
+  `shouldBePaidAt` instead of `paidAt`).
+
 ## [0.1.0] - 2026-11-08
 
 First release as `guesty-client`, extracted from the Guesty integration Guestit runs in production. The specs are

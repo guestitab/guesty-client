@@ -1,141 +1,126 @@
 RSpec.describe Guesty::Reservations::Search do
   include_context 'operations'
 
-  let(:args) { { fields:, attributes:, skip: 0, take: } }
-
-  let(:fields) { %w[_id listing._id conversationId] }
-  let(:take) { 2 }
+  let(:args) { { attributes:, skip: 0, take: } }
+  let(:take) { 100 }
+  let(:endpoint) { 'https://open-api.guesty.com/v1/reservations-v3/search' }
+  let(:body) do
+    {
+      results: [
+        {
+          reservationId: '67acc90e908e2e0012d1207d',
+          confirmationCode: 'HMYWKZA92Z',
+          status: 'confirmed',
+          guestId: '67acc90e6c81408ce5418909',
+          checkInDateLocalized: '2026-07-01',
+          checkOutDateLocalized: '2026-07-02',
+          source: 'airbnb2',
+          channel: 'airbnb2',
+          createdAt: '2026-04-25T10:00:00.000Z',
+          stay: [{ listingId: '67acc856c4410c00111a503d', checkInDateLocalized: '2026-07-01', checkOutDateLocalized: '2026-07-02', guestsCount: 2 }]
+        }
+      ],
+      pagination: { skip: 0, limit: take, hasMore: false }
+    }
+  end
 
   context 'with valid arguments' do
-    context 'with filter by updated_at', vcr: { cassette_name: 'reservations/search/by_updated_at' } do
-      let(:attributes) { { status: 'confirmed', updated_at: Date.new(2025, 4, 25) } }
+    before do
+      stub_request(:get, endpoint).with(query: query).to_return(status: 200, body: body.to_json, headers: { 'Content-Type' => 'application/json' })
 
-      it_behaves_like 'successful call', value_containing: -> {
-        {
-          results: array_including(
-            {
-              _id: '67acc90e908e2e0012d1207d',
-              integration: {
-                platform: 'airbnb2',
-                _id: '67acc6323649273a904219d2',
-                limitations: {
-                  availableStatuses: []
-                }
-              },
-              listingId: '67acc856c4410c00111a503d',
-              listing: { _id: '67acc856c4410c00111a503d' },
-              guest: { _id: '67acc90e6c81408ce5418909' },
-              accountId: '67853b83eab5de1fd4c47333',
-              guestId: '67acc90e6c81408ce5418909',
-              conversationId: '67acc90e2d225600118d1f21'
-            }
-          ),
-          count: 14_622
-        }
-      }
+      result
     end
 
-    context 'with filter by confirmation_code', vcr: { cassette_name: 'reservations/search/by_confirmation_code' } do
-      let(:fields) { %w[_id listingId checkInDateLocalized checkOutDateLocalized status confirmationCode] }
-      let(:attributes) { { confirmation_code: 'test_20260526_001' } }
+    context 'with filter by confirmation_code' do
+      let(:attributes) { { confirmation_code: 'HMYWKZA92Z' } }
+      let(:query) { { 'filter' => { 'confirmationCode' => 'HMYWKZA92Z' }, 'sort' => 'createdAt', 'limit' => '100', 'skip' => '0' } }
 
       it_behaves_like 'successful call', value_containing: -> {
         {
-          results: array_including(
-            a_hash_including(
-              _id: '6a16cb5e0e9ec09fac1bf576',
-              confirmationCode: 'test_20260526_001',
-              listingId: '67ee2d9c059de0003a2982be',
-              checkInDateLocalized: '2026-07-01',
-              checkOutDateLocalized: '2026-07-02',
-              status: 'confirmed'
-            )
-          ),
-          count: 1
+          results: array_including(a_hash_including(reservationId: '67acc90e908e2e0012d1207d', status: 'confirmed')),
+          pagination: { skip: 0, limit: 100, hasMore: false }
         }
       }
+
+      it 'queries with the bracket filter, sort and pagination' do
+        expect(WebMock).to have_requested(:get, endpoint).with(query:)
+      end
     end
 
-    context 'with filter by conversation_id', vcr: { cassette_name: 'reservations/search/by_conversation_id' } do
-      let(:attributes) { { conversation_id: '681076f4449c980012deb0af' } }
+    context 'with several statuses' do
+      let(:attributes) { { status: %w[confirmed reserved] } }
+      let(:query) { hash_including('filter' => { 'status' => 'confirmed,reserved' }) }
 
-      it_behaves_like 'successful call', value_containing: -> {
-        {
-          results: array_including(
-            _id: '681077829605200010d12a42',
-            integration: {
-              platform: 'airbnb2',
-              _id: '67e1e9cc14219fe46bde9681',
-              limitations: {
-                availableStatuses: []
-              }
-            },
-            accountId: '67853b83eab5de1fd4c47333',
-            guestId: '68107782cea427f4361abe89',
-            guest: {
-              _id: '68107782cea427f4361abe89'
-            },
-            listingId: '67e1ea3beb4ba10072a5f2ac',
-            listing: { _id: '67e1ea3beb4ba10072a5f2ac' },
-            conversationId: '681076f4449c980012deb0af'
-          ),
-          count: 1
-        }
-      }
+      it 'joins the values into an implicit in' do
+        expect(WebMock).to have_requested(:get, endpoint).with(query:)
+      end
     end
 
-    context 'with filter by ids', vcr: { cassette_name: 'reservations/search/by_ids' } do
-      let(:fields) { %w[_id guestId] }
-      let(:take) { 3 }
-      let(:attributes) { { ids: %w[67ef2397a7e0120013639de9 6aa3f3176b27db61c82ecbd9 6aa3d53238b6c0de2750c9bc] } }
+    context 'with a check-in range' do
+      let(:attributes) { { check_in: Date.new(2026, 1, 1)...Date.new(2026, 2, 1) } }
+      let(:query) { hash_including('filter' => { 'checkIn' => { 'gte' => '2026-01-01', 'lt' => '2026-02-01' } }) }
 
-      it_behaves_like 'successful call', value_containing: -> {
-        {
-          results: contain_exactly(
-            a_hash_including(_id: '67ef2397a7e0120013639de9', guestId: be_a(String)),
-            a_hash_including(_id: '6aa3f3176b27db61c82ecbd9', guestId: be_a(String)),
-            a_hash_including(_id: '6aa3d53238b6c0de2750c9bc', guestId: be_a(String))
-          ),
-          count: 3
-        }
-      }
+      it_behaves_like 'successful call'
+
+      it 'maps the range onto gte and lt operators' do
+        expect(WebMock).to have_requested(:get, endpoint).with(query:)
+      end
+    end
+
+    context 'with a created_at range' do
+      let(:attributes) { { created_at: Time.utc(2026, 1, 1)..Time.utc(2026, 2, 1) } }
+      let(:query) { hash_including('filter' => { 'createdAt' => { 'gte' => '2026-01-01T00:00:00Z', 'lte' => '2026-02-01T00:00:00Z' } }) }
+
+      it 'maps the range onto ISO 8601 bounds' do
+        expect(WebMock).to have_requested(:get, endpoint).with(query:)
+      end
     end
   end
 
   context 'with invalid arguments' do
-    context 'when no fields are requested' do
-      let(:fields) { [] }
-      let(:attributes) { { ids: ['reservation-1'] } }
-      let(:message) { 'fields: required' }
+    before do
+      allow(Guesty).to receive(:do_request)
+      result
+    end
 
-      before do
-        allow(Guesty).to receive(:do_request)
-        result
-      end
+    context 'when no attributes are given' do
+      let(:attributes) { {} }
+      let(:message) { 'attributes: required' }
 
       it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
-
-      it 'preserves the fatal flag' do
-        expect(result.failure).to have_attributes(fatal: true)
-      end
 
       it 'does not call Guesty' do
         expect(Guesty).not_to have_received(:do_request)
       end
     end
 
-    {
-      'when the ids are empty' => {
-        attributes: -> { { ids: [] } },
-        message: 'ids: required'
-      }
-    }.each do |description, lets|
-      context description do
-        let(:attributes, &lets[:attributes])
-        let(:message) { lets[:message] }
+    context 'when a filter is unknown' do
+      let(:attributes) { { updated_at: Date.new(2026, 1, 1) } }
+      let(:message) { 'attributes: invalid' }
 
-        it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
-      end
+      it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
+    end
+
+    context 'when an identifier filter is blank' do
+      let(:attributes) { { confirmation_code: '' } }
+      let(:message) { 'confirmation_code: required' }
+
+      it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
+    end
+
+    context 'when a range filter is not a range' do
+      let(:attributes) { { check_in: Date.new(2026, 1, 1) } }
+      let(:message) { 'check_in: invalid' }
+
+      it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
+    end
+
+    context 'when the sort is unsupported' do
+      let(:attributes) { { status: 'confirmed' } }
+      let(:args) { { attributes:, sort: 'lastUpdatedAt' } }
+      let(:message) { 'sort: invalid' }
+
+      it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
     end
   end
 end

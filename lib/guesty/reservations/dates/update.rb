@@ -32,6 +32,7 @@ module Guesty
             plannedDeparture: attributes[:check_out]&.strftime('%H:%M'),
             ignoreCalendar: attributes[:ignore_calendar],
             ignoreTerms: attributes[:ignore_terms],
+            ignoreBlocks: attributes[:ignore_blocks],
             applyRecalculation: false
           }.compact
         end

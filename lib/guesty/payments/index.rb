@@ -1,0 +1,20 @@
+module Guesty
+  module Payments
+    # Lists a reservation's payments plus the summary fields (totalPaid,
+    # balanceDue, isFullyPaid, ...). One reservation per request. Replaces the
+    # money.payments read on the legacy reservation resource.
+    class Index
+      include Guesty::Operation
+
+      # @rbs (reservation_id: ::String) -> Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      def call(reservation_id:)
+        argument! reservation_id: :required if reservation_id.blank?
+
+        response = Guesty.do_request(:get, 'payments', { reservationId: reservation_id })
+        return response unless response.success?
+
+        Success(response.value!.body)
+      end
+    end
+  end
+end

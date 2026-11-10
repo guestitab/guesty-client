@@ -124,15 +124,24 @@ module Guesty
     def self.from_conversation: (untyped conversation) -> ::Array[::Hash[::Symbol, untyped]]
 
     class Search
-      FILTER_MAPPINGS: ::Hash[::Symbol, ::Hash[::Symbol, ::String]]
+      FILTER_MAPPINGS: ::Hash[::Symbol, ::Hash[::Symbol, untyped]]
+      SORTS: ::Array[::String]
+      TAKE: ::Integer
 
-      def self.filters: (::Hash[::Symbol, untyped] attributes) -> ::Array[::Hash[::Symbol, untyped]]
-      def call: (fields: ::Array[::String], attributes: ::Hash[::Symbol, untyped], ?skip: ::Integer, ?take: ::Integer) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      def self.filters: (::Hash[::Symbol, untyped] attributes) -> ::Array[::Hash[::Symbol, ::String]]
+      def call: (attributes: ::Hash[::Symbol, untyped], ?skip: ::Integer, ?take: ::Integer, ?sort: ::String) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
       alias call! call
     end
 
     class Show
-      def call: (reservation_id: ::String, fields: ::Array[::String]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      def call: (reservation_id: ::String) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    class Index
+      TAKE: ::Integer
+
+      def call: (reservation_ids: ::Array[::String]) -> ::Dry::Monads::Result[::Array[::Hash[::Symbol, untyped]]]
       alias call! call
     end
 
@@ -141,8 +150,8 @@ module Guesty
       alias call! call
     end
 
-    class Update
-      def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[bool]
+    class Relocate
+      def call: (reservation_id: ::String, listing_id: ::String, ?ignore_calendar: bool?, ?ignore_terms: bool?, ?ignore_blocks: bool?) -> ::Dry::Monads::Result[bool]
       alias call! call
     end
 
@@ -187,9 +196,32 @@ module Guesty
       end
     end
 
-    module Stays
+    module Guests
       class Update
-        def call: (reservation_id: ::String, stay: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[bool]
+        def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+    end
+
+    module ConfirmationCode
+      class Update
+        LENGTH: ::Range
+
+        def call: (reservation_id: ::String, confirmation_code: ::String) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+    end
+
+    module Source
+      class Update
+        def call: (reservation_id: ::String, source: ::String, ?point_of_sale: ::String?, ?apply_recalculation: bool?) -> ::Dry::Monads::Result[bool]
+        alias call! call
+      end
+    end
+
+    module BookingDate
+      class Update
+        def call: (reservation_id: ::String, booking_date: ::Time) -> ::Dry::Monads::Result[bool]
         alias call! call
       end
     end
@@ -314,6 +346,21 @@ module Guesty
         def call: (keys: ::Array[::String]) -> ::Dry::Monads::Result[::Hash[::String, ::String]]
         alias call! call
       end
+    end
+  end
+
+  module Payments
+    class Index
+      def call: (reservation_id: ::String) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
+    end
+
+    class Record
+      METHODS: ::Array[::String]
+      NOTE_MAX_LENGTH: ::Integer
+
+      def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      alias call! call
     end
   end
 

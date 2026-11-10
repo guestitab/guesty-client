@@ -3,7 +3,9 @@ module Guesty
     module Payments
       # Records a payment taken outside Guesty. Idempotent per payment intent:
       # a reservation already fully paid, or with a payment noting the intent,
-      # is returned without a post.
+      # is returned without a post. Reads the payment summary from GET /payments
+      # and writes through POST /payments/record (the legacy
+      # /reservations/{id}/payments resources retire on 2027-03-01).
       class Create
         include Guesty::Operation
 
@@ -16,12 +18,17 @@ module Guesty
 
           @reservation_id = reservation_id
 
-          return Success(reservation) if fully_paid? || recorded?(attributes)
+          return Success(summary) if fully_paid? || recorded?(attributes)
 
-          response = Guesty.do_request :post, "reservations/#{reservation_id}/payments", payload(attributes), retries: 0
-          return response unless response.success?
-
-          Success(response.value!.body)
+          ::Guesty::Payments::Record.new.call(
+            reservation_id:,
+            attributes: {
+              amount: attributes[:amount],
+              paid_at: attributes[:paid_at],
+              note: note(attributes),
+              method: PAYMENT_METHOD_NAME
+            }
+          )
         end
 
         private
@@ -36,35 +43,28 @@ module Guesty
         end
 
         # @rbs () -> ::Hash[::Symbol, untyped]
-        def reservation
-          @reservation ||= Show.new.call!(reservation_id: @reservation_id, fields: %w[money.isFullyPaid money.payments money.totalPaid]).value!
+        def summary
+          @summary ||= ::Guesty::Payments::Index.new.call!(reservation_id: @reservation_id).value!
         end
 
         # @rbs () -> bool
         def fully_paid?
-          reservation[:money][:isFullyPaid]
+          summary[:isFullyPaid]
         end
 
         # @rbs (::Hash[::Symbol, untyped] attributes) -> bool
         def recorded?(attributes)
-          payments = reservation[:money][:payments]
+          history = summary[:payments]
 
-          return payments.any? { |payment| payment[:note]&.include?(attributes[:payment_intent_id]) } if payments
-          return false if reservation[:money][:totalPaid]&.zero?
+          return history.any? { |payment| payment[:note]&.include?(attributes[:payment_intent_id]) } if history
+          return false if summary[:totalPaid]&.zero?
 
           error! HISTORY_UNAVAILABLE
         end
 
-        # @rbs (::Hash[::Symbol, untyped] attributes) -> ::Hash[::Symbol, untyped]
-        def payload(attributes)
-          {
-            paymentMethod: {
-              method: PAYMENT_METHOD_NAME
-            },
-            amount: attributes[:amount],
-            paidAt: attributes[:paid_at].strftime('%Y-%m-%d'),
-            note: "Payment recorded in Guestit.se / Stripe #{attributes[:payment_intent_id]}"
-          }
+        # @rbs (::Hash[::Symbol, untyped] attributes) -> ::String
+        def note(attributes)
+          "Payment recorded in Guestit.se / Stripe #{attributes[:payment_intent_id]}"
         end
       end
     end

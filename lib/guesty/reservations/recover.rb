@@ -7,11 +7,8 @@ module Guesty
 
       # @rbs (confirmation_code: ::String, start_date: ::Date, end_date: ::Date) -> Dry::Monads::Result[::String?]
       def call(confirmation_code:, start_date:, end_date:)
-        fields = %w[_id listingId checkInDateLocalized checkOutDateLocalized status confirmationCode]
-        attributes = { confirmation_code: }
         result = Guesty::Reservations::Search.new.call!(
-          fields:,
-          attributes:,
+          attributes: { confirmation_code: },
           take: 2
         ).value!
         candidate = result.fetch(:results).find do |reservation|
@@ -20,7 +17,7 @@ module Guesty
             reservation[:checkOutDateLocalized] == end_date.iso8601
         end
 
-        Success(candidate&.dig(:_id))
+        Success(candidate&.dig(:reservationId))
       end
     end
   end

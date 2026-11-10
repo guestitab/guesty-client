@@ -54,9 +54,18 @@ reservations, custom fields and replies back.
 
 ## Reservations
 
-- The legacy `/reservations` endpoints are deprecated and switch off at the end of 2026. Still on them:
-  `Reservations::Search`, `Reservations::Show`, `Reservations::Update` and `Reservations::Payments::Create`. New
-  reservation calls use `reservations-v3`.
+- The legacy `/reservations` endpoints retire on 2027-03-01, along with the legacy reservation webhooks and the
+  legacy guest payment resources (migration guide: https://open-api-docs.guesty.com/docs/reservation-migration,
+  read it with `.md` appended). Retrieval: `Reservations::Search` (`GET reservations-v3/search`; filters
+  `status`, `confirmation_code`, `listing_id`, `source` or a Range on `check_in`/`check_out`/`created_at`; no
+  lastUpdatedAt filter, no `fields:` selection, items keyed by `reservationId`), `Reservations::Show` and
+  `Reservations::Index` (`GET reservations-v3` by id, up to 10 ids; stay segments, embedded money and
+  channelMetadata, guest only by `bookerId`). Writes are one endpoint per operation: `Status::Update`,
+  `Status::Cancel`, `Dates::Update`, `Guests::Update`, `ConfirmationCode::Update`, `Source::Update`,
+  `BookingDate::Update`, `Relocate`, `CustomFields::Update`. Payments: `Payments::Index` (`GET /payments`) and
+  `Payments::Record` (`POST /payments/record`; 503 PAYMENT_RESERVATION_NOT_READY right after creation is
+  transient) — `Reservations::Payments::Create` composes them. `AccommodationFare::Update` reads the fare from
+  `GuestFolio::InvoiceItems::Index` and posts `price-adjustments/manual-total-amount` (both unchanged).
 - Status changes go through `Reservations::Status::Update` or `Status::Cancel` (`canceledBy` GUEST, OWNER or
   TEAM_MEMBER); a canceled reservation refuses a full `Update` with 400. `::Reservations::Groups::Cancel`,
   `::Reservations::Groups::Book` and `::Reservations::Manual::Create` still cancel through the legacy

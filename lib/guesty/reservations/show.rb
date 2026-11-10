@@ -1,27 +1,24 @@
 module Guesty
   module Reservations
+    # Reads one reservation from reservations-v3 (the legacy /reservations/{id}
+    # retires on 2027-03-01). The payload carries stay segments (stay[] with
+    # unitId/unitTypeId, localized dates, eta/etd and the guests breakdown), an
+    # embedded money object and channelMetadata; the guest comes by reference
+    # (bookerId) through Guests::Profiles::Show.
     class Show
       include Guesty::Operation
 
-      # @rbs (reservation_id: ::String, fields: ::Array[::String]) -> Dry::Monads::Result[::Hash[::Symbol, untyped]]
-      def call(reservation_id:, fields: [])
+      # @rbs (reservation_id: ::String) -> Dry::Monads::Result[::Hash[::Symbol, untyped]]
+      def call(reservation_id:)
         argument! reservation_id: :required if reservation_id.blank?
-        argument! fields: :required if fields.blank?
 
-        attributes = {} #: ::Hash[::Symbol, ::String]
-        attributes[:fields] = fields.join(' ') if fields.present?
+        response = Guesty.do_request(:get, 'reservations-v3', { reservationIds: [reservation_id] })
+        return response unless response.success?
 
-        response = Guesty.do_request :get, "reservations/#{reservation_id}", attributes
+        reservation = response.value!.body.find { |row| row[:_id] == reservation_id }
+        error! "Reservation #{reservation_id} not found on Guesty", fatal: true unless reservation
 
-        Success(handle_response(response))
-      end
-
-      private
-
-      def handle_response(response)
-        raise response.failure unless response.success?
-
-        response.value!.body
+        Success(reservation)
       end
     end
   end

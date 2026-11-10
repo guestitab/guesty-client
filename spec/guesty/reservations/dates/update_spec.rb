@@ -21,7 +21,8 @@ RSpec.describe Guesty::Reservations::Dates::Update do
         check_in: Time.utc(2026, 1, 1, 16, 0),
         check_out: Time.utc(2026, 1, 1, 10, 0),
         ignore_calendar: ignore_constraints,
-        ignore_terms: ignore_constraints
+        ignore_terms: ignore_constraints,
+        ignore_blocks: ignore_constraints
       )
     end
     let(:wire_attributes) do
@@ -32,8 +33,9 @@ RSpec.describe Guesty::Reservations::Dates::Update do
         plannedDeparture: '10:00',
         ignoreCalendar: ignore_constraints,
         ignoreTerms: ignore_constraints,
+        ignoreBlocks: ignore_constraints,
         applyRecalculation: false
-      }
+      }.compact
     end
 
     before do
