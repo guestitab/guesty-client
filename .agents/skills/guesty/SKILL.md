@@ -59,8 +59,8 @@ reservations, custom fields and replies back.
   read it with `.md` appended). Retrieval: `Reservations::Search` (`GET reservations-v3/search`; filters
   `status`, `confirmation_code`, `listing_id`, `source` or a Range on `check_in`/`check_out`/`created_at`; no
   lastUpdatedAt filter, no `fields:` selection, items keyed by `reservationId`), `Reservations::Show` and
-  `Reservations::Index` (`GET reservations-v3` by id, up to 10 ids; stay segments, embedded money and
-  channelMetadata, guest only by `bookerId`). Writes are one endpoint per operation: `Status::Update`,
+  `Reservations::Index` (`GET reservations-v3` by id, up to 10 ids; stay segments and channelMetadata, guest only
+  by `bookerId`, no money: payout and payments come from `Payments::Index`). Writes are one endpoint per operation: `Status::Update`,
   `Status::Cancel`, `Dates::Update`, `Guests::Update`, `ConfirmationCode::Update`, `Source::Update`,
   `BookingDate::Update`, `Relocate`, `CustomFields::Update`. Payments: `Payments::Index` (`GET /payments`) and
   `Payments::Record` (`POST /payments/record`; 503 PAYMENT_RESERVATION_NOT_READY right after creation is
