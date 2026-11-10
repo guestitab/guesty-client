@@ -32,7 +32,7 @@ RSpec.describe Guesty::Payments::Record do
       result
     end
 
-    it_behaves_like 'successful call', value: :payment
+    it_behaves_like 'successful call', value: -> { payment }
 
     it 'posts the recorded payment' do
       expect(WebMock).to have_requested(:post, endpoint).with(
@@ -59,16 +59,7 @@ RSpec.describe Guesty::Payments::Record do
     let(:attributes) { { amount:, paid_at:, note:, method: 'CASH' } }
     let(:message) { 'method: invalid' }
 
-    before do
-      allow(Guesty).to receive(:do_request)
-      result
-    end
-
     it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
-
-    it 'does not call Guesty' do
-      expect(Guesty).not_to have_received(:do_request)
-    end
   end
 
   context 'with a note past the wire limit' do

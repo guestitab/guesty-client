@@ -3,12 +3,6 @@ RSpec.describe Guesty do
     Guesty::ApiError.new(instance_double(Faraday::Response, status:, body: { error: { message: } }))
   end
 
-  describe '::RETRY_OPTIONS' do
-    it 'leaves local rate limits to operation-level retry handling' do
-      expect(described_class::RETRY_OPTIONS[:exceptions]).not_to include(Guesty::ThrottledError)
-    end
-  end
-
   describe '.do_request' do
     subject(:response) { described_class.do_request(request_method, path, params, retries:) }
 

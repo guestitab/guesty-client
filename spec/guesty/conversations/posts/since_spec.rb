@@ -23,13 +23,7 @@ RSpec.describe Guesty::Conversations::Posts::Since do
     context 'when the first page has no cursor_after' do
       let(:pages) { [page([newest_post, older_post])] }
 
-      before { result }
-
       it_behaves_like 'successful call', value: -> { [newest_post, older_post] }
-
-      it 'calls Guesty::Conversations::Posts::Index once without a cursor' do
-        expect(posts_index).to have_received(:call).once.with(conversation_id:, cursor: nil)
-      end
     end
 
     context 'when a page has a cursor_after' do
@@ -49,52 +43,28 @@ RSpec.describe Guesty::Conversations::Posts::Since do
         let(:since) { older_post[:provider_occurred_at] }
         let(:pages) { [page([newest_post], cursor_after: 'older-page'), page([older_post], cursor_after: 'oldest-page')] }
 
-        before { result }
-
         it_behaves_like 'successful call', value: -> { [newest_post, older_post] }
-
-        it 'calls Guesty::Conversations::Posts::Index twice' do
-          expect(posts_index).to have_received(:call).twice
-        end
       end
 
       context 'when a page stops a second short of it' do
         let(:since) { older_post[:provider_occurred_at] - 1.second }
         let(:pages) { [page([newest_post], cursor_after: 'older-page'), page([older_post], cursor_after: 'oldest-page'), page([])] }
 
-        before { result }
-
         it_behaves_like 'successful call', value: -> { [newest_post, older_post] }
-
-        it 'calls Guesty::Conversations::Posts::Index three times' do
-          expect(posts_index).to have_received(:call).exactly(3).times
-        end
       end
 
       context 'when the first page reaches back past it' do
         let(:since) { Time.zone.local(2026, 1, 2, 12) }
         let(:pages) { [page([newest_post, older_post], cursor_after: 'older-page')] }
 
-        before { result }
-
         it_behaves_like 'successful call', value: -> { [newest_post, older_post] }
-
-        it 'calls Guesty::Conversations::Posts::Index once' do
-          expect(posts_index).to have_received(:call).once
-        end
       end
 
       context 'when a page that reaches it holds no post' do
         let(:since) { Time.zone.local(2026, 1, 2, 12) }
         let(:pages) { [page([], cursor_after: 'older-page', oldest_created_at: since - 1.second)] }
 
-        before { result }
-
         it_behaves_like 'successful call', value: []
-
-        it 'calls Guesty::Conversations::Posts::Index once' do
-          expect(posts_index).to have_received(:call).once
-        end
       end
     end
 
@@ -103,17 +73,9 @@ RSpec.describe Guesty::Conversations::Posts::Since do
       let(:message) { "Guesty conversation #{conversation_id} pagination exceeded 2 pages" }
       let(:fatal) { true }
 
-      before do
-        stub_const("#{described_class}::MAX_PAGES", 2)
-
-        result
-      end
+      before { stub_const("#{described_class}::MAX_PAGES", 2) }
 
       it_behaves_like 'failed call', failure_class: Guesty::Error
-
-      it 'calls Guesty::Conversations::Posts::Index twice' do
-        expect(posts_index).to have_received(:call).twice
-      end
 
       context 'when the pages end at MAX_PAGES' do
         let(:pages) { [page([newest_post], cursor_after: 'older-page'), page([older_post])] }

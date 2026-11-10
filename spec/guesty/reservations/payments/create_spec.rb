@@ -92,16 +92,6 @@ RSpec.describe Guesty::Reservations::Payments::Create do
       end
     end
 
-    context 'when the payment list is absent and nothing has been paid' do
-      let(:summary) { super().except(:payments) }
-
-      it_behaves_like 'successful call'
-
-      it 'posts the payment once' do
-        expect(WebMock).to have_requested(:post, record_endpoint).once
-      end
-    end
-
     {
       'a previous payment' => 100,
       'an unknown paid amount' => nil

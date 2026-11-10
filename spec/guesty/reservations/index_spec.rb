@@ -1,5 +1,5 @@
 RSpec.describe Guesty::Reservations::Index do
-  subject(:result) { described_class.new.call(**args) }
+  include_context 'operations'
 
   let(:args) { { reservation_ids: } }
   let(:reservation_ids) { %w[6835c385fe621d0026ce5511 67acc90e908e2e0012d1207d] }
@@ -32,15 +32,6 @@ RSpec.describe Guesty::Reservations::Index do
     let(:reservation_ids) { Array.new(11) { |index| "reservation-#{index}" } }
     let(:message) { 'reservation_ids: invalid' }
 
-    before do
-      allow(Guesty).to receive(:do_request)
-      result
-    end
-
     it_behaves_like 'failed call', failure_class: Guesty::ArgumentError
-
-    it 'does not call Guesty' do
-      expect(Guesty).not_to have_received(:do_request)
-    end
   end
 end

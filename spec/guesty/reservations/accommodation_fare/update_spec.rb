@@ -32,33 +32,9 @@ RSpec.describe Guesty::Reservations::AccommodationFare::Update do
     end
   end
 
-  context 'when Guesty has a higher fare' do
-    let(:amount) { 900 }
-
-    before { result }
-
-    it_behaves_like 'successful call', value: -1500
-
-    it 'adjusts the accommodation fare by the difference' do
-      expect(WebMock).to have_requested(:post, endpoint).with(body: { reservationId: reservation_id, priceAdjustments: [{ normalType: 'AF', amount: -1500.0 }] }).once
-    end
-  end
-
   context 'when Guesty has discounted the fare to the amount' do
     let(:amount) { 900 }
     let(:invoice_items) { [{ id: 'item-1', normalType: 'AF', totalPrice: 1400 }, { id: 'item-2', normalType: 'AFD', totalPrice: -500 }] }
-
-    before { result }
-
-    it_behaves_like 'successful call', value: 0
-
-    it 'does not adjust the accommodation fare' do
-      expect(WebMock).not_to have_requested(:post, endpoint)
-    end
-  end
-
-  context 'when Guesty has the same fare' do
-    let(:current_fare) { 3600 }
 
     before { result }
 

@@ -1,5 +1,5 @@
 RSpec.describe Guesty::Reservations::Show do
-  subject(:result) { described_class.new.call(**args) }
+  include_context 'operations'
 
   let(:args) { { reservation_id: } }
   let(:reservation_id) { '6835c385fe621d0026ce5511' }
