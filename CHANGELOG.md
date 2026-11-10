@@ -2,8 +2,11 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-10
+
 Migrates the reservation surface off the legacy `/reservations` resources, which Guesty retires on
-2027-03-01 (<https://open-api-docs.guesty.com/docs/reservation-migration>).
+2027-03-01 (<https://open-api-docs.guesty.com/docs/reservation-migration>), and moves the pieces that spoke
+Guestit's own vocabulary back into the host.
 
 ### Breaking
 
@@ -83,5 +86,6 @@ that integration's provider specs, ported with their recorded VCR cassettes.
   - Webhooks: `Index`, `Create`, `Update`, `Sync`, `Signatures::Verify` for Svix signatures.
   - Views: `Create`, `Update`.
 
-[Unreleased]: https://github.com/guestitab/guesty-client/compare/v0.1.0...staging
+[Unreleased]: https://github.com/guestitab/guesty-client/compare/v0.2.0...staging
+[0.2.0]: https://github.com/guestitab/guesty-client/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/guestitab/guesty-client/releases/tag/v0.1.0
