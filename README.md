@@ -42,7 +42,6 @@ end
 | `token_store` | `Guesty::MemoryTokenStore` | Holds one access token per credential slot. |
 | `rate_limiter` | `Guesty::MemoryRateLimiter` | Counts requests per slot and window. |
 | `slot_picker` | first slot | `->(slots, priority) { slot }`, called when a lane has several credentials. |
-| `custom_fields` | `{}` | Account custom field ids by flag name, read by `Reservations::Flags::Update`. |
 | `default_currency` | `nil` | When set, `Homes::Calendars::Show` refuses a calendar priced in another currency. |
 | `base_url` | `https://open-api.guesty.com/v1/` | API root. |
 

@@ -91,11 +91,6 @@ module Guesty
     config.credentials[:webhook_key]
   end
 
-  # @rbs () -> bool
-  def self.sync_guest_and_reservation_changes?
-    !!config.sync_guest_and_reservation_changes
-  end
-
   # @rbs (::Symbol priority) -> slot
   def self.pick_slot(priority)
     slots = token_slots(priority)

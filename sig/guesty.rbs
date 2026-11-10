@@ -24,7 +24,6 @@ module Guesty
   def self.rate_limit_key: (::Symbol window) -> ::Symbol
   def self.token_slots: (?::Symbol priority) -> ::Array[slot]
   def self.webhook_key: () -> ::String?
-  def self.sync_guest_and_reservation_changes?: () -> bool
   def self.pick_slot: (::Symbol priority) -> slot
   def self.successful_response?: (untyped response) -> bool
   def self.retryable_read?: (::StandardError error) -> bool
@@ -74,8 +73,6 @@ module Guesty
     attr_accessor rate_limiter: untyped
     attr_accessor slot_picker: untyped
     attr_accessor base_url: ::String
-    attr_accessor sync_guest_and_reservation_changes: bool
-    attr_accessor custom_fields: ::Hash[::Symbol, ::String]
     attr_accessor default_currency: ::String?
   end
 
@@ -224,13 +221,6 @@ module Guesty
       end
     end
 
-    module Flags
-      class Update
-        def call: (reservation_id: ::String, flags: ::Hash[::Symbol, bool]) -> ::Dry::Monads::Result[bool]
-        alias call! call
-      end
-    end
-
     module AccommodationFare
       class Update
         FARE_TYPES: ::Array[::String]
@@ -244,15 +234,6 @@ module Guesty
     module CustomFields
       class Update
         def call: (reservation_id: ::String, custom_fields: ::Array[::Hash[::Symbol, untyped]]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
-        alias call! call
-      end
-    end
-
-    module Payments
-      class Create
-        HISTORY_UNAVAILABLE: ::String
-
-        def call: (reservation_id: ::String, attributes: ::Hash[::Symbol, untyped]) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
         alias call! call
       end
     end
@@ -328,10 +309,6 @@ module Guesty
 
     module Messages
       class Reply
-        BOOKING_MODULE_TYPES: ::Hash[::String, ::String]
-
-        def self.module_type_for: (::String? channel_name) -> ::String?
-
         def call: (conversation_id: ::String, body: ::String, ?module_type: ::String?) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
         alias call! call
       end

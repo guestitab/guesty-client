@@ -20,8 +20,16 @@ Migrates the reservation surface off the legacy `/reservations` resources, which
   `Source::Update`, `BookingDate::Update` and `Relocate`.
 - `Reservations::AccommodationFare::Update` reads the current fare from `GuestFolio::InvoiceItems::Index`
   instead of the legacy reservation's `money.invoiceItems`.
-- `Guesty::MemoryTokenStore#clear` and `Reservations::Payments::Create::PAYMENT_METHOD_NAME` are removed.
-  `Payments::Create` records with `Payments::Record`'s default method, still `RECORDED_CASH`.
+- Host vocabulary moves out of the gem, into the host:
+  - `Reservations::Payments::Create` is removed. It was Guestit's idempotent record of a Stripe payment;
+    compose `Payments::Index` and `Payments::Record` instead.
+  - `Reservations::Flags::Update` and `config.custom_fields` are removed. Pass the account's field ids to
+    `Reservations::CustomFields::Update`.
+  - `config.sync_guest_and_reservation_changes` and `Guesty.sync_guest_and_reservation_changes?` are
+    removed. The gem never read the flag.
+  - `Conversations::Messages::Reply::BOOKING_MODULE_TYPES` and `.module_type_for` are removed. They mapped
+    the host's channel names to Guesty module types.
+- `Guesty::MemoryTokenStore#clear` is removed.
 
 ### Changed
 
@@ -29,9 +37,7 @@ Migrates the reservation surface off the legacy `/reservations` resources, which
   and raises the `ApiError` that `#call` turns into the `Failure`. The failures are the same, with one
   exception: `Conversations::Index` now fails with the `Guesty::ApiError` itself instead of re-wrapping its
   message in a plain `Guesty::Error`.
-- `Reservations::Show` reads through `Reservations::Index`, and `Reservations::Flags::Update` writes through
-  `Reservations::CustomFields::Update`, so `Flags::Update` now refuses a blank `reservation_id` or `flags`
-  before any request.
+- `Reservations::Show` reads through `Reservations::Index`.
 - `Conversations.summary(conversation)` builds the `{ id:, reservations: }` hash that `Conversations::Index`,
   `Search` and `Show` return.
 
@@ -46,9 +52,8 @@ Migrates the reservation surface off the legacy `/reservations` resources, which
 - `Reservations::Relocate`: `PUT /reservations-v3/{id}/relocate` (change the listing).
 - `Payments::Index`: `GET /payments` — a reservation's payments with `totalPaid`, `balanceDue` and
   `isFullyPaid`.
-- `Payments::Record`: `POST /payments/record` — record an offline payment. `Reservations::Payments::Create`
-  keeps its contract on top of these two (same idempotency per payment intent; the write now sends
-  `shouldBePaidAt` instead of `paidAt`).
+- `Payments::Record`: `POST /payments/record` — record an offline payment (`shouldBePaidAt`, method
+  `RECORDED_CASH` unless given).
 
 ## [0.1.0] - 2026-11-08
 

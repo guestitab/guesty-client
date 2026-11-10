@@ -63,11 +63,6 @@ RSpec.configure do |config|
       guesty.credentials = GUESTY_TEST_CREDENTIALS
       guesty.token_store = Guesty::MemoryTokenStore.new
       guesty.rate_limiter = Guesty::MemoryRateLimiter.new
-      guesty.custom_fields = {
-        blacklisted: '6821ff700090ff004bcc8175',
-        grants_created: '68303d6eee7db8001b2b9da7',
-        grants_partial: '6a3b1269be29410014f4fb7d'
-      }
       guesty.default_currency = 'SEK'
       guesty.slot_picker = ->(slots, _priority) { slots.first }
 
