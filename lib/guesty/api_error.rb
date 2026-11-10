@@ -1,7 +1,4 @@
 module Guesty
-  # A rejected Guesty response. Carries the response and its parsed body, and
-  # classifies transience so callers can tell a retryable glitch from a write
-  # that never landed (see Guesty.unapplied? and Guesty.delivery_unknown?).
   class ApiError < Error
     GLITCH_MESSAGES = Regexp.union(
       /An invalid response was received from the upstream server/,
@@ -26,8 +23,7 @@ module Guesty
       super(error_message.to_s.presence || response.status.to_s)
     end
 
-    # The status Guesty meant: one tunnelled through an HTTP 200 body, or one
-    # relayed from upstream in the message, else the HTTP status.
+    # Guesty tunnels errors through HTTP 200 bodies and relays upstream ones in the message.
     # @rbs () -> Integer
     def status
       body_status = @raw_body[:status] if @raw_body.is_a?(Hash)

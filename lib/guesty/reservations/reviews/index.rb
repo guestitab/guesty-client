@@ -1,8 +1,7 @@
 module Guesty
   module Reservations
     module Reviews
-      # startDate/endDate filter on the review's updatedAt, newest update first.
-      # A review the channel extractor cannot read is skipped.
+      # startDate filters on the review's updatedAt.
       class Index
         include Guesty::Operation
 

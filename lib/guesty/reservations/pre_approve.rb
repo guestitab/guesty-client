@@ -1,7 +1,6 @@
 module Guesty
   module Reservations
-    # Pre-approves an inquiry (Airbnb only, asynchronous). An inquiry cannot be
-    # declined through the API.
+    # Airbnb only. An inquiry cannot be declined through the API.
     class PreApprove
       include Guesty::Operation
 

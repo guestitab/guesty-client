@@ -1,16 +1,10 @@
 module Guesty
   module Reservations
-    # Searches the reservations-v3 index (the legacy /reservations index retires
-    # on 2027-03-01). The payload is lean and fixed: the item id is reservationId
-    # and guest, money and conversationId are not embedded — use Show,
-    # Guests::Profiles::Show and Payments::Index for those. There is no
-    # lastUpdatedAt filter; order incremental syncs on the reservation.updated.v2
-    # webhook instead.
+    # Rows are lean, keyed by reservationId. There is no lastUpdatedAt filter:
+    # follow updates through the reservation.updated.v2 webhook.
     class Search
       include Guesty::Operation
 
-      # Identifier fields accept one value or an Array (an implicit "in"); range
-      # fields take a Ruby Range of dates or datetimes.
       FILTER_MAPPINGS = {
         status: { field: 'status' },
         confirmation_code: { field: 'confirmationCode' },

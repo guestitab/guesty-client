@@ -1,7 +1,6 @@
 module Guesty
   module Reservations
     module ConfirmationCode
-      # Replaces the confirmation code of a reservation (5-30 characters).
       class Update
         include Guesty::Operation
 

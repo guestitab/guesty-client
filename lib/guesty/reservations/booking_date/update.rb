@@ -1,8 +1,6 @@
 module Guesty
   module Reservations
     module BookingDate
-      # Sets the real-world booking date (bookingDate) of a reservation; Guesty
-      # keeps createdAt as the canonical entry time. Sent in UTC.
       class Update
         include Guesty::Operation
 

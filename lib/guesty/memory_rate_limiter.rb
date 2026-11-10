@@ -1,7 +1,4 @@
 module Guesty
-  # The default rate limiter: in-memory fixed windows per key. Per-process only;
-  # a host running several processes injects a shared backend, such as Redis,
-  # via Guesty.config.rate_limiter.
   class MemoryRateLimiter
     def initialize
       @windows = {}

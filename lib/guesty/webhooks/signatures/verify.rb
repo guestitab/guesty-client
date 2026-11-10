@@ -3,10 +3,8 @@ require 'openssl'
 
 module Guesty
   module Webhooks
-    # Guesty delivers webhooks through Svix, which signs every request. The secret is the
-    # base64 after the optional whsec_ prefix of the account signing key, the signed content is
-    # "<svix-id>.<svix-timestamp>.<raw body>", and svix-signature lists space-separated
-    # "version,base64-HMAC-SHA256" entries, one per active key.
+    # Svix signs "<svix-id>.<svix-timestamp>.<raw body>" with the base64 after the whsec_ prefix;
+    # svix-signature lists space-separated "version,base64-HMAC-SHA256" entries, one per active key.
     module Signatures
       class Verify
         include Guesty::Operation
@@ -34,8 +32,7 @@ module Guesty
 
         private
 
-        # A timestamp outside the tolerance fails even with a valid signature, so a captured
-        # delivery cannot be replayed later.
+        # Refuses replays of a captured delivery.
         # @rbs (untyped header) -> void
         def verify_timestamp!(header)
           timestamp = Integer(header, exception: false)

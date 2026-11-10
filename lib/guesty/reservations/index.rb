@@ -1,6 +1,5 @@
 module Guesty
   module Reservations
-    # Reads up to TAKE reservations by id in one call (GET /reservations-v3).
     # Unknown ids are silently absent from the response.
     class Index
       include Guesty::Operation

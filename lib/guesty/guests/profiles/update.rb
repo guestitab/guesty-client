@@ -14,8 +14,7 @@ module Guesty
 
         private
 
-        # Actions on a single tag are not supported by Guesty.
-        # Instead, we fetch all tags and upload a modified array.
+        # Guesty has no per-tag action, so the whole tag list is read and replaced.
         def prepare_tags(guest_id, attributes)
           tags_to_add = attributes[:addTags] || []
           tags_to_remove = attributes[:removeTags] || []

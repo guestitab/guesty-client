@@ -1,9 +1,6 @@
 module Guesty
   module Reservations
     module Guests
-      # Updates the guest count breakdown of a reservation (guestsCount and
-      # numberOfGuests). Financial recalculation is applied automatically by
-      # Guesty.
       class Update
         include Guesty::Operation
 

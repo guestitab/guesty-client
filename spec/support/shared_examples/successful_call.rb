@@ -1,5 +1,3 @@
-# `value:` pins the exact value; `value_containing:` matches it against a
-# matcher or a fuzzy Hash/Array. A Proc is evaluated in the example.
 RSpec.shared_examples 'successful call' do |**expected|
   def resolve(expected) = expected.is_a?(Proc) ? instance_exec(&expected) : expected
 

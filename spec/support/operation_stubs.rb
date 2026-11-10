@@ -1,6 +1,3 @@
-# Operations run as Op.new.call/Op.new.call!. operation_stub(Op) makes `new`
-# return a verifying double, memoized per class per example so allow/expect
-# pairs address the same double; its #call! unwraps the stubbed #call.
 module OperationStubs
   def operation_stub(klass)
     operation_stubs[klass] ||= instance_double(klass).tap do |double|

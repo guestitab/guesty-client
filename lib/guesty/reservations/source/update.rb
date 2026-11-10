@@ -1,8 +1,6 @@
 module Guesty
   module Reservations
     module Source
-      # Changes a reservation's source (and optionally its point of sale). Pass
-      # apply_recalculation: false to keep the stored financials untouched.
       class Update
         include Guesty::Operation
 
