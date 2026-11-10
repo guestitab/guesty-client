@@ -16,7 +16,8 @@ Guestit's own vocabulary back into the host.
   `status`, `confirmation_code`, `listing_id`, `source` (one value or an Array) and `check_in`, `check_out`,
   `created_at` (a Ruby Range); `ids`, `updated_at` and `conversation_id` have no v3 equivalent.
 - `Reservations::Show` now reads `GET /reservations-v3`: the `fields:` keyword is gone, and an unknown id
-  fails with a fatal `Guesty::Error` instead of a 404 `Guesty::ApiError`.
+  fails with a fatal `Guesty::Error` instead of a 404 `Guesty::ApiError`. The v3 reservation embeds no
+  `money`: read `hostPayout`, `totalPaid` and `currency` from `Payments::Index`.
 - `Reservations::Update` and `Reservations::Stays::Update` are removed. The broad `PUT /reservations/{id}`
   is replaced by one endpoint per operation: `Status::Update`/`Status::Cancel`, `Dates::Update`,
   `CustomFields::Update` (all unchanged) plus the new `Guests::Update`, `ConfirmationCode::Update`,

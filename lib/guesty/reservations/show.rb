@@ -2,9 +2,10 @@ module Guesty
   module Reservations
     # Reads one reservation through Index (the legacy /reservations/{id}
     # retires on 2027-03-01). The payload carries stay segments (stay[] with
-    # unitId/unitTypeId, localized dates, eta/etd and the guests breakdown), an
-    # embedded money object and channelMetadata; the guest comes by reference
-    # (bookerId) through Guests::Profiles::Show.
+    # unitId/unitTypeId, localized dates, eta/etd and the guests breakdown) and
+    # channelMetadata. Nothing is embedded: the guest comes by reference
+    # (bookerId) through Guests::Profiles::Show, the payout and payments through
+    # Payments::Index, and the pricing through GuestFolio.
     class Show
       include Guesty::Operation
 
