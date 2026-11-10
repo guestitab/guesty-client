@@ -4,7 +4,7 @@ module Guesty
       class Update
         include Guesty::Operation
 
-        # @rbs (reservation_id: ::String, custom_fields: ::Array[::Hash[::Symbol, untyped]]) -> Dry::Monads::Result[::Hash[::Symbol, untyped]]
+        # @rbs (reservation_id: ::String, custom_fields: ::Array[::Hash[::Symbol, untyped]]) -> Dry::Monads::Result[untyped]
         def call(reservation_id:, custom_fields:)
           argument! reservation_id: :required if reservation_id.blank?
           argument! custom_fields: :required if custom_fields.blank?
