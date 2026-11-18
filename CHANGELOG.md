@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-19
+
 ### Added
 
 - `Reservations::Resolutions::Index` reads `GET /airbnb-resolutions-center/reservations/{id}/resolutions`, the
@@ -103,6 +105,8 @@ that integration's provider specs, ported with their recorded VCR cassettes.
   - Webhooks: `Index`, `Create`, `Update`, `Sync`, `Signatures::Verify` for Svix signatures.
   - Views: `Create`, `Update`.
 
-[Unreleased]: https://github.com/guestitab/guesty-client/compare/v0.2.0...staging
+[Unreleased]: https://github.com/guestitab/guesty-client/compare/v0.2.2...staging
+[0.2.2]: https://github.com/guestitab/guesty-client/compare/v0.2.1...v0.2.2
+[0.2.1]: https://github.com/guestitab/guesty-client/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/guestitab/guesty-client/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/guestitab/guesty-client/releases/tag/v0.1.0
