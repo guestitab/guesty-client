@@ -238,6 +238,23 @@ module Guesty
       end
     end
 
+    module Resolutions
+      class Index
+        CLOSED_STATE: ::String
+
+        type resolution = {
+          external_id: ::String,
+          state: ::String?,
+          amount_paid: ::BigDecimal?,
+          currency: ::String?,
+          closed_at: ::Time?
+        }
+
+        def call: (reservation_id: ::String, created_at: ::Range[::Time | ::ActiveSupport::TimeWithZone]) -> ::Dry::Monads::Result[::Array[resolution]]
+        alias call! call
+      end
+    end
+
     module Reviews
       class Index
         def call: (since: ::Time, ?skip: ::Integer, ?take: ::Integer) -> ::Dry::Monads::Result[::Array[::Hash[::Symbol, untyped]]]

@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- `Reservations::Resolutions::Index` reads `GET /airbnb-resolutions-center/reservations/{id}/resolutions`, the
+  reservation's closed Airbnb Resolution Center requests created in the `created_at:` Range (both ends required).
+  Each comes back as `{ external_id:, state:, amount_paid:, currency:, closed_at: }`: `external_id` is Airbnb's
+  request id (as in `airbnb.com/resolutions/<id>`), `state` the lowercased status (`CLOSED_STATE`) and `closed_at`
+  Airbnb's last update.
+
 ## [0.2.1] - 2026-11-18
 
 ### Added
