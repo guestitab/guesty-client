@@ -96,6 +96,10 @@ reservations, custom fields and replies back.
 - Reservation log posts, including Airbnb alteration requests, import as system lines. `guest-folio.updated` imports
   closed Airbnb Resolution Center items through `GuestFolio::InvoiceItems::Index`: negative amounts are refunds and
   positive amounts are guest charges. Airbnb sends only closed resolutions, usually once a day.
+- Airbnb's own emails are posts with `sentBy: channel`: `body` holds the email HTML (about 40 KB), `plainTextBody`
+  its text. Resolution Center notices carry the request id, reason, amount, status and the
+  `airbnb.com/resolutions/<id>` link, the only source for open requests. A request written on airbnb.com also lands
+  as a host post with no `from`.
 - A guest send goes `::Conversations::Messages::Send` (automated replies and approved drafts) or
   `::Conversations::Messages::Reply` (staff) → `::Conversations::Messages::Deliver` → `GuestConversation#post` → the
   provider `Conversations::Messages::Reply`. Module type `platform` lets Guesty pick the booking channel or email and

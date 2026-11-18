@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Added
+
+- `Conversations::Posts::Index` keeps the posts Guesty marks `sentBy: channel`: emails the booking channel itself
+  sends, such as Airbnb Resolution Center notices. They come back with `sender_kind: "channel"` and the email's text
+  (`plainTextBody`) as `body`; `CHANNEL_SENDER` names the value.
+
 ## [0.2.0] - 2026-11-10
 
 Migrates the reservation surface off the legacy `/reservations` resources, which Guesty retires on

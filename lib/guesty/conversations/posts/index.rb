@@ -6,7 +6,8 @@ module Guesty
 
         LIMIT = 500
         LOG_SENDER = 'log'.freeze #: ::String
-        SENDERS = ['guest', 'host', LOG_SENDER].freeze #: ::Array[::String]
+        CHANNEL_SENDER = 'channel'.freeze #: ::String
+        SENDERS = ['guest', 'host', LOG_SENDER, CHANNEL_SENDER].freeze #: ::Array[::String]
         SYSTEM_MODULE_TYPES = %w[note aiSummary].freeze #: ::Array[::String]
         INVALID_RESPONSE = 'Guesty posts response has an unexpected shape.'.freeze #: ::String
 
@@ -59,7 +60,16 @@ module Guesty
           return false if post[:_id].blank? || post[:createdAt].blank?
           return false if SYSTEM_MODULE_TYPES.include?(post.dig(:module, :type))
 
-          SENDERS.include?(post[:sentBy]) && (post[:body].present? || attachments.any?)
+          SENDERS.include?(post[:sentBy]) && (body(post).present? || attachments.any?)
+        end
+
+        # A channel post is an email the booking channel sent, such as an Airbnb Resolution Center notice:
+        # `body` holds its HTML and `plainTextBody` its text.
+        # @rbs (untyped post) -> ::String
+        def body(post)
+          return post[:plainTextBody].presence || post[:body] || '' if post[:sentBy] == CHANNEL_SENDER
+
+          post[:body] || ''
         end
 
         # @rbs (untyped post) -> untyped
@@ -71,7 +81,7 @@ module Guesty
           {
             provider_message_id: post[:_id],
             sender_kind: sender_kind(post),
-            body: post[:body] || '',
+            body: body(post),
             attachments:,
             attachment_keys: normalize_attachment_keys(raw_attachments),
             module_type: channel_type(post),
