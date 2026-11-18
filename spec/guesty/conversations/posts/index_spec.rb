@@ -93,10 +93,13 @@ RSpec.describe Guesty::Conversations::Posts::Index do
       }
     end
 
-    context 'with system, note, automatic and incomplete posts', vcr: false do
+    context 'with system, channel, note, automatic and incomplete posts', vcr: false do
       let(:written_at) { '2026-01-01T10:00:00.000Z' }
       let(:posts) do
         [
+          { _id: 'post_channel', sentBy: 'channel', body: '<html><body>The Resolution Details</body></html>',
+            plainTextBody: "The Resolution Details\n\nTotal amount requested: kr 500 SEK.", module: { type: 'airbnb2' }, createdAt: written_at },
+          { _id: 'post_channel_html', sentBy: 'channel', body: '<p>Your reservation is confirmed</p>', module: { type: 'airbnb2' }, createdAt: written_at },
           { _id: nil, sentBy: 'guest', body: 'Nothing to cite this by', createdAt: written_at },
           { _id: 'post_system', sentBy: 'system', body: 'Reservation confirmed', createdAt: written_at },
           { _id: 'post_silent', sentBy: 'guest', body: '', attachments: [], createdAt: written_at },
@@ -120,6 +123,10 @@ RSpec.describe Guesty::Conversations::Posts::Index do
       it_behaves_like 'successful call', value: -> {
         {
           results: [
+            provider_post(provider_message_id: 'post_channel', sender_kind: 'channel', body: "The Resolution Details\n\nTotal amount requested: kr 500 SEK.",
+                          module_type: 'airbnb2', provider_occurred_at: Time.zone.iso8601(written_at)),
+            provider_post(provider_message_id: 'post_channel_html', sender_kind: 'channel', body: '<p>Your reservation is confirmed</p>',
+                          module_type: 'airbnb2', provider_occurred_at: Time.zone.iso8601(written_at)),
             provider_post(provider_message_id: 'post_untyped_attachment', sender_kind: 'guest', body: '', provider_occurred_at: Time.zone.iso8601(written_at),
                           attachments: ['application/octet-stream'], attachment_keys: ['production/account/file/photo.bin']),
             provider_post(provider_message_id: 'post_auto', sender_kind: 'system', body: 'Your check-in details', provider_occurred_at: Time.zone.iso8601(written_at)),

@@ -294,6 +294,7 @@ module Guesty
     module Posts
       class Index
         LIMIT: ::Integer
+        CHANNEL_SENDER: ::String
 
         def call: (conversation_id: ::String, ?cursor: ::String?) -> ::Dry::Monads::Result[::Hash[::Symbol, untyped]]
         alias call! call
