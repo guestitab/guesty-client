@@ -100,6 +100,10 @@ reservations, custom fields and replies back.
   its text. Resolution Center notices carry the request id, reason, amount, status and the
   `airbnb.com/resolutions/<id>` link, the only source for open requests. A request written on airbnb.com also lands
   as a host post with no `from`.
+- `Reservations::Resolutions::Index` (`GET airbnb-resolutions-center/reservations/{id}/resolutions`) lists a stay's
+  closed Resolution Center requests only, and is empty while they are open. `from` and `to` are required and filter
+  on the request's creation time. `resolutionId` is the id in the `airbnb.com/resolutions/<id>` link,
+  `totalAmountPaid` what was paid and `airbnbUpdatedAt` the last change.
 - A guest send goes `::Conversations::Messages::Send` (automated replies and approved drafts) or
   `::Conversations::Messages::Reply` (staff) → `::Conversations::Messages::Deliver` → `GuestConversation#post` → the
   provider `Conversations::Messages::Reply`. Module type `platform` lets Guesty pick the booking channel or email and
