@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-18
+
 ### Added
 
 - `Conversations::Posts::Index` keeps the posts Guesty marks `sentBy: channel`: emails the booking channel itself
