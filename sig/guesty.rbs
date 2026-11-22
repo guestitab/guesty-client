@@ -106,6 +106,8 @@ module Guesty
   module AccessTokens
     class Upsert
       OAUTH_ENDPOINT: ::String
+      MINT_INTERVAL: untyped
+      REFRESH_WINDOW: untyped
 
       def call: () -> ::Dry::Monads::Result[untyped]
       alias call! call
