@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-11-22
+
+### Fixed
+
+- `AccessTokens::Upsert` can no longer take a priority offline when Guesty's token endpoint fails. Guesty counts every
+  token request, 502 answers included, against 5 per day per client id and answers 429 until 00:00 UTC. Minting is now
+  throttled per slot through `Guesty.config.rate_limiter` (`guesty_token_mint_<slot>`, once per 10 minutes, a throttled
+  caller raises `ThrottledError` without a request); a token expiring within 30 minutes is refreshed ahead and kept
+  when the mint fails; a slot with no valid token borrows another slot's valid token (never saved under the dead slot,
+  which keeps minting for itself) and raises the original error only when no slot has one.
+
 ## [0.2.2] - 2026-11-19
 
 ### Added
@@ -105,7 +116,8 @@ that integration's provider specs, ported with their recorded VCR cassettes.
   - Webhooks: `Index`, `Create`, `Update`, `Sync`, `Signatures::Verify` for Svix signatures.
   - Views: `Create`, `Update`.
 
-[Unreleased]: https://github.com/guestitab/guesty-client/compare/v0.2.2...staging
+[Unreleased]: https://github.com/guestitab/guesty-client/compare/v0.2.3...staging
+[0.2.3]: https://github.com/guestitab/guesty-client/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/guestitab/guesty-client/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/guestitab/guesty-client/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/guestitab/guesty-client/compare/v0.1.0...v0.2.0
